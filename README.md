@@ -17,4 +17,4 @@ Breakdown of src folder
 
 # Resources
 
-- Includes the MUI theme as well as a palette with the app's chosen color palette
+- Includes the MUI theme and a palette, which will eventually contain the app's chosen color palette

@@ -1,5 +1,0 @@
-const palette = {
-    primary: {
-        main: 
-    }
-}
