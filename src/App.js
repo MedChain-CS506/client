@@ -4,17 +4,15 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
-import NotFound from './components/NotFound';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Switch>
         <Route exact path='/' component={Landing} />
-        <Route exact path='/dashboard' component={Dashboard} />
-        <Route component={NotFound} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 
