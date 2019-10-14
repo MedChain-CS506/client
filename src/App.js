@@ -1,19 +1,23 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+//import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-// Pages
-import Landing from './pages/Landing'
-// import Dashboard from './pages/Dashboard'
-// import NotFound from './pages/NotFound';
+// COMPONENTS
+import { AppHeader } from './components/AppHeader';
+
+// PAGES
+//import Landing from './pages/Landing'
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route exact path='/' component={Landing} />
-      </Switch>
-    </Router>
+    <>
+      <AppHeader />
+      {/* <Router>
+        <Switch>
+          <Route exact path='/' component={Landing} />
+        </Switch>
+      </Router> */}
+    </>
   );
 }
 
