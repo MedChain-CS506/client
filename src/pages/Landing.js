@@ -6,6 +6,9 @@ import AppBar from '@material-ui/core/AppBar'
 import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar'
 
+//Components
+import { AppHeader } from '../components/AppHeader'
+
 const useStyles = makeStyles(theme => ({
     main: {
         display: 'flex',
@@ -28,15 +31,8 @@ const Landing = () => {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <AppBar position='static'>
-                <Toolbar>
-                    <Button color="inherit">Login</Button>
-                    <Button color="inherit">Sign Up</Button>
-                </Toolbar>
-            </AppBar>
-
-            <div className={classes.root}></div>
+        <div>
+            <AppHeader />
         </div>
     )
 }
