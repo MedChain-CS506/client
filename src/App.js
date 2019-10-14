@@ -5,9 +5,13 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import Landing from './pages/Landing'
 import NotFound from './pages/NotFound';
 
+//MUI
+import { ThemeProvider } from '@material-ui/core/styles'; 
+import theme from './theme'
+
 function App() {
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Router>
         <Switch>
           <Route exact path='/' component={Landing} />
@@ -15,7 +19,7 @@ function App() {
           <Redirect to="/not-found" />
         </Switch>
       </Router>
-    </>
+    </ThemeProvider>
   );
 }
 
