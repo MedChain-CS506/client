@@ -15,6 +15,11 @@
 - Application pages
 - Landing page, dashboard, maybe a profile, 404 not found
 
-## Resources
+## Reducers
 
-- Includes the MUI theme and a palette, which will eventually contain the app's chosen color palette
+- Will contains actions, which ultimately modify our state
+- e.g. add/remove patient.
+
+## Theme
+
+- Includes the MUI theme, which will import our color palette and typography.
