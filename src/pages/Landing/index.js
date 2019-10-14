@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar'
 
 //Components
-import { AppHeader } from '../components/AppHeader'
+import { AppHeader } from '../../components/AppHeader'
 
 const useStyles = makeStyles(theme => ({
     main: {
@@ -27,8 +27,8 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const Landing = () => {
-    const classes = useStyles();
+const index = () => {
+    //const classes = useStyles();
 
     return (
         <div>
@@ -37,4 +37,4 @@ const Landing = () => {
     )
 }
 
-export default Landing
+export default index
