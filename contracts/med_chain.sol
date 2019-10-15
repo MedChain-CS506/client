@@ -1,12 +1,11 @@
-pragma solidity ^0.4.4;
+pragma solidity ^0.5.8;
 
 contract med_chain {
-    
-    address private oracle;
 
-    function constructor() public {
+    address private oracle;
+    constructor() public {                  
         oracle = msg.sender;
-    }
+    } 
 
     struct admin {
         uint id;
@@ -65,7 +64,7 @@ contract med_chain {
             _;
         }
         else {
-            throw;
+            revert;
         }
     }
 
@@ -74,7 +73,7 @@ contract med_chain {
             _;
         }
         else {
-            throw;
+            revert;
         }
     }
 
@@ -83,11 +82,11 @@ contract med_chain {
             _;
         } 
         else {
-            throw;    
+            revert;    
         }
     }
 
-    function add_paitent(uint aadhaar, uint age, bytes32 name, bytes32 dob, uint weight, bytes32 allergies, bytes32 special) {
+    function add_paitent(uint aadhaar, uint age, bytes32 name, bytes32 dob, uint weight, bytes32 allergies, bytes32 special) public {
         paitent_aadhaar_mapping[aadhaar].aadhaar = aadhaar;
         paitent_aadhaar_mapping[aadhaar].age = age;
         paitent_aadhaar_mapping[aadhaar].name = name;
@@ -102,21 +101,21 @@ contract med_chain {
         paitent_aadhaar_mapping[aadhaar].paitent_address = msg.sender;
     }
 
-    function add_doctor(uint id, uint license_no, bytes32 name, bytes32 specialisation, address d_addr) {
+    function add_doctor(uint id, uint license_no, bytes32 name, bytes32 specialisation, address d_addr) public {
         doctor_id_mapping[id].id = id;
         doctor_id_mapping[id].license_no = license_no;
         doctor_id_mapping[id].name = name;
-        doctor_id_mapping[id].specialisation = specialisation
+        doctor_id_mapping[id].specialisation = specialisation;
         doctor_id_mapping[id].doctor_address = d_addr;
     }
 
-    function add_pharmacy(uint id, uint license_no, address p_addr){
+    function add_pharmacy(uint id, uint license_no, address p_addr) public {
         pharmacy_id_mapping[id].id = id;
         pharmacy_id_mapping[id].license_no = license_no;
         pharmacy_id_mapping[id].phar_addr = p_addr;
     }
 
-    function lookup_paitent(uint aadhaar) constant returns (uint, uint, bytes32, bytes32, uint, bytes32[], bytes32[], bytes32, bytes32[], bytes32[], uint, bytes32[]) {
+    function lookup_paitent(uint aadhaar) view public returns (uint, uint, bytes32, bytes32, uint, bytes32[], bytes32[], bytes32, bytes32[], bytes32[], uint, bytes32[]) {
         last_prescription_id = paitent_aadhaar_mapping[aadhaar].prescription_ids[paitent_aadhaar_mapping[aadhaar].prescription_ids.length -1];
         return (
             paitent_aadhaar_mapping[aadhaar].aadhaar,
@@ -131,10 +130,10 @@ contract med_chain {
             prescription_id_mapping[last_prescription_id].medicine_quantity,
             prescription_id_mapping[last_prescription_id].doctor_id,
             prescription_id_mapping[last_prescription_id].symptoms
-        )
+        );
     }
 
-    function medical_history(uint aadhaar) constant returns (uint[], bytes32[], bytes32[][], bytes32[][], uint[][], bytes32[], uint[], bytes32[][], bool[]) {
+    function medical_history(uint aadhaar) view public returns (uint[], bytes32[], bytes32[][], bytes32[][], uint[][], bytes32[], uint[], bytes32[][], bool[]) {
         
         uint[] doctor_id;
         bytes32[] disease;
@@ -174,14 +173,14 @@ contract med_chain {
             pharmacy_id,
             timestamp_marked,
             marked
-        )
+        );
     }
 
-    function add_prescription() {
+    function add_prescription() public {
         
     }
 
-    function last_prescription(uint aadhaar) constant returns (bytes32[], bytes32[]) {
+    function last_prescription(uint aadhaar) view public returns (bytes32[], bytes32[]) {
         last_prescription_id = paitent_aadhaar_mapping[aadhaar].prescription_ids[paitent_aadhaar_mapping[aadhaar].prescription_ids.length -1];
         return (
             prescription_id_mapping[last_prescription_id].medicine,
@@ -190,7 +189,7 @@ contract med_chain {
                 
     }
 
-    function mark_prescription(uint aadhaar, uint pharmacy_id, bytes32 time) {
+    function mark_prescription(uint aadhaar, uint pharmacy_id, bytes32 time) public {
         last_prescription_id = paitent_aadhaar_mapping[aadhaar].prescription_ids[paitent_aadhaar_mapping[aadhaar].prescription_ids.length -1];
         prescription_id_mapping[last_prescription_id].pharmacy_id = pharmacy_id;
         prescription_id_mapping[last_prescription_id].marked = true;
