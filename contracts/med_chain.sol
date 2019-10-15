@@ -20,7 +20,6 @@ contract med_chain {
         uint weight;
         bytes32[] allergies;
         bytes32[] disease_history;
-        bytes32 special;
         uint[] prescription_ids;
         uint[] doctor_ids;
         address paitent_address;
@@ -85,15 +84,14 @@ contract med_chain {
         }
     }
 
-    function add_paitent(uint aadhaar, uint age, bytes32 name, bytes32 dob, uint weight, bytes32 allergies, bytes32 special) public {
+    function add_paitent(uint aadhaar, uint age, bytes32 name, bytes32 dob, uint weight, bytes32[] memory allergies) public {
         paitent_aadhaar_mapping[aadhaar].aadhaar = aadhaar;
         paitent_aadhaar_mapping[aadhaar].age = age;
         paitent_aadhaar_mapping[aadhaar].name = name;
         paitent_aadhaar_mapping[aadhaar].dob = dob;
         paitent_aadhaar_mapping[aadhaar].weight = weight;
-        paitent_aadhaar_mapping[aadhaar].allergies.push(allergies);
         for(uint i = 0; i < allergies.length; i++) {
-            paitent_aadhaar_mapping[aadhaar].allergies.push(allergies[i]);
+            paitent_aadhaar_mapping[aadhaar].allergies[i]  = (allergies[i]);
         }
         paitent_aadhaar_mapping[aadhaar].paitent_address = msg.sender;
     }
@@ -112,10 +110,8 @@ contract med_chain {
         pharmacy_id_mapping[id].phar_addr = p_addr;
     }
 
-    function lookup_paitent(uint aadhaar) view public returns (
-        uint, uint, bytes32, bytes32, uint, bytes32[] memory, bytes32[] memory, bytes32, bytes32, uint, bytes32)
+    function lookup_paitent(uint aadhaar) view public returns (uint, uint, bytes32, bytes32, uint, bytes32[] memory, bytes32[] memory)
     {
-        uint last_presc_id = paitent_aadhaar_mapping[aadhaar].prescription_ids[paitent_aadhaar_mapping[aadhaar].prescription_ids.length - 1];
         bytes32[] memory allergies;
         bytes32[] memory disease;
 
@@ -134,25 +130,26 @@ contract med_chain {
             paitent_aadhaar_mapping[aadhaar].dob,
             paitent_aadhaar_mapping[aadhaar].weight,
             allergies,
-            disease,
-            paitent_aadhaar_mapping[aadhaar].special,
-            prescription_id_mapping[last_presc_id].medicine,
-            prescription_id_mapping[last_presc_id].doctor_id,
-            prescription_id_mapping[last_presc_id].symptoms
+            disease
         );
     }
+    
+    function doctor_last_prescription(uint aadhaar) view public returns (bytes32, uint, bytes32){
+        return (
+            prescription_id_mapping[paitent_aadhaar_mapping[aadhaar].prescription_ids[paitent_aadhaar_mapping[aadhaar].prescription_ids.length - 1]].medicine,
+            prescription_id_mapping[paitent_aadhaar_mapping[aadhaar].prescription_ids[paitent_aadhaar_mapping[aadhaar].prescription_ids.length - 1]].doctor_id,
+            prescription_id_mapping[paitent_aadhaar_mapping[aadhaar].prescription_ids[paitent_aadhaar_mapping[aadhaar].prescription_ids.length - 1]].symptoms
+        );
+    }
+    
 
-    function medical_history(uint aadhaar) view public returns (uint[] memory, bytes32[] memory, bytes32[] memory, bytes32[] memory, bytes32[] memory, uint[] memory, bytes32[] memory, bool[] memory) {
+    function medical_history(uint aadhaar) view public returns (uint[] memory, bytes32[] memory, bytes32[] memory, bytes32[] memory, bytes32[] memory) {
         
-        uint length = paitent_aadhaar_mapping[aadhaar].prescription_ids.length;
         uint[] memory doctor_id;
         bytes32[] memory disease;
         bytes32[] memory symptoms;
         bytes32[] memory medicine;
         bytes32[] memory timestamp_prescribed;
-        uint[] memory pharmacy_id;
-        bytes32[] memory timestamp_marked;
-        bool[] memory marked;
         
         for (uint i = 0; i < paitent_aadhaar_mapping[aadhaar].prescription_ids.length ; i++) {
             
@@ -163,9 +160,6 @@ contract med_chain {
             symptoms[i] = prescription_id_mapping[presc_id].symptoms;
             medicine[i] = prescription_id_mapping[presc_id].medicine;
             timestamp_prescribed[i] = prescription_id_mapping[presc_id].timestamp_prescribed;
-            pharmacy_id[i] = prescription_id_mapping[presc_id].pharmacy_id;
-            timestamp_marked[i] = prescription_id_mapping[presc_id].timestamp_marked;
-            marked[i] = prescription_id_mapping[presc_id].marked;
         
         }
 
@@ -174,10 +168,7 @@ contract med_chain {
             disease,
             symptoms,
             medicine,
-            timestamp_prescribed,
-            pharmacy_id,
-            timestamp_marked,
-            marked
+            timestamp_prescribed
         );
     }
 
