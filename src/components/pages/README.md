@@ -1,7 +1,6 @@
 # Page structure
 
-- Note, I am setting up the pages now, but plan to make them more modular with reusable components (e.g. navbar).
-- This is also only in the eyes of the doctor. This'll eventually need to also be usable for the pharmacist
+- This is only in the eyes of the doctor and will eventually need to be usable by the pharmacist
 
 ## Landing Page
 

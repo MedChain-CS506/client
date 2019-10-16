@@ -6,14 +6,10 @@ import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid'
 import { Typography } from '@material-ui/core';
 
-//Components
-import { AppHeader } from '../../components/Navbar'
-
 const NotFound = () => {
-    const { classes } = this.props;
+    //const { classes } = this.props;
     return (
         <div>
-            <AppHeader />
             <Grid container justify='center'>
                 <Grid item lg={6} xs={12}>
                     <Typography variant="h1">
