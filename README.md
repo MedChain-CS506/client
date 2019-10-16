@@ -4,6 +4,7 @@
 
 - Meant for reusable components that'll appear across other
 - e.g. navbar, header, footer
+- Will utilize this more in iteration 2
 
 ## Contexts
 
