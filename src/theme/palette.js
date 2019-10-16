@@ -5,5 +5,6 @@ export default {
         main: red.A400,
         light: '#E7F6E7',
         contrastText: '#FFFFFF'
-    }
+    },
+    
 }

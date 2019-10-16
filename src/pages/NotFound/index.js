@@ -1,13 +1,16 @@
 import React from 'react'
 
+import { Link } from 'react-router-dom';
+
 //MUI
 import Grid from '@material-ui/core/Grid'
 import { Typography } from '@material-ui/core';
 
 //Components
-import { AppHeader } from '../../components/AppHeader'
+import { AppHeader } from '../../components/Navbar'
 
 const NotFound = () => {
+    const { classes } = this.props;
     return (
         <div>
             <AppHeader />
