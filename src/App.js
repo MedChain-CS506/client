@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { setState } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 //COMPONENTS
@@ -13,9 +13,14 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme'
 
 function App() {
+  //state
+  let [signUpModal, setSignUpModal] = setState({ open: false })
 
-  const openModel = () => {
-    return console.log('hello')
+  const openModal = (modalId, callback) => {
+    const modal = this.state[modalId]
+    if (!modal || modal.open === undefined || null) return;
+    modal.open = true;
+    setSignUpModal({ modal }, callback)
   }
 
   return (
@@ -23,7 +28,7 @@ function App() {
 
       <Router>
         <Navbar 
-          onSignUpClick={() => this.openModel('signUpDialog')}
+          onSignUpClick={() => this.openModal('signUpModal')}
           onSignInClick={() => this.openModel('signUpDialog')}
         />
         <Switch>
