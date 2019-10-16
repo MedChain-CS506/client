@@ -14,12 +14,13 @@ import theme from './theme'
 
 function App() {
   //state
-  let [signUpModal, setSignUpModal] = setState({ open: false })
+  let [signUpModal, setSignUpModal] = setState(false);
 
   const openModal = (modalId, callback) => {
-    const modal = this.state[modalId]
-    if (!modal || modal.open === undefined || null) return;
-    modal.open = true;
+    console.log('modalId:', modalId)
+    // const modal = this.state[modalId]
+    // if (!modal || modal.open === undefined || null) return;
+    // modal.open = true;
     setSignUpModal({ modal }, callback)
   }
 
@@ -29,8 +30,10 @@ function App() {
       <Router>
         <Navbar 
           onSignUpClick={() => this.openModal('signUpModal')}
-          onSignInClick={() => this.openModel('signUpDialog')}
+        
         />
+
+        
         <Switch>
           <Route exact path='/' component={LandingPage} />
           <Route exact path="/not-found" component={NotFound} />
