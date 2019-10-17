@@ -1,9 +1,11 @@
-import React, { setState } from 'react';
+//Would like to convert this file using hooks
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 //COMPONENTS
 import Navbar from './components/layout/Navbar'
-import Modal from './components/layout/Modal';
+import Loading from './components/layout/Loading'
+import Modal from './components/layout/Modal'
 
 //PAGES
 import LandingPage from './components/pages/LandingPage'
@@ -11,38 +13,132 @@ import NotFound from './components/pages/NotFound';
 
 //MUI
 import { ThemeProvider } from '@material-ui/core/styles'; 
-import theme from './theme'
+import theming from './theme'
+//import { Button } from '@material-ui/core'; 
 
-function App() {
-  //state
-  // let [signUpModal, setSignUpModal] = setState(false);
+class App extends Component {
+  // const [user, setUser] = setState(null);
+  // const [userData, setUserData] = setState(null)
+  // const [theme, setTheme] = setState(theming.theme)
+  // const [signedIn, setSignedIn] = setState(false)
+  // const [performingAction, setPerformingAction] = setState(false)
+  // const [signUpModal, setSignUpModal] = setState({ open: false })
+  // const [signInModal, setSignInModal] = setState({ open: false })
+  constructor(props) {
+    super(props);
 
-  // const openModal = (modalId, callback) => {
-  //   console.log('modalId:', modalId)
-  //   // const modal = this.state[modalId]
-  //   // if (!modal || modal.open === undefined || null) return;
-  //   // modal.open = true;
-  //   setSignUpModal({ modal }, callback)
-  // }
+    this.state = {
+      user: null,
+      userData: null,
+      theme: theming.theme,
+      signedIn: false,
+      ready: true, //!set to false when ready
+      performingAction: false,
+      signUpModal: {
+        open: false
+      },
+      signInModal: {
+        open: false
+      }
+    };
+  }
 
-  return (
-    <ThemeProvider theme={theme}>
+  openModal = (modalId, callback) => {
+    console.log('modalId:', modalId)
+    const modal = this.state[modalId]
+    if (!modal || modal.open === undefined || null) return;
+    modal.open = true;
+    this.setState({ modal }, callback);
+  }
 
-      <Router>
-        <Navbar onSignUpClick={() => console.log('Sign Up Clicked')}
-          // onSignUpClick={() => this.openModal('signUpModal')}
-        
-        />
+  closeModal = (modalId, callback) => {
+    const modal = this.state[modalId];
+    if (!modal || modal.open === undefined || null) return;
+    modal.open = false;
+    this.setState({ modal }, callback);
+  };
 
-        
-        <Switch>
-          <Route exact path='/' component={LandingPage} />
-          <Route exact path="/not-found" component={NotFound} />
-          <Redirect to="/not-found" />
-        </Switch>
-      </Router>
-    </ThemeProvider>
-  );
+  render() {
+    const {
+      // user,
+      // userData,
+      // theme,
+      signedIn,
+      ready,
+      performingAction,
+      signUpModal,
+      signInModal,
+    } = this.state;
+
+    return (
+      <ThemeProvider theme={theming}>
+        <Router>
+        {!ready &&
+          <Loading />
+        }
+        {ready && 
+          <>
+            <Navbar 
+              signedIn={signedIn}
+              performingAction={performingAction}
+              onSignUpClick={() => this.openModal('signUpModal')}
+              onSignInClick={() => this.openModal('signInModal')}
+            />
+            
+            />
+            <Switch>
+              <Route exact path='/' component={LandingPage} />
+              <Route exact path="/not-found" component={NotFound} />
+              <Redirect to="/not-found" />
+            </Switch>
+
+            <Modal signedIn={signedIn} 
+              modals={
+                {
+                  signUpModal: {
+                    modalProps: {
+                      open: signUpModal.open,
+
+                      onClose: (callback) => {
+                        this.closeModal('signUpModal');
+
+                        if (callback && typeof callback === 'function') {
+                          callback();
+                        }
+                      }
+                    },
+
+                    props: {
+                      performingAction: performingAction
+                    }
+                  },
+
+                  signInModal: {
+                    modalProps: {
+                      open: signInModal.open,
+
+                      onClose: (callback) => {
+                        this.closeModal('signInModal');
+
+                        if (callback && typeof callback === 'function') {
+                          callback();
+                        }
+                      }
+                    },
+
+                    props: {
+                      performingAction: performingAction
+                    }
+                  }
+                }
+              }
+            />
+        </>
+        }
+        </Router>
+      </ThemeProvider>
+    );
+  }
 }
 
 export default App;

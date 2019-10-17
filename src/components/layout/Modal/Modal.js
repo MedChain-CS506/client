@@ -1,17 +1,15 @@
 import React from 'react'
 
 import SignUp from '../../pages/SignUp';
-import SignIn from '../../pages/SignIn';
+//import SignIn from '../../pages/SignIn';
 
 import Hidden from '@material-ui/core/Hidden';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
+//import { Grid, Button, Divider, TextField } from '@material-ui/core/Grid';
 
 const Modal = ({ signedIn, modal }) => {
+
     const signUpModal = modal.signUpModal
-    const signInModal = modal.signInModal
+    //const signInModal = modal.signInModal
 
     return (
         <>
@@ -22,10 +20,10 @@ const Modal = ({ signedIn, modal }) => {
                             modalProps={signUpModal.modalProps}
                             {...signUpModal.props}
                         />
-                        <SignIn  
+                        {/* <SignIn  
                             modalProps={signInModal.modalProps}
                             {...signInModal.props}
-                        />
+                        /> */}
                     </>
                 }
             </Hidden>
@@ -37,11 +35,11 @@ const Modal = ({ signedIn, modal }) => {
                         {...signUpModal.props}
                     />
 
-                    <SignIn
-                        modalProps={{ fullScreen: true, ...signInModal.dialogProps }}
+                    {/* <SignIn
+                        modalProps={{ fullScreen: true, ...signInModal.modalProps }}
 
                         {...signInModal.props}
-                    />
+                    /> */}
                     </>
                 }
             </Hidden>

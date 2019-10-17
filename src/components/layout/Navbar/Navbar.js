@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 // MUI
-import { makeStyles, AppBar, Toolbar, Typography, Box, Button, IconButton, Avatar } from '@material-ui/core'
+import { makeStyles, AppBar, Toolbar, Typography, Box, Button, IconButton } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
 

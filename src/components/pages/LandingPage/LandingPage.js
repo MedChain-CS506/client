@@ -1,17 +1,23 @@
-import React, { useEffect } from 'react'
-import { withRouter } from 'react-router-dom' //! This is a HoC which allows us to get access to the history
+import React from 'react'
+import Grid from '@material-ui/core/Grid'
+import { Typography } from '@material-ui/core';
 
 //PAGES
 
 //MUI
 
-
 const LandingPage = () => {
     return (
         <div>
-            <h1>Landing Page</h1>
+            <Grid container justify='center'>
+                <Grid item lg={6} xs={12}>
+                    <Typography variant="h1">
+                        Landing Page
+                    </Typography>
+                </Grid>
+            </Grid>
         </div>
     )
 }
 
-export default withRouter (LandingPage)
+export default LandingPage

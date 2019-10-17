@@ -14,13 +14,13 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
-    dialogContent: {
+    modalContent: {
         overflowY: 'hidden'
     }
 });
 
 const SignUp = () => {
-    const [performingAction, setPerformingAction] = useState(false)
+    const [performingAction] = useState(false)
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [userName, setUserName] = useState('')
@@ -38,7 +38,7 @@ const SignUp = () => {
             </DialogTitle>   
 
             <Hidden smDown>
-                <DialogContent className={classes.dialogContent}>
+                <DialogContent className={classes.modalContent}>
                     <Grid container direction="row">
                         {/* <Grid item xs={3}>
                             <AuthProviderList
