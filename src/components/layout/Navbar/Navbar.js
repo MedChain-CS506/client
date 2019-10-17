@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { setState } from 'react'
 import { Link } from 'react-router-dom'
 
 // MUI
 import { makeStyles, AppBar, Toolbar, Typography, Box, Button, IconButton } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircleOutlined';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles({
     root: { flexGrow: 1 },
@@ -17,6 +19,16 @@ const useStyles = makeStyles({
 
 const Navbar = ({ performingAction, signedIn, onSignUpClick, onSignInClick }) => {
     const classes = useStyles()
+    const [menu, setMenu] = setState({menu: { anchorEl: null }})
+
+    const openMenu = (e) => {
+        const anchorEl = e.currentTarget
+        setMenu({menu: { anchorEl }})
+    }
+
+    const closeMenu = () => {
+        setMenu({menu: { anchorEl: null }})
+    }
 
     return (
         <div className={classes.root}>

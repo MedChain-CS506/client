@@ -1,5 +1,3 @@
-//!Would like to convert this file using hooks
-
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
@@ -10,6 +8,7 @@ import Modal from './components/layout/Modal'
 
 //*PAGES
 import LandingPage from './components/pages/LandingPage'
+import Dashboard from './components/pages/Dashboard'
 import NotFound from './components/pages/NotFound';
 
 //*MUI
@@ -90,6 +89,8 @@ class App extends Component {
             />
             <Switch>
               <Route exact path='/' component={LandingPage} />
+              <Route exact path="/dashboard" render={() => (<Dashboard signedIn={this.props.signedIn} />)} />
+              {/* <Route exact path="/dashboard" component={Dashboard} /> */}
               <Route exact path="/not-found" component={NotFound} />
               <Redirect to="/not-found" />
             </Switch>

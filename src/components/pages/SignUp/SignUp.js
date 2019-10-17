@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Component } from 'react';
 
 //*COMPONENTS
 import AuthProviderList from '../../layout/Modal/AuthProviderList';
@@ -20,336 +20,379 @@ const useStyles = makeStyles({
         overflowY: 'hidden'
     },
 
+    icon: {
+        marginRight: 1
+    },
+
     divider: {
         margin: 'auto'
     },
+
+    grid: {
+        marginBottom: 2
+    }
 });
 
-const SignUp = () => {
-    const [performingAction] = useState(false)
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [userName, setUserName] = useState('')
-    const [email, setEmail] = useState('')
-    const [confirmEmail, setConfirmEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+const initialState = {
+    performingAction: false,
+    firstName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    confirmEmail: '',
+    password: '',
+    confirmPassword: '',
+};
 
-    const classes = useStyles();
+class SignUp extends Component {
+    constructor(props) {
+        super(props);
+        this.state = initialState;
+    }
 
-    // const handleKeyPress = (e) => {
-    //     const {
-    //       firstName,
-    //       lastName,
-    //       username,
-    //       emailAddress,
-    //       emailAddressConfirmation,
-    //       password,
-    //       passwordConfirmation
-    //     } = this.state;
+    signUp = () => {
+        const {
+            firstName,
+            lastName,
+            username,
+            email,
+            confirmEmail,
+            password,
+            confirmPassword,
+        } = this.state;
+    }
+
+    handleKeyPress = (e) => {
+        const {
+            firstName,
+            lastName,
+            username,
+            email,
+            confirmEmail,
+            password,
+            confirmPassword,
+        } = this.state;
     
-    //     if (!firstName ||
-    //       !lastName ||
-    //       !username ||
-    //       !emailAddress ||
-    //       !emailAddressConfirmation ||
-    //       !password ||
-    //       !passwordConfirmation) {
-    //       return;
-    //     }
+        if (!firstName ||
+          !lastName ||
+          !username ||
+          !email ||
+          !confirmEmail ||
+          !password ||
+          !confirmPassword) {
+          return;
+        }
     
-    //     const key = e.key;
+        const key = e.key;
     
-    //     if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
-    //       return;
-    //     }
+        if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
+          return;
+        }
     
-    //     if (key === 'Enter') {
-    //       this.signUp();
-    //     }
-    //   };
+        if (key === 'Enter') {
+          this.signUp();
+        }
+      };
 
-    return (
-        <Dialog fullWidth maxWidth='md' onKeyPress={() => console.log('hello')} onExit={() => console.log('hello')}>
-            <DialogTitle>
-                Sign up for an account
-            </DialogTitle>   
+      handleExited = () => {
+        this.setState(initialState);
+      };
 
-            <Hidden smDown>
-                <DialogContent className={classes.modalContent}>
-                    <Grid container direction="row">
-                        <Grid item xs={3}>
-                            <AuthProviderList
-                                performingAction={performingAction}
-
-                                // this.signInWithAuthProvider
-                                onAuthProviderClick={() => console.log('hello')}
-                            />
-                        </Grid>
-
-                        <Grid item xs={1}>
-                            <Divider className={classes.divider} orientation="vertical" />
-                        </Grid>
-
-                        <Grid item xs={8}>
+    render() {
+        const { classes } = this.props;
+        const { modalProps } = this.props;
+        const {
+            performingAction,
+            firstName,
+            lastName,
+            username,
+            email,
+            confirmEmail,
+            password,
+            confirmPassword,
+          } = this.state;
+        return (
+            <Dialog fullWidth maxWidth='md' onKeyPress={() => console.log('hello')} onExit={() => console.log('hello')}>
+                <DialogTitle>
+                    Sign up for an account
+                </DialogTitle>   
+    
+                <Hidden smDown>
+                    <DialogContent className={classes.modalContent}>
+                        <Grid container direction="row">
+                            <Grid item xs={3}>
+                                <AuthProviderList
+                                    performingAction={performingAction}
+    
+                                    // this.signInWithAuthProvider
+                                    onAuthProviderClick={() => console.log('hello')}
+                                />
+                            </Grid>
+    
+                            <Grid item xs={1}>
+                                <Divider className={classes.divider} orientation="vertical" />
+                            </Grid>
+    
+                            <Grid item xs={8}>
+                                <Grid container spacing={4}>
+                                    <Grid item xs>
+                                        <TextField
+                                            autoComplete="given-name"
+                                            disabled={performingAction}
+                                            fullWidth
+                                            label="First name"
+                                            placeholder="John"
+                                            required
+                                            type="text"
+                                            value={firstName}
+                                            variant="outlined"
+                                            //onChange={(e) => setFirstName(e.target.value)}
+                                        />
+                                    </Grid>
+                                    <Grid item xs>
+                                        <TextField
+                                            autoComplete="family-name"
+                                            disabled={performingAction}
+                                            fullWidth
+                                            label="Last name"
+                                            placeholder="Doe"
+                                            required
+                                            type="text"
+                                            value={lastName}
+                                            variant="outlined"
+                                            //onChange={(e) => setLastName(e.target.value)}
+                                        />
+                                    </Grid>
+                            </Grid>
+    
                             <Grid container spacing={4}>
                                 <Grid item xs>
                                     <TextField
-                                        autoComplete="given-name"
+                                        autoComplete="username"
                                         disabled={performingAction}
                                         fullWidth
-                                        label="First name"
+                                        label="username"
                                         placeholder="John"
                                         required
                                         type="text"
-                                        value={firstName}
+                                        value={username}
                                         variant="outlined"
-                                        onChange={(e) => setFirstName(e.target.value)}
+                                        //onChange={(e) => setUserName(e.target.value)}
                                     />
                                 </Grid>
+                            </Grid>
+    
+                            <Grid container spacing={4}>
                                 <Grid item xs>
                                     <TextField
-                                        autoComplete="family-name"
+                                        autoComplete="email"
                                         disabled={performingAction}
                                         fullWidth
-                                        label="Last name"
-                                        placeholder="Doe"
+                                        label="email"
+                                        placeholder="john@doe.com"
                                         required
-                                        type="text"
-                                        value={lastName}
+                                        type="email"
+                                        value={email}
                                         variant="outlined"
-                                        onChange={(e) => setLastName(e.target.value)}
+                                        //onChange={(e) => setEmail(e.target.value)}
                                     />
                                 </Grid>
-                        </Grid>
-
-                        <Grid container spacing={4}>
-                            <Grid item xs>
-                                <TextField
-                                    autoComplete="username"
-                                    disabled={performingAction}
-                                    fullWidth
-                                    label="username"
-                                    placeholder="John"
-                                    required
-                                    type="text"
-                                    value={userName}
-                                    variant="outlined"
-                                    onChange={(e) => setUserName(e.target.value)}
-                                />
+    
+                                <Grid item xs>
+                                    <TextField
+                                        autoComplete="email"
+                                        disabled={performingAction}
+                                        fullWidth
+                                        label="email confirmation"
+                                        placeholder="john@doe.com"
+                                        required
+                                        type="email"
+                                        value={confirmEmail}
+                                        variant="outlined"
+                                        //onChange={(e) => setConfirmEmail(e.target.value)}
+                                    />
+                                </Grid>
+                            </Grid>
+    
+                            <Grid container spacing={4}>
+                                <Grid item xs>
+                                    <TextField
+                                        autoComplete="new-password"
+                                        disabled={performingAction}
+                                        fullWidth
+                                        label="Password"
+                                        placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                                        required
+                                        type="password"
+                                        value={password}
+                                        variant="outlined"
+                                        //onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                </Grid>
+    
+                                <Grid item xs>
+                                    <TextField
+                                        autoComplete="password"
+                                        disabled={performingAction}
+                                        fullWidth
+                                        label="Password confirmation"
+                                        placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                                        required
+                                        type="password"
+                                        value={confirmPassword}
+                                        variant="outlined"  
+                                        //onChange={(e) => setConfirmPassword(e.target.value)}
+                                    />
+                                </Grid>
+                            </Grid>
                             </Grid>
                         </Grid>
-
-                        <Grid container spacing={4}>
-                            <Grid item xs>
-                                <TextField
-                                    autoComplete="email"
-                                    disabled={performingAction}
-                                    fullWidth
-                                    label="email"
-                                    placeholder="john@doe.com"
-                                    required
-                                    type="email"
-                                    value={email}
-                                    variant="outlined"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </Grid>
-
-                            <Grid item xs>
-                                <TextField
-                                    autoComplete="email"
-                                    disabled={performingAction}
-                                    fullWidth
-                                    label="email confirmation"
-                                    placeholder="john@doe.com"
-                                    required
-                                    type="email"
-                                    value={confirmEmail}
-                                    variant="outlined"
-                                    onChange={(e) => setConfirmEmail(e.target.value)}
-                                />
-                            </Grid>
-                        </Grid>
-
-                        <Grid container spacing={4}>
-                            <Grid item xs>
-                                <TextField
-                                    autoComplete="new-password"
-                                    disabled={performingAction}
-                                    fullWidth
-                                    label="Password"
-                                    placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
-                                    required
-                                    type="password"
-                                    value={password}
-                                    variant="outlined"
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                            </Grid>
-
-                            <Grid item xs>
-                                <TextField
-                                    autoComplete="password"
-                                    disabled={performingAction}
-                                    fullWidth
-                                    label="Password confirmation"
-                                    placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
-                                    required
-                                    type="password"
-                                    value={confirmPassword}
-                                    variant="outlined"  
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                />
-                            </Grid>
-                        </Grid>
-                        </Grid>
-                    </Grid>
-                </DialogContent>
-            </Hidden>
-
-            <Hidden mdUp>
-                <DialogContent>
-                    {/* <AuthProviderList
-                    gutterBottom
-                    performingAction={performingAction}
-
-                    onAuthProviderClick={this.signInWithAuthProvider}
-                    /> */}
-
-                    <Grid container direction="column" spacing={2}>
-                    <Grid item xs>
-                        <TextField
-                            autoComplete="given-name"
-                            disabled={performingAction}
-                            fullWidth
-                            label="First name"
-                            placeholder="John"
-                            required
-                            type="text"
-                            value={firstName}
-                            variant="outlined"
-                            onChange={(e) => setFirstName(e.target.value)}
-                        />
-                    </Grid>
-
-                    <Grid item xs>
-                        <TextField
-                            autoComplete="family-name"
-                            disabled={performingAction}
-                            fullWidth
-                            label="Last name"
-                            placeholder="Doe"
-                            required
-                            type="text"
-                            value={lastName}
-                            variant="outlined"
-                            onChange={(e) => setLastName(e.target.value)}
-                        />
-                    </Grid>
-
-                    <Grid item xs>
-                        <TextField
-                            autoComplete="username"
-                            disabled={performingAction}
-                            fullWidth
-                            label="username"
-                            placeholder="John"
-                            required
-                            type="text"
-                            value={userName}
-                            variant="outlined"
-                            onChange={(e) => setUserName(e.target.value)}
-                        />
-                    </Grid>
-
-                    <Grid item xs>
-                        <TextField
-                            autoComplete="email"
-                            disabled={performingAction}
-                            fullWidth
-                            label="email"
-                            placeholder="john@doe.com"
-                            required
-                            type="email"
-                            value={email}
-                            variant="outlined"
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </Grid>
-
-                    <Grid item xs>
-                        <TextField
-                            autoComplete="email"
-                            disabled={performingAction}
-                            fullWidth
-                            label="email confirmation"
-                            placeholder="john@doe.com"
-                            required
-                            type="email"
-                            value={confirmEmail}
-                            variant="outlined"
-                            onChange={(e) => setConfirmEmail(e.target.value)}
-                        />
-                    </Grid>
-
-                    <Grid item xs>
-                        <TextField
-                            autoComplete="new-password"
-                            disabled={performingAction}
-                            fullWidth
-                            label="Password"
-                            placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
-                            required
-                            type="password"
-                            value={password}
-                            variant="outlined"
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </Grid>
-
-                    <Grid item xs>
-                        <TextField
-                            autoComplete="password"
-                            disabled={performingAction}
-                            fullWidth
-                            label="Password confirmation"
-                            placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
-                            required
-                            type="password"
-                            value={confirmPassword}
-                            variant="outlined"
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                        />
-                    </Grid>
-                    </Grid>
-                </DialogContent>
+                    </DialogContent>
                 </Hidden>
-
-                <DialogActions>
-                    <Button color="primary">Cancel</Button>
-
-                    <Button
-                        color="primary"
-                        disabled={
-                            !firstName ||
-                            !lastName ||
-                            !userName ||
-                            !email ||
-                            !confirmEmail ||
-                            !password ||
-                            !confirmPassword ||
-                            performingAction
-                        }
-                        variant="contained"
-
-                        onClick={() => console.log('hello')}>
-                            {/* ^ this.signUp */}
-                        Sign up
-                    </Button>
-                    </DialogActions>
-        </Dialog>
-    )
+    
+                <Hidden mdUp>
+                    <DialogContent>
+                        {/* <AuthProviderList
+                        gutterBottom
+                        performingAction={performingAction}
+    
+                        onAuthProviderClick={this.signInWithAuthProvider}
+                        /> */}
+    
+                        <Grid container direction="column" spacing={2}>
+                        <Grid item xs>
+                            <TextField
+                                autoComplete="given-name"
+                                disabled={performingAction}
+                                fullWidth
+                                label="First name"
+                                placeholder="John"
+                                required
+                                type="text"
+                                value={firstName}
+                                variant="outlined"
+                                //onChange={(e) => setFirstName(e.target.value)}
+                            />
+                        </Grid>
+    
+                        <Grid item xs>
+                            <TextField
+                                autoComplete="family-name"
+                                disabled={performingAction}
+                                fullWidth
+                                label="Last name"
+                                placeholder="Doe"
+                                required
+                                type="text"
+                                value={lastName}
+                                variant="outlined"
+                                //onChange={(e) => setLastName(e.target.value)}
+                            />
+                        </Grid>
+    
+                        <Grid item xs>
+                            <TextField
+                                autoComplete="username"
+                                disabled={performingAction}
+                                fullWidth
+                                label="username"
+                                placeholder="John"
+                                required
+                                type="text"
+                                value={username}
+                                variant="outlined"
+                                //onChange={(e) => setUserName(e.target.value)}
+                            />
+                        </Grid>
+    
+                        <Grid item xs>
+                            <TextField
+                                autoComplete="email"
+                                disabled={performingAction}
+                                fullWidth
+                                label="email"
+                                placeholder="john@doe.com"
+                                required
+                                type="email"
+                                value={email}
+                                variant="outlined"
+                                //onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </Grid>
+    
+                        <Grid item xs>
+                            <TextField
+                                autoComplete="email"
+                                disabled={performingAction}
+                                fullWidth
+                                label="email confirmation"
+                                placeholder="john@doe.com"
+                                required
+                                type="email"
+                                value={confirmEmail}
+                                variant="outlined"
+                                //onChange={(e) => setConfirmEmail(e.target.value)}
+                            />
+                        </Grid>
+    
+                        <Grid item xs>
+                            <TextField
+                                autoComplete="new-password"
+                                disabled={performingAction}
+                                fullWidth
+                                label="Password"
+                                placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                                required
+                                type="password"
+                                value={password}
+                                variant="outlined"
+                                //onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </Grid>
+    
+                        <Grid item xs>
+                            <TextField
+                                autoComplete="password"
+                                disabled={performingAction}
+                                fullWidth
+                                label="Password confirmation"
+                                placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                                required
+                                type="password"
+                                value={confirmPassword}
+                                variant="outlined"
+                                //onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
+                        </Grid>
+                        </Grid>
+                    </DialogContent>
+                    </Hidden>
+    
+                    <DialogActions>
+                        <Button color="primary">Cancel</Button>
+    
+                        <Button
+                            color="primary"
+                            disabled={
+                                !firstName ||
+                                !lastName ||
+                                !username ||
+                                !email ||
+                                !confirmEmail ||
+                                !password ||
+                                !confirmPassword ||
+                                performingAction
+                            }
+                            variant="contained"
+    
+                            onClick={() => console.log('hello')}>
+                                {/* ^ this.signUp */}
+                            Sign up
+                        </Button>
+                        </DialogActions>
+            </Dialog>
+        )
+    }
 }
 
 export default SignUp
