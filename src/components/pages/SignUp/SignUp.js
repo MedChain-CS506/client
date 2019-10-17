@@ -99,7 +99,7 @@ class SignUp extends Component {
       };
 
     render() {
-        const { classes } = this.props;
+        const classes = useStyles()
         const { modalProps } = this.props;
         const {
             performingAction,

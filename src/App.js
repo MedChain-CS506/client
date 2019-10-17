@@ -80,8 +80,8 @@ class App extends Component {
         {ready && 
           <>
             <Navbar 
-              signedIn={signedIn}
               performingAction={performingAction}
+              signedIn={signedIn}
               onSignUpClick={() => this.openModal('signUpModal')}
               onSignInClick={() => this.openModal('signInModal')}
             />
