@@ -1,6 +1,7 @@
 # Page structure
 
 - This is only in the eyes of the doctor and will eventually need to be usable by the pharmacist
+- Each page has its own folder. It has an index.js file that exports the page. We can also place unit tests inside these folders.
 
 ## Landing Page
 
