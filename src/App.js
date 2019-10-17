@@ -15,7 +15,7 @@ import NotFound from './components/pages/NotFound';
 //*MUI
 import { ThemeProvider } from '@material-ui/core/styles'; 
 import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
+// import Snackbar from '@material-ui/core/Snackbar';
 
 import theming from './theme'
 
@@ -47,7 +47,6 @@ class App extends Component {
   }
 
   openModal = (modalId, callback) => {
-    console.log('modalId:', modalId)
     const modal = this.state[modalId]
     if (!modal || modal.open === undefined || null) return;
     modal.open = true;

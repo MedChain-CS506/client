@@ -1,1 +1,1 @@
-## Based off of... https://github.com/Phoqe/react-material-ui-firebase
+## Bootstrapping off of... https://github.com/Phoqe/react-material-ui-firebase
