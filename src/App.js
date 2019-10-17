@@ -1,20 +1,23 @@
-//Would like to convert this file using hooks
+//!Would like to convert this file using hooks
+
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
-//COMPONENTS
+//*COMPONENTS
 import Navbar from './components/layout/Navbar'
 import Loading from './components/layout/Loading'
 import Modal from './components/layout/Modal'
 
-//PAGES
+//*PAGES
 import LandingPage from './components/pages/LandingPage'
 import NotFound from './components/pages/NotFound';
 
-//MUI
+//*MUI
 import { ThemeProvider } from '@material-ui/core/styles'; 
+import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+
 import theming from './theme'
-//import { Button } from '@material-ui/core'; 
 
 class App extends Component {
   // const [user, setUser] = setState(null);

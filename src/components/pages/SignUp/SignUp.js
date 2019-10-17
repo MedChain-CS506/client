@@ -1,22 +1,28 @@
 import React, { useState } from 'react'
 
-//MUI
+//*COMPONENTS
+import AuthProviderList from '../../layout/Modal/AuthProviderList';
+
+//*MUI
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
-
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-//import Divider from '@material-ui/core/Divider';
+import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
     modalContent: {
         overflowY: 'hidden'
-    }
+    },
+
+    divider: {
+        margin: 'auto'
+    },
 });
 
 const SignUp = () => {
@@ -31,8 +37,40 @@ const SignUp = () => {
 
     const classes = useStyles();
 
+    // const handleKeyPress = (e) => {
+    //     const {
+    //       firstName,
+    //       lastName,
+    //       username,
+    //       emailAddress,
+    //       emailAddressConfirmation,
+    //       password,
+    //       passwordConfirmation
+    //     } = this.state;
+    
+    //     if (!firstName ||
+    //       !lastName ||
+    //       !username ||
+    //       !emailAddress ||
+    //       !emailAddressConfirmation ||
+    //       !password ||
+    //       !passwordConfirmation) {
+    //       return;
+    //     }
+    
+    //     const key = e.key;
+    
+    //     if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) {
+    //       return;
+    //     }
+    
+    //     if (key === 'Enter') {
+    //       this.signUp();
+    //     }
+    //   };
+
     return (
-        <Dialog fullWidth maxWidth='md' onKeyPress={this.hanldeKeyPress} onExit={this.handleExit}>
+        <Dialog fullWidth maxWidth='md' onKeyPress={() => console.log('hello')} onExit={() => console.log('hello')}>
             <DialogTitle>
                 Sign up for an account
             </DialogTitle>   
@@ -40,17 +78,18 @@ const SignUp = () => {
             <Hidden smDown>
                 <DialogContent className={classes.modalContent}>
                     <Grid container direction="row">
-                        {/* <Grid item xs={3}>
+                        <Grid item xs={3}>
                             <AuthProviderList
                                 performingAction={performingAction}
 
-                                onAuthProviderClick={this.signInWithAuthProvider}
+                                // this.signInWithAuthProvider
+                                onAuthProviderClick={() => console.log('hello')}
                             />
-                        </Grid> */}
+                        </Grid>
 
-                        {/* <Grid item xs={1}>
+                        <Grid item xs={1}>
                             <Divider className={classes.divider} orientation="vertical" />
-                        </Grid> */}
+                        </Grid>
 
                         <Grid item xs={8}>
                             <Grid container spacing={4}>
@@ -304,7 +343,8 @@ const SignUp = () => {
                         }
                         variant="contained"
 
-                        onClick={this.signUp}>
+                        onClick={() => console.log('hello')}>
+                            {/* ^ this.signUp */}
                         Sign up
                     </Button>
                     </DialogActions>

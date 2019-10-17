@@ -1,15 +1,15 @@
 import React from 'react'
 
+//*COMPONENTS
 import SignUp from '../../pages/SignUp';
 //import SignIn from '../../pages/SignIn';
 
+//*MUI
 import Hidden from '@material-ui/core/Hidden';
 //import { Grid, Button, Divider, TextField } from '@material-ui/core/Grid';
 
-const Modal = ({ signedIn, modal }) => {
-
-    const signUpModal = modal.signUpModal
-    //const signInModal = modal.signInModal
+const Modal = ({ signedIn, modals }) => {
+    const signUpModal = modals.signUpModal
 
     return (
         <>
