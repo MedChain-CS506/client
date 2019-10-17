@@ -15,7 +15,7 @@ const useStyles = makeStyles({
     }
 });
 
-const Navbar = ({ onSignUpClick, onSignInClick, signedIn }) => {
+const Navbar = ({ performingAction, signedIn, onSignUpClick, onSignInClick }) => {
     const classes = useStyles()
 
     return (
@@ -40,9 +40,9 @@ const Navbar = ({ onSignUpClick, onSignInClick, signedIn }) => {
                                 <Link to='/'>MedChain</Link>
                             </Typography>
                             <Box mr={2}>
-                                <Button color='primary' variant='contained' onClick={onSignUpClick}>Sign Up</Button>
+                                <Button color='primary' disabled={performingAction} variant='contained' onClick={onSignUpClick}>Sign Up</Button>
                             </Box>
-                            <Button color='primary' variant='contained' onClick={onSignInClick}>Sign In</Button>
+                            <Button color='primary' disabled={performingAction} variant='contained' onClick={onSignInClick}>Sign In</Button>
                         </>
                     }
                 </Toolbar>
@@ -52,6 +52,7 @@ const Navbar = ({ onSignUpClick, onSignInClick, signedIn }) => {
 }
 
 Navbar.defaultProps = {
+    performingAction: false,
     signedIn: false
 }
 
