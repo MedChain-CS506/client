@@ -19,9 +19,6 @@ import TextField from '@material-ui/core/TextField';
 
 import AuthProviderList from '../../components/Modal/AuthProviderList';
 
-// import constraints from '../../constraints';
-// import authentication from '../../services/authentication';
-
 const styles = (theme) => ({
   modalContent: {
     overflowY: 'hidden'
@@ -42,7 +39,6 @@ const styles = (theme) => ({
 
 const initialState = {
   performingAction: false,
-
   firstName: '',
   lastName: '',
   username: '',
@@ -50,8 +46,7 @@ const initialState = {
   emailAddressConfirmation: '',
   password: '',
   passwordConfirmation: '',
-
-  //errors: null
+  errors: null
 };
 
 class SignUpModal extends Component {
@@ -60,118 +55,6 @@ class SignUpModal extends Component {
 
     this.state = initialState;
   }
-
-  signUp = () => {
-    // const {
-    //   firstName,
-    //   lastName,
-    //   username,
-    //   emailAddress,
-    //   emailAddressConfirmation,
-    //   password,
-    //   passwordConfirmation
-    // } = this.state;
-
-//     const errors = validate({
-//       firstName: firstName,
-//       lastName: lastName,
-//       username: username,
-//       emailAddress: emailAddress,
-//       emailAddressConfirmation: emailAddressConfirmation,
-//       password: password,
-//       passwordConfirmation: passwordConfirmation
-//     }, {
-//       firstName: constraints.firstName,
-//       lastName: constraints.lastName,
-//       username: constraints.username,
-//       emailAddress: constraints.emailAddress,
-//       emailAddressConfirmation: constraints.emailAddressConfirmation,
-//       password: constraints.password,
-//       passwordConfirmation: constraints.passwordConfirmation
-//     });
-
-//     if (errors) {
-//       this.setState({
-//         errors: errors
-//       });
-//     } else {
-//       this.setState({
-//         performingAction: true,
-
-//         errors: null
-//       }, () => {
-//         authentication.signUp({
-//           firstName: firstName,
-//           lastName: lastName,
-//           username: username,
-//           emailAddress: emailAddress,
-//           password: password
-//         }).then((value) => {
-//           this.props.dialogProps.onClose();
-//         }).catch((reason) => {
-//           const code = reason.code;
-//           const message = reason.message;
-
-//           switch (code) {
-//             case 'auth/email-already-in-use':
-//             case 'auth/invalid-email':
-//             case 'auth/operation-not-allowed':
-//             case 'auth/weak-password':
-//               this.props.openSnackbar(message);
-//               return;
-
-//             default:
-//               this.props.openSnackbar(message);
-//               return;
-//           }
-//         }).finally(() => {
-//           this.setState({
-//             performingAction: false
-//           });
-//         });
-//       });
-//     }
-  };
-
-//   signInWithAuthProvider = (providerId) => {
-//     this.setState({
-//       performingAction: true
-//     }, () => {
-//       authentication.signInWithAuthProvider(providerId).then((value) => {
-//         this.props.dialogProps.onClose(() => {
-//           const user = value.user;
-//           const displayName = user.displayName;
-//           const emailAddress = user.email;
-
-//           this.props.openSnackbar(`Signed in as ${displayName || emailAddress}`);
-//         });
-//       }).catch((reason) => {
-//         const code = reason.code;
-//         const message = reason.message;
-
-//         switch (code) {
-//           case 'auth/account-exists-with-different-credential':
-//           case 'auth/auth-domain-config-required':
-//           case 'auth/cancelled-popup-request':
-//           case 'auth/operation-not-allowed':
-//           case 'auth/operation-not-supported-in-this-environment':
-//           case 'auth/popup-blocked':
-//           case 'auth/popup-closed-by-user':
-//           case 'auth/unauthorized-domain':
-//             this.props.openSnackbar(message);
-//             return;
-
-//           default:
-//             this.props.openSnackbar(message);
-//             return;
-//         }
-//       }).finally(() => {
-//         this.setState({
-//           performingAction: false
-//         });
-//       });
-//     });
-//   };
 
   handleKeyPress = (event) => {
     const {
@@ -269,8 +152,8 @@ class SignUpModal extends Component {
     // Styling
     const { classes } = this.props;
 
-    // Dialog Properties
-    const { dialogProps } = this.props;
+    // Modal Properties
+    const { modalProps } = this.props;
 
     const {
       performingAction,
@@ -287,13 +170,13 @@ class SignUpModal extends Component {
     } = this.state;
 
     return (
-      <Dialog fullWidth maxWidth="md" {...dialogProps} onKeyPress={this.handleKeyPress} onExited={this.handleExited}>
+      <Dialog fullWidth maxWidth="md" {...modalProps} onKeyPress={this.handleKeyPress} onExited={this.handleExited}>
         <DialogTitle>
           Sign up for an account
         </DialogTitle>
 
         <Hidden smDown>
-          <DialogContent className={classes.dialogContent}>
+          <DialogContent className={classes.modalContent}>
             <Grid container direction="row">
               <Grid item xs={3}>
                 <AuthProviderList
@@ -448,12 +331,12 @@ class SignUpModal extends Component {
 
         <Hidden mdUp>
           <DialogContent>
-            {/* <AuthProviderList
+            <AuthProviderList
               gutterBottom
               performingAction={performingAction}
 
               onAuthProviderClick={this.signInWithAuthProvider}
-            /> */}
+            />
 
             <Grid container direction="column" spacing={2}>
               <Grid item xs>
@@ -586,7 +469,7 @@ class SignUpModal extends Component {
         </Hidden>
 
         <DialogActions>
-          <Button color="primary" onClick={dialogProps.onClose}>Cancel</Button>
+          <Button color="primary" onClick={modalProps.onClose}>Cancel</Button>
 
           <Button
             color="primary"
@@ -615,11 +498,8 @@ SignUpModal.propTypes = {
   // Styling
   classes: PropTypes.object.isRequired,
 
-  // Dialog Properties
-  dialogProps: PropTypes.object.isRequired,
-
-  // Custom Functions
-  //openSnackbar: PropTypes.func.isRequired
+  // Modal Properties
+  modalProps: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(SignUpModal);

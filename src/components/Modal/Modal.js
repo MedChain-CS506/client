@@ -5,22 +5,16 @@ import PropTypes from 'prop-types';
 import Hidden from '@material-ui/core/Hidden';
 
 import SignUpModal from '../../pages/SignUpModal';
-// import SignInDialog from '../SignInDialog';
-// import SettingsDialog from '../SettingsDialog';
-// import AlertDialog from '../AlertDialog';
 
 class Modal extends Component {
   render() {
     // Properties
     const {
       signedIn,
-      dialogs
+      modals
     } = this.props;
 
-    const signUpModal = dialogs.signUpModal;
-    // const signInDialog = dialogs.signInDialog;
-    // const settingsDialog = dialogs.settingsDialog;
-    // const signOutDialog = dialogs.signOutDialog;
+    const signUpModal = modals.signUpModal;
 
     return (
       <>
@@ -28,79 +22,29 @@ class Modal extends Component {
           {!signedIn &&
             <>
               <SignUpModal
-                dialogProps={signUpModal.dialogProps}
+                modalProps={signUpModal.modalProps}
 
                 {...signUpModal.props}
               />
-
-              {/* <SignInDialog
-                dialogProps={signInDialog.dialogProps}
-
-                {...signInDialog.props}
-              /> */}
             </>
           }
         </Hidden>
-
-        {/* <Hidden smDown>
-          {signedIn &&
-            <SettingsDialog
-              dialogProps={settingsDialog.dialogProps}
-
-              {...settingsDialog.props}
-            />
-          }
-        </Hidden> */}
 
         <Hidden smUp>
           {!signedIn &&
             <>
               <SignUpModal
-                dialogProps={{
+                modalProps={{
                   fullScreen: true,
 
-                  ...signUpModal.dialogProps
+                  ...signUpModal.modalProps
                 }}
 
                 {...signUpModal.props}
               />
-
-              {/* <SignInDialog
-                dialogProps={{
-                  fullScreen: true,
-
-                  ...signInDialog.dialogProps
-                }}
-
-                {...signInDialog.props}
-              /> */}
             </>
           }
         </Hidden>
-
-        {/* <Hidden mdUp>
-          {signedIn &&
-            <SettingsDialog
-              dialogProps={{
-                fullScreen: true,
-
-                ...settingsDialog.dialogProps
-              }}
-
-              {...settingsDialog.props}
-            />
-          }
-        </Hidden> */}
-
-        {/* {signedIn &&
-          <>
-            <AlertDialog
-              dialogProps={signOutDialog.dialogProps}
-
-              {...signOutDialog.props}
-            />
-          </>
-        } */}
       </>
     );
   }
@@ -112,7 +56,7 @@ Modal.defaultProps = {
 
 Modal.propTypes = {
   signedIn: PropTypes.bool.isRequired,
-  dialogs: PropTypes.object.isRequired
+  modals: PropTypes.object.isRequired
 };
 
 export default Modal;

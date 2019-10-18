@@ -32,28 +32,28 @@ class App extends Component {
     };
   }
 
-  openModal = (dialogId, callback) => {
-    const dialog = this.state[dialogId];
+  openModal = (modalId, callback) => {
+    const modal = this.state[modalId];
 
-    if (!dialog || dialog.open === undefined || null) {
+    if (!modal || modal.open === undefined || null) {
       return;
     }
 
-    dialog.open = true;
+    modal.open = true;
 
-    this.setState({ dialog }, callback);
+    this.setState({ modal }, callback);
   };
 
-  closeModal = (dialogId, callback) => {
-    const dialog = this.state[dialogId];
+  closeModal = (modalId, callback) => {
+    const modal = this.state[modalId];
 
-    if (!dialog || dialog.open === undefined || null) {
+    if (!modal || modal.open === undefined || null) {
       return;
     }
 
-    dialog.open = false;
+    modal.open = false;
 
-    this.setState({ dialog }, callback);
+    this.setState({ modal }, callback);
   };
 
   render() {
@@ -90,10 +90,10 @@ class App extends Component {
 
               <Modal
                 signedIn={signedIn}
-                dialogs={
+                modals={
                   {
                     signUpModal: {
-                      dialogProps: {
+                      modalProps: {
                         open: signUpModal.open,
 
                         onClose: (callback) => {
