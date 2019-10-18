@@ -1,8 +1,6 @@
 //Read src README.md before looking here 
 
 import React, { Component } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-// import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 
@@ -13,7 +11,7 @@ import Loading from './components/Loading'
 
 //*PAGE
 //import LaunchScreen from './pages/LaunchScreen';
-//import Router from './Router';
+//import Routes from './pages/Routes';
 
 //*MUI
 //import Button from '@material-ui/core/Button';
@@ -151,7 +149,6 @@ class App extends Component {
 
     return (
       <ThemeProvider theme={theme}>
-        <Router>
           {!ready &&
             <Loading />
           }
@@ -172,7 +169,7 @@ class App extends Component {
                 // onSignOutClick={() => this.openDialog('signOutDialog')}
               />
 
-              {/* <Router signedIn={signedIn} /> */}
+              {/* <Routes signedIn={signedIn} /> */}
 
               <Modal
                 signedIn={signedIn}
@@ -261,7 +258,6 @@ class App extends Component {
               /> */}
             </>
           }
-        </Router>
       </ThemeProvider>
     );
   }
