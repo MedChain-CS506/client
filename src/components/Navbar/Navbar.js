@@ -89,7 +89,7 @@ class Navbar extends Component {
       <AppBar color="secondary" position="static">
         <Toolbar variant="regular">
           <Box flexGrow={1}>
-            <Typography color="inherit" variant="h6">{process.env.REACT_APP_NAME}</Typography>
+            <Typography color="inherit" variant="h6">MedChain</Typography>
           </Box>
 
           {signedIn &&
