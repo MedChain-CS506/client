@@ -1,7 +1,8 @@
 //Read src README.md before looking here 
 
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+// import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 

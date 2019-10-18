@@ -10,8 +10,8 @@ import Button from '@material-ui/core/Button';
 // import IconButton from '@material-ui/core/IconButton';
 // import Avatar from '@material-ui/core/Avatar';
 
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+// import Menu from '@material-ui/core/Menu';
+// import MenuItem from '@material-ui/core/MenuItem';
 
 class Navbar extends Component {
   constructor(props) {
@@ -77,7 +77,8 @@ class Navbar extends Component {
 
   render() {
     // Properties
-    const { performingAction, signedIn, user } = this.props;
+    const { performingAction, signedIn } = this.props;
+    // const { user } = this.props;
 
     // Events
     const { onSignUpClick, onSignInClick } = this.props;

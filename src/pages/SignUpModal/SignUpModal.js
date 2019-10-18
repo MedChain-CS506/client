@@ -62,15 +62,15 @@ class SignUpModal extends Component {
   }
 
   signUp = () => {
-    const {
-      firstName,
-      lastName,
-      username,
-      emailAddress,
-      emailAddressConfirmation,
-      password,
-      passwordConfirmation
-    } = this.state;
+    // const {
+    //   firstName,
+    //   lastName,
+    //   username,
+    //   emailAddress,
+    //   emailAddressConfirmation,
+    //   password,
+    //   passwordConfirmation
+    // } = this.state;
 
 //     const errors = validate({
 //       firstName: firstName,
