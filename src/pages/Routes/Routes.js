@@ -1,28 +1,25 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import PropTypes from 'prop-types';
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 //*PAGES
-import HomeContent from './HomeContent';
-import NotFound from './NotFound';
+import Landing from '../Landing';
+import PatientProfile from '../PatientProfile';
+import NotFound from '../NotFound';
 
-class Routes extends Component {
-  render() {
-    // Properties
-    const { signedIn } = this.props;
-
-    return (
+const Routes = ({ signedIn }) => {
+  return (
       <Router>
-        <Switch>
-            <Route exact path="/"><HomeContent signedIn={signedIn} /></Route>
-            <Route exact path="/not-found" component={NotFound} />
-            <Redirect to="/not-found" />
-        </Switch>
-      </Router>
-    )
-  }
+          <Switch>
+              <Route exact path="/"><Landing signedIn={signedIn} /></Route>
+              <Route exact path="/not-found" component={PatientProfile} />
+              <Route exact path="/not-found" component={NotFound} />
+              <Redirect to="/not-found" />
+          </Switch>
+    </Router>
+  )
 }
 
 Routes.defaultProps = {
@@ -33,4 +30,4 @@ Routes.propTypes = {
   signedIn: PropTypes.bool.isRequired
 };
 
-export default Routes;
+export default Routes

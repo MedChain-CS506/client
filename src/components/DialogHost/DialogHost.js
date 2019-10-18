@@ -4,27 +4,27 @@ import PropTypes from 'prop-types';
 
 import Hidden from '@material-ui/core/Hidden';
 
-import SignUpModal from '../../pages/SignUpModal';
+import SignUpDialog from '../../pages/SignUpDialog';
 
-class Modal extends Component {
+class DialogHost extends Component {
   render() {
     // Properties
     const {
       signedIn,
-      modals
+      dialog
     } = this.props;
 
-    const signUpModal = modals.signUpModal;
+    const signUpDialog = dialog.signUpDialog;
 
     return (
       <>
         <Hidden xsDown>
           {!signedIn &&
             <>
-              <SignUpModal
-                modalProps={signUpModal.modalProps}
+              <SignUpDialog
+                dialogProps={signUpDialog.dialogProps}
 
-                {...signUpModal.props}
+                {...signUpDialog.props}
               />
             </>
           }
@@ -33,14 +33,14 @@ class Modal extends Component {
         <Hidden smUp>
           {!signedIn &&
             <>
-              <SignUpModal
-                modalProps={{
+              <SignUpDialog
+                dialogProps={{
                   fullScreen: true,
 
-                  ...signUpModal.modalProps
+                  ...signUpDialog.dialogProps
                 }}
 
-                {...signUpModal.props}
+                {...signUpDialog.props}
               />
             </>
           }
@@ -50,13 +50,13 @@ class Modal extends Component {
   }
 }
 
-Modal.defaultProps = {
+DialogHost.defaultProps = {
   signedIn: false
 };
 
-Modal.propTypes = {
+DialogHost.propTypes = {
   signedIn: PropTypes.bool.isRequired,
-  modals: PropTypes.object.isRequired
+  dialogs: PropTypes.object.isRequired
 };
 
-export default Modal;
+export default DialogHost;

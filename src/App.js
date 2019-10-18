@@ -6,11 +6,11 @@ import { ThemeProvider } from '@material-ui/core/styles';
 
 //*COMPONENTS
 import Navbar from './components/Navbar';
-import Modal from './components/Modal';
+import DialogHost from './components/DialogHost';
 import Loading from './components/Loading'
 
 //*PAGE
-//import Routes from './pages/Routes';
+import Routes from './pages/Routes';
 
 import theme from './theme';
 
@@ -19,55 +19,50 @@ class App extends Component {
     super(props);
 
     this.state = {
-      user: null,
-      userData: null,
-      theme: theme.defaultTheme,
       signedIn: false,
       ready: true,
-      performingAction: false,
-
-      signUpModal: {
+      signUpDialog: {
+        open: false
+      },
+      signInDialog: {
         open: false
       }
     };
   }
 
-  openModal = (modalId, callback) => {
-    const modal = this.state[modalId];
+  openDialog = (dialogId, callback) => {
+    const dialog = this.state[dialogId];
 
-    if (!modal || modal.open === undefined || null) {
+    if (!dialog || dialog.open === undefined || null) {
       return;
     }
 
-    modal.open = true;
+    dialog.open = true;
 
-    this.setState({ modal }, callback);
+    this.setState({ dialog }, callback);
   };
 
-  closeModal = (modalId, callback) => {
-    const modal = this.state[modalId];
+  closeDialog = (dialogId, callback) => {
+    const dialog = this.state[dialogId];
 
-    if (!modal || modal.open === undefined || null) {
+    if (!dialog || dialog.open === undefined || null) {
       return;
     }
 
-    modal.open = false;
+    dialog.open = false;
 
-    this.setState({ modal }, callback);
+    this.setState({ dialog }, callback);
   };
 
   render() {
     const {
-      user,
-      userData,
-      theme,
       signedIn,
       ready,
-      performingAction,
     } = this.state;
 
     const {
-      signUpModal
+      signUpDialog,
+      signInDialog
     } = this.state;
 
     return (
@@ -80,31 +75,27 @@ class App extends Component {
             <>
               <Navbar
                 signedIn={signedIn}
-                performingAction={performingAction}
-                user={user}
-                userData={userData}
-                onSignUpClick={() => this.openModal('signUpModal')}
+                onSignUpClick={() => this.openDialog('signUpDialog')}
+                onSignInClick={() => this.openDialog('signInDialog')}
               />
 
-              <Modal
+              <Routes signedIn={signedIn} />
+
+              <DialogHost
                 signedIn={signedIn}
-                modals={
+                dialog={
                   {
-                    signUpModal: {
-                      modalProps: {
-                        open: signUpModal.open,
+                    signUpDialog: {
+                      dialogProps: {
+                        open: signUpDialog.open,
 
                         onClose: (callback) => {
-                          this.closeModal('signUpModal');
+                          this.closeDialog('signUpDialog');
 
                           if (callback && typeof callback === 'function') {
                             callback();
                           }
                         }
-                      },
-
-                      props: {
-                        performingAction: performingAction,
                       }
                     }
                   }

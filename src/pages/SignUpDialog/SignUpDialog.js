@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
 
-//import validate from 'validate.js';
-
 import { withStyles } from '@material-ui/core/styles';
 
 import Dialog from '@material-ui/core/Dialog';
@@ -17,10 +15,10 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
-import AuthProviderList from '../../components/Modal/AuthProviderList';
+import AuthProviderList from '../../components/DialogHost/AuthProviderList';
 
 const styles = (theme) => ({
-  modalContent: {
+  dialogContent: {
     overflowY: 'hidden'
   },
 
@@ -49,7 +47,7 @@ const initialState = {
   errors: null
 };
 
-class SignUpModal extends Component {
+class SignUpDialog extends Component {
   constructor(props) {
     super(props);
 
@@ -152,8 +150,8 @@ class SignUpModal extends Component {
     // Styling
     const { classes } = this.props;
 
-    // Modal Properties
-    const { modalProps } = this.props;
+    // Dialog Properties
+    const { dialogProps } = this.props;
 
     const {
       performingAction,
@@ -170,12 +168,12 @@ class SignUpModal extends Component {
     } = this.state;
 
     return (
-      <Dialog fullWidth maxWidth="md" {...modalProps} onKeyPress={this.handleKeyPress} onExited={this.handleExited}>
+      <Dialog fullWidth maxWidth="md" {...dialogProps} onKeyPress={this.handleKeyPress} onExited={this.handleExited}>
         <DialogTitle>
           Sign up for an account
         </DialogTitle>
 
-        <Hidden smDown>
+        {/* <Hidden smDown>
           <DialogContent className={classes.modalContent}>
             <Grid container direction="row">
               <Grid item xs={3}>
@@ -469,7 +467,7 @@ class SignUpModal extends Component {
         </Hidden>
 
         <DialogActions>
-          <Button color="primary" onClick={modalProps.onClose}>Cancel</Button>
+          <Button color="primary" onClick={dialogProps.onClose}>Cancel</Button>
 
           <Button
             color="primary"
@@ -488,18 +486,18 @@ class SignUpModal extends Component {
             onClick={this.signUp}>
             Sign up
           </Button>
-        </DialogActions>
+        </DialogActions> */}
       </Dialog>
     );
   }
 }
 
-SignUpModal.propTypes = {
+SignUpDialog.propTypes = {
   // Styling
   classes: PropTypes.object.isRequired,
 
-  // Modal Properties
-  modalProps: PropTypes.object.isRequired,
+  // Dialog Properties
+  dialogProps: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignUpModal);
+export default withStyles(styles)(SignUpDialog);
