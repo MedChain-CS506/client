@@ -1,1 +1,1 @@
-## Bootstrapping off of... https://github.com/Phoqe/react-material-ui-firebase
+Look in src for the README.md of project structure

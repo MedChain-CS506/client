@@ -1,147 +1,434 @@
+//Read src README.md before looking here 
+
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
-//*COMPONENTS
-import Navbar from './components/layout/Navbar'
-import Loading from './components/layout/Loading'
-import Modal from './components/layout/Modal'
+import { ThemeProvider } from '@material-ui/core/styles';
 
-//*PAGES
-import LandingPage from './components/pages/LandingPage'
-import Dashboard from './components/pages/Dashboard'
-import NotFound from './components/pages/NotFound';
+//*COMPONENTS
+import Navbar from './components/Navbar';
+import Modal from './components/Modal';
+import Loading from './components/Loading'
+
+//*PAGE
+//import LaunchScreen from './pages/LaunchScreen';
+//import Router from './Router';
 
 //*MUI
-import { ThemeProvider } from '@material-ui/core/styles'; 
-import Button from '@material-ui/core/Button';
-// import Snackbar from '@material-ui/core/Snackbar';
+//import Button from '@material-ui/core/Button';
 
-import theming from './theme'
+import theme from './theme';
 
 class App extends Component {
-  // const [user, setUser] = setState(null);
-  // const [userData, setUserData] = setState(null)
-  // const [theme, setTheme] = setState(theming.theme)
-  // const [signedIn, setSignedIn] = setState(false)
-  // const [performingAction, setPerformingAction] = setState(false)
-  // const [signUpModal, setSignUpModal] = setState({ open: false })
-  // const [signInModal, setSignInModal] = setState({ open: false })
   constructor(props) {
     super(props);
 
     this.state = {
       user: null,
       userData: null,
-      theme: theming.theme,
+      theme: theme.defaultTheme,
       signedIn: false,
-      ready: true, //!set to false when ready
+      ready: true,
       performingAction: false,
+
       signUpModal: {
         open: false
       },
+
       signInModal: {
         open: false
-      }
+      },
+
+    //   settingsDialog: {
+    //     open: false
+    //   },
+
+    //   signOutDialog: {
+    //     open: false
+    //   },
+
+    //   snackbar: {
+    //     autoHideDuration: 0,
+    //     message: '',
+    //     open: false
+    //   }
     };
   }
 
-  openModal = (modalId, callback) => {
-    const modal = this.state[modalId]
-    if (!modal || modal.open === undefined || null) return;
-    modal.open = true;
-    this.setState({ modal }, callback);
-  }
+  openModal = (dialogId, callback) => {
+    const dialog = this.state[dialogId];
 
-  closeModal = (modalId, callback) => {
-    const modal = this.state[modalId];
-    if (!modal || modal.open === undefined || null) return;
-    modal.open = false;
-    this.setState({ modal }, callback);
+    if (!dialog || dialog.open === undefined || null) {
+      return;
+    }
+
+    dialog.open = true;
+
+    this.setState({ dialog }, callback);
   };
+
+  closeModal = (dialogId, callback) => {
+    const dialog = this.state[dialogId];
+
+    if (!dialog || dialog.open === undefined || null) {
+      return;
+    }
+
+    dialog.open = false;
+
+    this.setState({ dialog }, callback);
+  };
+
+  // signOut = () => {
+  //   this.setState({
+  //     performingAction: true
+  //   }, () => {
+  //     authentication.signOut().then(() => {
+  //       this.closeDialog('signOutDialog', () => {
+  //         this.openSnackbar('Signed out');
+  //       });
+  //     }).catch((reason) => {
+  //       const code = reason.code;
+  //       const message = reason.message;
+
+  //       switch (code) {
+  //         default:
+  //           this.openSnackbar(message);
+  //           return;
+  //       }
+  //     }).finally(() => {
+  //       this.setState({
+  //         performingAction: false
+  //       });
+  //     });
+  //   });
+  // };
+
+  // openSnackbar = (message, autoHideDuration = 2, callback) => {
+  //   this.setState({
+  //     snackbar: {
+  //       autoHideDuration: readingTime(message).time * autoHideDuration,
+  //       message,
+  //       open: true
+  //     }
+  //   }, () => {
+  //     if (callback && typeof callback === 'function') {
+  //       callback();
+  //     }
+  //   });
+  // };
+
+  // closeSnackbar = (clearMessage = false) => {
+  //   const { snackbar } = this.state;
+
+  //   this.setState({
+  //     snackbar: {
+  //       message: clearMessage ? '' : snackbar.message,
+  //       open: false
+  //     }
+  //   });
+  // };
 
   render() {
     const {
-      // user,
-      // userData,
-      // theme,
+      user,
+      userData,
+      theme,
       signedIn,
       ready,
       performingAction,
-      signUpModal,
-      signInModal,
     } = this.state;
 
+    const {
+      signUpModal,
+      signInModal,
+      // settingsDialog,
+      // signOutDialog
+    } = this.state;
+
+    //const { snackbar } = this.state;
+
     return (
-      <ThemeProvider theme={theming}>
+      <ThemeProvider theme={theme}>
         <Router>
-        {!ready &&
-          <Loading />
-        }
-        {ready && 
-          <>
-            <Navbar 
-              performingAction={performingAction}
-              signedIn={signedIn}
-              onSignUpClick={() => this.openModal('signUpModal')}
-              onSignInClick={() => this.openModal('signInModal')}
-            />
-            
-            />
-            <Switch>
-              <Route exact path='/' component={LandingPage} />
-              <Route exact path="/dashboard" render={() => (<Dashboard signedIn={this.props.signedIn} />)} />
-              {/* <Route exact path="/dashboard" component={Dashboard} /> */}
-              <Route exact path="/not-found" component={NotFound} />
-              <Redirect to="/not-found" />
-            </Switch>
+          {!ready &&
+            <Loading />
+          }
 
-            <Modal signedIn={signedIn} 
-              modals={
-                {
-                  signUpModal: {
-                    modalProps: {
-                      open: signUpModal.open,
+          {ready &&
+            <>
+              <Navbar
+                signedIn={signedIn}
+                performingAction={performingAction}
 
-                      onClose: (callback) => {
-                        this.closeModal('signUpModal');
+                user={user}
+                userData={userData}
 
-                        if (callback && typeof callback === 'function') {
-                          callback();
+                onSignUpClick={() => this.openModal('signUpModal')}
+                onSignInClick={() => this.openModal('signInModal')}
+
+                // onSettingsClick={() => this.openDialog('settingsDialog')}
+                // onSignOutClick={() => this.openDialog('signOutDialog')}
+              />
+
+              {/* <Router signedIn={signedIn} /> */}
+
+              <Modal
+                signedIn={signedIn}
+                dialogs={
+                  {
+                    signUpModal: {
+                      dialogProps: {
+                        open: signUpModal.open,
+
+                        onClose: (callback) => {
+                          this.closeModal('signUpModal');
+
+                          if (callback && typeof callback === 'function') {
+                            callback();
+                          }
                         }
+                      },
+
+                      props: {
+                        performingAction: performingAction,
+
+                        //openSnackbar: this.openSnackbar
                       }
                     },
 
-                    props: {
-                      performingAction: performingAction
-                    }
-                  },
+                    signInModal: {
+                      dialogProps: {
+                        open: signInModal.open,
 
-                  signInModal: {
-                    modalProps: {
-                      open: signInModal.open,
+                        onClose: (callback) => {
+                          this.closeModal('signInModal');
 
-                      onClose: (callback) => {
-                        this.closeModal('signInModal');
-
-                        if (callback && typeof callback === 'function') {
-                          callback();
+                          if (callback && typeof callback === 'function') {
+                            callback();
+                          }
                         }
+                      },
+
+                      props: {
+                        performingAction: performingAction,
+
+                        //openSnackbar: this.openSnackbar
                       }
                     },
 
-                    props: {
-                      performingAction: performingAction
-                    }
+                    // settingsDialog: {
+                    //   dialogProps: {
+                    //     open: settingsDialog.open,
+                    //     disableEscapeKeyDown: true,
+
+                    //     onClose: () => this.closeDialog('settingsDialog')
+                    //   },
+
+                    //   props: {
+                    //     user: user,
+                    //     userData: userData,
+                    //     theme: theme,
+
+                    //     openSnackbar: this.openSnackbar
+                    //   }
+                    // },
+
+                    // signOutDialog: {
+                    //   dialogProps: {
+                    //     open: signOutDialog.open,
+
+                    //     onClose: () => this.closeDialog('signOutDialog')
+                    //   },
+
+                    //   props: {
+                    //     title: 'Sign out?',
+                    //     contentText: 'While signed out you are unable to manage your profile and conduct other activities that require you to be signed in.',
+                    //     dismissiveAction: <Button color="primary" onClick={() => this.closeDialog('signOutDialog')}>Cancel</Button>,
+                    //     confirmingAction: <Button color="primary" disabled={performingAction} variant="contained" onClick={this.signOut}>Sign Out</Button>
+                    //   }
+                    // }
                   }
                 }
-              }
-            />
-        </>
-        }
+              />
+
+              {/* <Snackbar
+                autoHideDuration={snackbar.autoHideDuration}
+                message={snackbar.message}
+                open={snackbar.open}
+                onClose={this.closeSnackbar}
+              /> */}
+            </>
+          }
         </Router>
       </ThemeProvider>
     );
   }
+
+  // componentDidMount() {
+  //   this.mounted = true;
+
+  //   this.removeAuthStateChangedObserver = auth.onAuthStateChanged((user) => {
+  //     if (!user) {
+  //       if (this.removeReferenceListener) {
+  //         this.removeReferenceListener();
+  //       }
+
+  //       if (this.mounted) {
+  //         this.setState({
+  //           user: null,
+  //           userData: null,
+  //           theme: theme.defaultTheme,
+
+  //           signedIn: false,
+  //           ready: true
+  //         });
+  //       }
+
+  //       return;
+  //     }
+
+  //     const uid = user.uid;
+
+  //     if (!uid) {
+  //       if (this.removeReferenceListener) {
+  //         this.removeReferenceListener();
+  //       }
+
+  //       if (this.mounted) {
+  //         this.setState({
+  //           user: null,
+  //           userData: null,
+  //           theme: theme.defaultTheme,
+
+  //           signedIn: false,
+  //           ready: true
+  //         });
+  //       }
+
+  //       return;
+  //     }
+
+  //     const reference = firestore.collection('users').doc(uid);
+
+  //     if (!reference) {
+  //       if (this.removeReferenceListener) {
+  //         this.removeReferenceListener();
+  //       }
+
+  //       if (this.mounted) {
+  //         this.setState({
+  //           user: null,
+  //           userData: null,
+  //           theme: theme.defaultTheme,
+
+  //           signedIn: false,
+  //           ready: true
+  //         });
+  //       }
+
+  //       return;
+  //     }
+
+  //     this.removeReferenceListener = reference.onSnapshot((snapshot) => {
+  //       if (!snapshot.exists) {
+  //         if (this.removeReferenceListener) {
+  //           this.removeReferenceListener();
+  //         }
+
+  //         if (this.mounted) {
+  //           this.setState({
+  //             user: null,
+  //             userData: null,
+  //             theme: theme.defaultTheme,
+
+  //             signedIn: false,
+  //             ready: true
+  //           });
+  //         }
+
+  //         return;
+  //       }
+
+  //       const data = snapshot.data();
+
+  //       if (!data) {
+  //         if (this.removeReferenceListener) {
+  //           this.removeReferenceListener();
+  //         }
+
+  //         if (this.mounted) {
+  //           this.setState({
+  //             user: null,
+  //             userData: null,
+  //             theme: theme.defaultTheme,
+
+  //             signedIn: false,
+  //             ready: true
+  //           });
+  //         }
+
+  //         return;
+  //       }
+
+  //       if (data.theme) {
+  //         this.setState({
+  //           theme: theme.createTheme(data.theme)
+  //         });
+  //       } else {
+  //         this.setState({
+  //           theme: theme.defaultTheme
+  //         });
+  //       }
+
+  //       if (this.mounted) {
+  //         this.setState({
+  //           user: user,
+  //           userData: data,
+
+  //           signedIn: true,
+  //           ready: true
+  //         });
+  //       }
+  //     }, (error) => {
+  //       if (this.removeReferenceListener) {
+  //         this.removeReferenceListener();
+  //       }
+
+  //       if (this.mounted) {
+  //         this.setState({
+  //           user: null,
+  //           userData: null,
+  //           theme: theme.defaultTheme,
+
+  //           signedIn: false,
+  //           ready: true
+  //         }, () => {
+  //           const code = error.code;
+  //           const message = error.message;
+
+  //           switch (code) {
+  //             default:
+  //               this.openSnackbar(message);
+  //               return;
+  //           }
+  //         });
+  //       }
+  //     });
+  //   });
+  // }
+
+  // componentWillUnmount() {
+  //   if (this.removeAuthStateChangedObserver) {
+  //     this.removeAuthStateChangedObserver();
+  //   }
+
+  //   if (this.removeReferenceListener) {
+  //     this.removeReferenceListener();
+  //   }
+
+  //   this.mounted = false;
+  // }
 }
 
 export default App;
