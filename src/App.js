@@ -86,8 +86,6 @@ class App extends Component {
                 onSignUpClick={() => this.openModal('signUpModal')}
               />
 
-              {/* <Routes signedIn={signedIn} /> */}
-
               <Modal
                 signedIn={signedIn}
                 modals={
