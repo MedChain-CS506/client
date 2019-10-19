@@ -5,16 +5,18 @@ import PropTypes from 'prop-types';
 import Hidden from '@material-ui/core/Hidden';
 
 import SignUpDialog from '../../pages/SignUpDialog';
+import SignInDialog from '../../pages/SignInDialog';
 
 class DialogHost extends Component {
   render() {
     // Properties
     const {
       signedIn,
-      dialog
+      dialogs
     } = this.props;
 
-    const signUpDialog = dialog.signUpDialog;
+    const signUpDialog = dialogs.signUpDialog;
+    const signInDialog = dialogs.signInDialog;
 
     return (
       <>
@@ -25,6 +27,11 @@ class DialogHost extends Component {
                 dialogProps={signUpDialog.dialogProps}
 
                 {...signUpDialog.props}
+              />
+              <SignInDialog
+                dialogProps={signInDialog.dialogProps}
+
+                {...signInDialog.props}
               />
             </>
           }
@@ -41,6 +48,15 @@ class DialogHost extends Component {
                 }}
 
                 {...signUpDialog.props}
+              />
+
+              <SignInDialog
+                dialogProps={{
+                  fullScreen: true,
+                  ...signInDialog.dialogProps
+                }}
+
+                {...signInDialog.props}
               />
             </>
           }

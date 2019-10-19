@@ -83,7 +83,7 @@ class App extends Component {
 
               <DialogHost
                 signedIn={signedIn}
-                dialog={
+                dialogs={
                   {
                     signUpDialog: {
                       dialogProps: {
@@ -97,7 +97,21 @@ class App extends Component {
                           }
                         }
                       }
-                    }
+                    },
+
+                    signInDialog: {
+                      dialogProps: {
+                        open: signInDialog.open,
+  
+                        onClose: (callback) => {
+                          this.closeDialog('signInDialog');
+  
+                          if (callback && typeof callback === 'function') {
+                            callback();
+                          }
+                        }
+                      }
+                    },
                   }
                 }
               />

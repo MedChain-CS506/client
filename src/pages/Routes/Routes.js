@@ -14,7 +14,7 @@ const Routes = ({ signedIn }) => {
       <Router>
           <Switch>
               <Route exact path="/"><Landing signedIn={signedIn} /></Route>
-              <Route exact path="/not-found" component={PatientProfile} />
+              <Route exact path="/patient-profile" component={PatientProfile} />
               <Route exact path="/not-found" component={NotFound} />
               <Redirect to="/not-found" />
           </Switch>
