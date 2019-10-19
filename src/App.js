@@ -19,14 +19,23 @@ class App extends Component {
     super(props);
 
     this.state = {
-      signedIn: false,
+      signedIn: false, //! toggle to see how signed in looks
       ready: true,
+
       signUpDialog: {
         open: false
       },
       signInDialog: {
         open: false
-      }
+      }, 
+      
+      settingsDialog: {
+        open: false
+      },
+
+      signOutDialog: {
+        open: false
+      },
     };
   }
 
@@ -62,7 +71,9 @@ class App extends Component {
 
     const {
       signUpDialog,
-      signInDialog
+      signInDialog,
+      settingsDialog,
+      signOutDialog
     } = this.state;
 
     return (
@@ -77,6 +88,9 @@ class App extends Component {
                 signedIn={signedIn}
                 onSignUpClick={() => this.openDialog('signUpDialog')}
                 onSignInClick={() => this.openDialog('signInDialog')}
+
+                onSettingsClick={() => this.openDialog('settingsDialog')}
+                onSignOutClick={() => this.openDialog('signOutDialog')}
               />
 
               <Routes signedIn={signedIn} />

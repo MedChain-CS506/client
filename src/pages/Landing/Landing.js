@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import PropTypes from 'prop-types';
+
 import Fab from '@material-ui/core/Fab';
 
 import HomeIcon from '@material-ui/icons/Home';
@@ -28,7 +30,7 @@ class Landing extends Component {
           title='MedChain'
           description="The robust health file application"
           button={
-            <Fab color="secondary" href="#" rel="noopener noreferrer" target="_blank" variant="extended">
+            <Fab color="secondary" href="https://github.com/MedChain-CS506" rel="noopener noreferrer" target="_blank" variant="extended">
               <GitHubCircleIcon />
                 Repo
             </Fab>
@@ -37,5 +39,14 @@ class Landing extends Component {
       );
     }
   }
+
+  Landing.defaultProps = {
+    signedIn: false
+  };
+
+  Landing.propTypes = {
+    // Properties
+    signedIn: PropTypes.bool.isRequired
+  };
 
 export default Landing

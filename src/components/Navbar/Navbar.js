@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -7,14 +7,36 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Avatar from '@material-ui/core/Avatar';
 
-const Navbar = ({ signedIn, onSignUpClick, onSignInClick}) => {
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+
+const Navbar = ({ signedIn, onSignUpClick, onSignInClick }) => {
+    const [anchorEl, setAnchorEl] = useState(null)
+
   return (
       <AppBar color="primary" position="static">
           <Toolbar variant="regular">
               <Box flexGrow={1}>
                   <Typography color="inherit" variant="h6">MedChain</Typography>
               </Box>
+
+                {signedIn &&
+                    <>
+                        <IconButton color="inherit">
+                            <Avatar alt="Avatar">
+                                {/* {this.getNameInitials()} */}
+                            </Avatar>
+                        </IconButton>
+
+                        <Menu>
+                            <MenuItem>Settings</MenuItem>
+                            <MenuItem>Sign out</MenuItem>
+                        </Menu>
+                    </>
+                }
 
               {!signedIn &&
                   <>
