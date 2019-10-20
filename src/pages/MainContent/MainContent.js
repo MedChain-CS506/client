@@ -16,7 +16,7 @@ const styles = {
   }
 };
 
-class EmptyState extends Component {
+class MainContent extends Component {
   render() {
     // Styling
     const { classes } = this.props;
@@ -35,7 +35,7 @@ class EmptyState extends Component {
   }
 }
 
-EmptyState.propTypes = {
+MainContent.propTypes = {
   // Styling
   classes: PropTypes.object.isRequired,
 
@@ -46,4 +46,4 @@ EmptyState.propTypes = {
   button: PropTypes.element
 };
 
-export default withStyles(styles)(EmptyState);
+export default withStyles(styles)(MainContent);

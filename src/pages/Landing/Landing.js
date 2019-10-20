@@ -8,7 +8,9 @@ import HomeIcon from '@material-ui/icons/Home';
 
 import GitHubCircleIcon from 'mdi-material-ui/GithubCircle';
 
-import EmptyState from '../EmptyState';
+import MainContent from '../MainContent';
+
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 class Landing extends Component {
     render() {
@@ -18,7 +20,7 @@ class Landing extends Component {
   
       if (signedIn) {
         return (
-          <EmptyState
+          <MainContent
             icon={<HomeIcon color="action" />}
             title="Home"
           />
@@ -26,7 +28,8 @@ class Landing extends Component {
       }
   
       return (
-        <EmptyState
+        <MainContent
+          icon={<FavoriteIcon color="action" />}
           title='MedChain'
           description="The robust health file application"
           button={

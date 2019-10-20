@@ -11,7 +11,7 @@ import Fab from '@material-ui/core/Fab';
 import FindIcon from '@material-ui/icons/FindInPage';
 import HomeIcon from '@material-ui/icons/Home';
 
-import EmptyState from '../EmptyState';
+import EmptyState from '../MainContent';
 
 const styles = (theme) => ({
   emptyStateIcon: {
