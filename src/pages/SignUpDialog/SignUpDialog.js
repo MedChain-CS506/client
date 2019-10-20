@@ -173,7 +173,7 @@ class SignUpDialog extends Component {
           Sign up for an account
         </DialogTitle>
 
-        {/* <Hidden smDown>
+        <Hidden smDown>
           <DialogContent className={classes.modalContent}>
             <Grid container direction="row">
               <Grid item xs={3}>
@@ -486,7 +486,7 @@ class SignUpDialog extends Component {
             onClick={this.signUp}>
             Sign up
           </Button>
-        </DialogActions> */}
+        </DialogActions>
       </Dialog>
     );
   }

@@ -1,3 +1,7 @@
 {
-    "emmet.triggerExpansionOnTab":true,
+    "emmet.triggerExpansionOnTab": true,
+    "cSpell.ignoreWords": [
+        "icon",
+        "wechat"
+    ],
 }

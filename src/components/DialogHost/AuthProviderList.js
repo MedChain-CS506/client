@@ -7,12 +7,12 @@ import { createMuiTheme, withStyles, MuiThemeProvider } from '@material-ui/core/
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-import FacebookBoxIcon from 'mdi-material-ui/FacebookBox';
-import GitHubCircleIcon from 'mdi-material-ui/GithubCircle';
-import GoogleIcon from 'mdi-material-ui/Google';
-import AppleIcon from 'mdi-material-ui/Apple';
 import MicrosoftIcon from 'mdi-material-ui/Microsoft';
 import WechatIcon from 'mdi-material-ui/Wechat';
+import GoogleIcon from 'mdi-material-ui/Google';
+import FacebookBoxIcon from 'mdi-material-ui/FacebookBox';
+import AppleIcon from 'mdi-material-ui/Apple';
+import GitHubCircleIcon from 'mdi-material-ui/GithubCircle';
 
 const styles = (theme) => ({
   grid: {
@@ -32,58 +32,6 @@ class AuthProviderList extends Component {
     const { onAuthProviderClick } = this.props;
 
     const authProviders = [
-      {
-        providerId: 'facebook.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#3c5a99',
-              contrastText: '#ffffff'
-            }
-          }
-        }),
-        icon: <FacebookBoxIcon />,
-        name: 'Facebook'
-      },
-      {
-        providerId: 'github.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#24292e',
-              contrastText: '#ffffff'
-            }
-          }
-        }),
-        icon: <GitHubCircleIcon />,
-        name: 'GitHub'
-      },
-      {
-        providerId: 'apple.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#ffffff',
-              contrastText: '#000000'
-            }
-          }
-        }),
-        icon: <AppleIcon />,
-        name: 'Apple'
-      },
-      {
-        providerId: 'google.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#4285f4',
-              contrastText: '#ffffff'
-            }
-          }
-        }),
-        icon: <GoogleIcon />,
-        name: 'Google'
-      },
       {
         providerId: 'microsoft.com',
         theme: createMuiTheme({
@@ -109,6 +57,58 @@ class AuthProviderList extends Component {
         }),
         icon: <WechatIcon />,
         name: 'Wechat'
+      },
+      {
+        providerId: 'google.com',
+        theme: createMuiTheme({
+          palette: {
+            primary: {
+              main: '#4285f4',
+              contrastText: '#ffffff'
+            }
+          }
+        }),
+        icon: <GoogleIcon />,
+        name: 'Google'
+      },
+      {
+        providerId: 'facebook.com',
+        theme: createMuiTheme({
+          palette: {
+            primary: {
+              main: '#3c5a99',
+              contrastText: '#ffffff'
+            }
+          }
+        }),
+        icon: <FacebookBoxIcon />,
+        name: 'Facebook'
+      },
+      {
+        providerId: 'apple.com',
+        theme: createMuiTheme({
+          palette: {
+            primary: {
+              main: '#ffffff',
+              contrastText: '#000000'
+            }
+          }
+        }),
+        icon: <AppleIcon />,
+        name: 'Apple'
+      },
+      {
+        providerId: 'github.com',
+        theme: createMuiTheme({
+          palette: {
+            primary: {
+              main: '#24292e',
+              contrastText: '#ffffff'
+            }
+          }
+        }),
+        icon: <GitHubCircleIcon />,
+        name: 'GitHub'
       }
     ];
 

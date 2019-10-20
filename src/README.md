@@ -10,6 +10,7 @@
 - Pages of the applications
 - Includes:
   - Not Found (404 page)
+  - Landing Page
 
 ## Components
 
