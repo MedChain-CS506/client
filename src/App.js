@@ -34,18 +34,11 @@ class App extends Component {
       signUpDialog: {
         open: false
       },
+
       signInDialog: {
         open: false
       }, 
       
-      settingsDialog: {
-        open: false
-      },
-
-      signOutDialog: {
-        open: false
-      },
-
       settingsDialog: {
         open: false
       },

@@ -7,12 +7,8 @@ import { createMuiTheme, withStyles, MuiThemeProvider } from '@material-ui/core/
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-import MicrosoftIcon from 'mdi-material-ui/Microsoft';
-import WechatIcon from 'mdi-material-ui/Wechat';
 import GoogleIcon from 'mdi-material-ui/Google';
 import FacebookBoxIcon from 'mdi-material-ui/FacebookBox';
-import AppleIcon from 'mdi-material-ui/Apple';
-import GitHubCircleIcon from 'mdi-material-ui/GithubCircle';
 
 const styles = (theme) => ({
   grid: {
@@ -32,32 +28,6 @@ class AuthProviderList extends Component {
     const { onAuthProviderClick } = this.props;
 
     const authProviders = [
-      {
-        providerId: 'microsoft.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#f65314',
-              contrastText: '#ffffff'
-            }
-          }
-        }),
-        icon: <MicrosoftIcon />,
-        name: 'Microsoft'
-      },
-      {
-        providerId: 'wechat.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#00d21d',
-              contrastText: '#ffffff'
-            }
-          }
-        }),
-        icon: <WechatIcon />,
-        name: 'Wechat'
-      },
       {
         providerId: 'google.com',
         theme: createMuiTheme({
@@ -83,32 +53,6 @@ class AuthProviderList extends Component {
         }),
         icon: <FacebookBoxIcon />,
         name: 'Facebook'
-      },
-      {
-        providerId: 'apple.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#ffffff',
-              contrastText: '#000000'
-            }
-          }
-        }),
-        icon: <AppleIcon />,
-        name: 'Apple'
-      },
-      {
-        providerId: 'github.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#24292e',
-              contrastText: '#ffffff'
-            }
-          }
-        }),
-        icon: <GitHubCircleIcon />,
-        name: 'GitHub'
       }
     ];
 
