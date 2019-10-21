@@ -27,7 +27,7 @@ class App extends Component {
       user: null,
       userData: null,
       // theme: theming.defaultTheme,
-      signedIn: true, //! toggle to see how signed in looks
+      signedIn: false, //! toggle to see how signed in looks
       ready: true,
       performingAction: false,
 

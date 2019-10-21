@@ -30,7 +30,7 @@ class Landing extends Component {
       return (
         <MainContent
           icon={<FavoriteIcon color="action" />}
-          title='MedChain'
+          title={process.env.REACT_APP_NAME}
           description="The robust health file application"
           button={
             <Fab color="secondary" href="https://github.com/MedChain-CS506" rel="noopener noreferrer" target="_blank" variant="extended">
