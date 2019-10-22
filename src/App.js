@@ -26,7 +26,6 @@ class App extends Component {
     this.state = {
       user: null,
       userData: null,
-      // theme: theming.defaultTheme,
       signedIn: false, //! toggle to see how signed in looks
       ready: true,
       performingAction: false,
@@ -198,7 +197,6 @@ class App extends Component {
                       props: {
                         user: user,
                         userData: userData,
-                        //theme: theme,
   
                         openSnackbar: this.openSnackbar
                       }
