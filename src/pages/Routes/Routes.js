@@ -6,28 +6,27 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 
 //*PAGES
 import Landing from '../Landing';
-import PatientProfile from '../PatientProfile';
+//import PatientProfile from '../PatientProfile';
 import NotFound from '../NotFound';
 
-const Routes = ({ signedIn }) => {
-  return (
-      <Router>
+const Routes = ({signedIn}) => {
+    return (
+        <Router>
           <Switch>
               <Route exact path="/"><Landing signedIn={signedIn} /></Route>
-              <Route exact path="/patient-profile" component={PatientProfile} />
               <Route exact path="/not-found" component={NotFound} />
               <Redirect to="/not-found" />
           </Switch>
-    </Router>
-  )
+        </Router>
+    )
 }
 
 Routes.defaultProps = {
-  signedIn: false
+    signedIn: false
 };
 
 Routes.propTypes = {
-  signedIn: PropTypes.bool.isRequired
+    signedIn: PropTypes.bool.isRequired
 };
 
 export default Routes

@@ -1,405 +1,78 @@
-//!Read src README.md before looking here 
+import React, { useState } from 'react';
 
-import React, { Component } from 'react';
-
-//*MUI
 import { ThemeProvider } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
 
-//*COMPONENTS
+//*Contexts
+// import AuthProvider from './contexts/AuthContext';
+
+//*Components
 import Navbar from './components/Navbar';
-import DialogHost from './components/DialogHost';
-import Loading from './components/Loading'
+import Loading from './components/Loading';
+import SignUpDialog from './components/Dialog/SignUpDialog';
+import SignInDialog from './components/Dialog/SignInDialog';
+// import DialogHost from './components/Dialog/DialogHost'; //!Added
 
-//*PAGE
+//*Pages
 import Routes from './pages/Routes';
 
+//*MUI
+import Hidden from '@material-ui/core/Hidden';
 import theme from './theme';
 
-import readingTime from 'reading-time';
+function App() {
+  const [signedIn] = useState(false);
+  const [ready] = useState(true);
+  const [signUpDialog, setSignUpDialog] = useState(false)
+  const [signInDialog, setSignInDialog] = useState(false)
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      user: null,
-      userData: null,
-      // theme: theming.defaultTheme,
-      signedIn: false, //! toggle to see how signed in looks
-      ready: true,
-      performingAction: false,
-
-      signUpDialog: {
-        open: false
-      },
-
-      signInDialog: {
-        open: false
-      }, 
-      
-      settingsDialog: {
-        open: false
-      },
-
-      signOutDialog: {
-        open: false
-      },
-
-      snackbar: {
-        autoHideDuration: 0,
-        message: '',
-        open: false
-      }
-    };
-  }
-
-  openDialog = (dialogId, callback) => {
-    const dialog = this.state[dialogId];
-
-    if (!dialog || dialog.open === undefined || null) {
-      return;
-    }
-
-    dialog.open = true;
-
-    this.setState({ dialog }, callback);
-  };
-
-  closeDialog = (dialogId, callback) => {
-    const dialog = this.state[dialogId];
-
-    if (!dialog || dialog.open === undefined || null) {
-      return;
-    }
-
-    dialog.open = false;
-
-    this.setState({ dialog }, callback);
-  };
-
-  openSnackbar = (message, autoHideDuration = 2, callback) => {
-    this.setState({
-      snackbar: {
-        autoHideDuration: readingTime(message).time * autoHideDuration,
-        message,
-        open: true
-      }
-    }, () => {
-      if (callback && typeof callback === 'function') {
-        callback();
-      }
-    });
-  };
-
-  closeSnackbar = (clearMessage = false) => {
-    const { snackbar } = this.state;
-
-    this.setState({
-      snackbar: {
-        message: clearMessage ? '' : snackbar.message,
-        open: false
-      }
-    });
-  };
-
-  render() {
-    const {
-      user,
-      userData,
-      signedIn,
-      ready,
-      performingAction,
-    } = this.state;
-
-    const {
-      signUpDialog,
-      signInDialog,
-      settingsDialog,
-      signOutDialog
-    } = this.state;
-
-    const { snackbar } = this.state;
-
-    return (
+  return (
       <ThemeProvider theme={theme}>
-          {!ready &&
-            <Loading />
-          }
+        {!ready &&
+          <Loading />
+        }
+        {ready &&
+          <>
+            <Navbar
+              signedIn={signedIn}
+              onSignUpClick={() => setSignUpDialog(true)}
+              onSignInClick={() => setSignInDialog(true)}
+            />
 
-          {ready &&
-            <>
-              <Navbar
-                signedIn={signedIn}
+            <Routes signedIn={signedIn} />
 
-                user={user}
-                userData={userData}
-
-                onSignUpClick={() => this.openDialog('signUpDialog')}
-                onSignInClick={() => this.openDialog('signInDialog')}
-
-                onSettingsClick={() => this.openDialog('settingsDialog')}
-                onSignOutClick={() => this.openDialog('signOutDialog')}
+            {/* SignUpDialog */}
+            <Hidden only='xs'>
+              <SignUpDialog
+                open={signUpDialog}
+                onClose={() => setSignUpDialog(false)}
               />
-
-              <Routes signedIn={signedIn} />
-
-              <DialogHost
-                signedIn={signedIn}
-                dialogs={
-                  {
-                    signUpDialog: {
-                      dialogProps: {
-                        open: signUpDialog.open,
-
-                        onClose: (callback) => {
-                          this.closeDialog('signUpDialog');
-
-                          if (callback && typeof callback === 'function') {
-                            callback();
-                          }
-                        }
-                      },
-
-                      props: {
-                        performingAction: performingAction,
-                        openSnackbar: this.openSnackbar
-                      }
-                    },
-
-                    signInDialog: {
-                      dialogProps: {
-                        open: signInDialog.open,
-  
-                        onClose: (callback) => {
-                          this.closeDialog('signInDialog');
-  
-                          if (callback && typeof callback === 'function') {
-                            callback();
-                          }
-                        },
-                      }, 
-
-                      props: {
-                        performingAction: performingAction,
-                        openSnackbar: this.openSnackbar
-                      }
-                    },
-
-                    settingsDialog: {
-                      dialogProps: {
-                        open: settingsDialog.open,
-                        disableEscapeKeyDown: true,
-  
-                        onClose: () => this.closeDialog('settingsDialog')
-                      },
-  
-                      props: {
-                        user: user,
-                        userData: userData,
-                        //theme: theme,
-  
-                        openSnackbar: this.openSnackbar
-                      }
-                    },
-
-                    signOutDialog: {
-                      dialogProps: {
-                        open: signOutDialog.open,
-  
-                        onClose: () => this.closeDialog('signOutDialog')
-                      },
-  
-                      props: {
-                        title: 'Sign out?',
-                        contentText: 'While signed out you are unable to manage your profile and conduct other activities that require you to be signed in.',
-                        dismissiveAction: <Button color="primary" onClick={() => this.closeDialog('signOutDialog')}>Cancel</Button>,
-                        confirmingAction: <Button color="primary" disabled={performingAction} variant="contained" onClick={this.signOut}>Sign Out</Button>
-                      }
-                    }
-                  }
-                }
+            </Hidden>
+            <Hidden only={['sm', 'md', 'lg', 'xl']}>
+              <SignUpDialog
+                fullScreen
+                open={signUpDialog}
+                onClose={() => setSignUpDialog(false)}
               />
+            </Hidden>
 
-              <Snackbar
-                autoHideDuration={snackbar.autoHideDuration}
-                message={snackbar.message}
-                open={snackbar.open}
-                onClose={this.closeSnackbar}
+            {/* SignInDialog */}
+            <Hidden only='xs'>
+              <SignInDialog
+                open={signInDialog}
+                onClose={() => setSignInDialog(false)}
               />
-            </>
-          }
+            </Hidden>
+            <Hidden only={['sm', 'md', 'lg', 'xl']}>
+              <SignInDialog
+                fullScreen
+                open={signInDialog}
+                onClose={() => setSignInDialog(false)}
+              />
+            </Hidden>
+          </>
+        }
       </ThemeProvider>
-    );
-  }
-
-  // componentDidMount() {
-  //   this.mounted = true;
-
-  //   this.removeAuthStateChangedObserver = auth.onAuthStateChanged((user) => {
-  //     if (!user) {
-  //       if (this.removeReferenceListener) {
-  //         this.removeReferenceListener();
-  //       }
-
-  //       if (this.mounted) {
-  //         this.setState({
-  //           user: null,
-  //           userData: null,
-  //           //theme: theming.defaultTheme,
-
-  //           signedIn: false,
-  //           ready: true
-  //         });
-  //       }
-
-  //       return;
-  //     }
-
-  //     const uid = user.uid;
-
-  //     if (!uid) {
-  //       if (this.removeReferenceListener) {
-  //         this.removeReferenceListener();
-  //       }
-
-  //       if (this.mounted) {
-  //         this.setState({
-  //           user: null,
-  //           userData: null,
-  //           //theme: theming.defaultTheme,
-
-  //           signedIn: false,
-  //           ready: true
-  //         });
-  //       }
-
-  //       return;
-  //     }
-
-  //     const reference = firestore.collection('users').doc(uid);
-
-  //     if (!reference) {
-  //       if (this.removeReferenceListener) {
-  //         this.removeReferenceListener();
-  //       }
-
-  //       if (this.mounted) {
-  //         this.setState({
-  //           user: null,
-  //           userData: null,
-  //           //theme: theming.defaultTheme,
-
-  //           signedIn: false,
-  //           ready: true
-  //         });
-  //       }
-
-  //       return;
-  //     }
-
-  //     this.removeReferenceListener = reference.onSnapshot((snapshot) => {
-  //       if (!snapshot.exists) {
-  //         if (this.removeReferenceListener) {
-  //           this.removeReferenceListener();
-  //         }
-
-  //         if (this.mounted) {
-  //           this.setState({
-  //             user: null,
-  //             userData: null,
-  //             //theme: theming.defaultTheme,
-
-  //             signedIn: false,
-  //             ready: true
-  //           });
-  //         }
-
-  //         return;
-  //       }
-
-  //       const data = snapshot.data();
-
-  //       if (!data) {
-  //         if (this.removeReferenceListener) {
-  //           this.removeReferenceListener();
-  //         }
-
-  //         if (this.mounted) {
-  //           this.setState({
-  //             user: null,
-  //             userData: null,
-  //             //theme: theming.defaultTheme,
-
-  //             signedIn: false,
-  //             ready: true
-  //           });
-  //         }
-
-  //         return;
-  //       }
-
-  //       // if (data.theme) {
-  //       //   this.setState({
-  //       //     theme: theming.createTheme(data.theme)
-  //       //   });
-  //       // } else {
-  //       //   this.setState({
-  //       //     theme: theming.defaultTheme
-  //       //   });
-  //       // }
-
-  //       if (this.mounted) {
-  //         this.setState({
-  //           user: user,
-  //           userData: data,
-
-  //           signedIn: true,
-  //           ready: true
-  //         });
-  //       }
-  //     }, (error) => {
-  //       if (this.removeReferenceListener) {
-  //         this.removeReferenceListener();
-  //       }
-
-  //       if (this.mounted) {
-  //         this.setState({
-  //           user: null,
-  //           userData: null,
-  //           //theme: theming.defaultTheme,
-
-  //           signedIn: false,
-  //           ready: true
-  //         }, () => {
-  //           const code = error.code;
-  //           const message = error.message;
-
-  //           switch (code) {
-  //             default:
-  //               this.openSnackbar(message);
-  //               return;
-  //           }
-  //         });
-  //       }
-  //     });
-  //   });
-  // }
-
-  // componentWillUnmount() {
-  //   if (this.removeAuthStateChangedObserver) {
-  //     this.removeAuthStateChangedObserver();
-  //   }
-
-  //   if (this.removeReferenceListener) {
-  //     this.removeReferenceListener();
-  //   }
-
-  //   this.mounted = false;
-  // }
-
-
+  )
 }
 
 export default App;
