@@ -62,7 +62,6 @@ const SignUpDialog = ({ dialogProps }) => {
     //     this.signUp();
     // };
 
-    //!<Dialog fullScreen={fullScreen} open={open} onClose={onClose}>
     return (
         <Dialog fullWidth maxWidth="md" {...dialogProps}>
             <DialogTitle>
@@ -87,11 +86,11 @@ const SignUpDialog = ({ dialogProps }) => {
                                         autoComplete="email"
                                         fullWidth
                                         label="E-mail address"
-                                        margin="normal"
-                                        onChange={e => setEmail(e.target.value)}
+                                        placeholder="john@doe.com"
                                         required
                                         type="email"
                                         value={email}
+                                        onChange={e => setEmail(e.target.value)}
                                     />
                                 </Grid>
                             </Grid>
@@ -102,11 +101,11 @@ const SignUpDialog = ({ dialogProps }) => {
                                         autoComplete="new-password"
                                         fullWidth
                                         label="Password"
-                                        margin="normal"
-                                        onChange={e => setPassword(e.target.value)}
+                                        placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                                         required
                                         type="password"
                                         value={password}
+                                        onChange={e => setPassword(e.target.value)}
                                     />
                                 </Grid>
                             </Grid>
@@ -117,11 +116,11 @@ const SignUpDialog = ({ dialogProps }) => {
                                         autoComplete="password"
                                         fullWidth
                                         label="Password confirmation"
-                                        margin="normal"
-                                        onChange={e => setPasswordConfirmation(e.target.value)}
+                                        placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                                         required
                                         type="password"
                                         value={passwordConfirmation}
+                                        onChange={e => setPasswordConfirmation(e.target.value)}
                                     />
                                 </Grid>
                             </Grid>
@@ -140,25 +139,25 @@ const SignUpDialog = ({ dialogProps }) => {
                                 autoComplete="email"
                                 fullWidth
                                 label="E-mail address"
-                                margin="normal"
-                                onChange={e => setEmail(e.target.value)}
+                                placeholder="john@doe.com"
                                 required
                                 type="email"
                                 value={email}
+                                onChange={e => setEmail(e.target.value)}
                             />
                         </Grid>
 
                         <Grid item xs>
-                        <TextField
-                            autoComplete="new-password"
-                            fullWidth
-                            label="Password"
-                            margin="normal"
-                            onChange={e => setPassword(e.target.value)}
-                            required
-                            type="password"
-                            value={password}
-                        />
+                            <TextField
+                                autoComplete="new-password"
+                                fullWidth
+                                label="Password"
+                                placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                                required
+                                type="password"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                            />
                         </Grid>
 
                         <Grid item xs>
@@ -166,11 +165,11 @@ const SignUpDialog = ({ dialogProps }) => {
                                 autoComplete="password"
                                 fullWidth
                                 label="Password confirmation"
-                                margin="normal"
-                                onChange={e => setPasswordConfirmation(e.target.value)}
+                                placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                                 required
                                 type="password"
                                 value={passwordConfirmation}
+                                onChange={e => setPasswordConfirmation(e.target.value)}
                             />
                         </Grid>
                     </Grid>

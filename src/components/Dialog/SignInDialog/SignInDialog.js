@@ -62,7 +62,9 @@ const SignInDialog = ({ dialogProps }) => {
                                         placeholder="john@doe.com"
                                         required
                                         type="email"
+                                        value={email}
                                         variant="outlined"
+                                        onChange={e => setEmail(e.target.value)}
                                     />
                                 </Grid>
                                 <Grid item xs>
@@ -75,6 +77,7 @@ const SignInDialog = ({ dialogProps }) => {
                                         type="password"
                                         value={password}
                                         variant="outlined"
+                                        onChange={e => setPassword(e.target.value)}
                                     />
                                 </Grid>
                             </Grid>
@@ -94,7 +97,9 @@ const SignInDialog = ({ dialogProps }) => {
                                 placeholder="john@doe.com"
                                 required
                                 type="email"
+                                value={email}
                                 variant="outlined"
+                                onChange={e => setEmail(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs>
@@ -107,6 +112,7 @@ const SignInDialog = ({ dialogProps }) => {
                                 type="password"
                                 value={password}
                                 variant="outlined"
+                                onChange={e => setPassword(e.target.value)}
                             />
                         </Grid>
                     </Grid>
