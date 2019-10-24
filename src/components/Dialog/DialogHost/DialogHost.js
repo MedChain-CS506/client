@@ -1,52 +1,58 @@
-//ATTEMPTING TO MOVE ALL DIALOGS OVER HERE.
+import React from 'react'
 
-// import React from 'react'
+import PropTypes from 'prop-types';
 
-// import PropTypes from 'prop-types';
+import Hidden from '@material-ui/core/Hidden';
 
-// import Hidden from '@material-ui/core/Hidden';
+import SignUpDialog from '../SignUpDialog';
+import SignInDialog from '../SignInDialog';
 
-// import SignUpDialog from '../SignUpDialog';
+const DialogHost = ({ signedIn, dialogs }) => {
 
-// const DialogHost = ({ signedIn, dialogs }) => {
+    const signUpDialog = dialogs.signUpDialog;
+    const signInDialog = dialogs.signInDialog;
 
-//     const signUpDialog = dialogs.signUpDialog;
+    return (
+        <>
+            <Hidden xsDown>
+                {!signedIn &&
+                    <>
+                        <SignUpDialog
+                            dialogProps={signUpDialog.dialogProps}
+                        />
+                        <SignInDialog
+                            dialogProps={signInDialog.dialogProps}
+                        />
+                    </>
+                }
+            </Hidden>
 
-//     return (
-//         <>
-//             <Hidden xsDown>
-//                 {!signedIn &&
-//                     <>
-//                         <SignUpDialog
-//                             dialogProps={signUpDialog.dialogProps}
+            <Hidden smUp>
+                {!signedIn &&
+                    <>
+                        <SignUpDialog
+                            dialogProps={{
+                                fullScreen: true,
+                                ...signUpDialog.dialogProps
+                            }}
+                        />
+                        <SignInDialog
+                            dialogProps={{
+                            fullScreen: true,
 
-//                             //{...signUpDialog.props}
-//                         />
-//                     </>
-//                 }
-//             </Hidden>
+                            ...signInDialog.dialogProps
+                            }}
+                        />
+                    </>
+                }
+            </Hidden>
+        </>
+    )
+}
 
-//             <Hidden smUp>
-//                 {!signedIn &&
-//                     <>
-//                         <SignUpDialog
-//                             dialogProps={{
-//                                 fullScreen: true,
-//                                 ...signUpDialog.dialogProps
-//                             }}
+DialogHost.propTypes = {
+    signedIn: PropTypes.bool.isRequired,
+    dialogs: PropTypes.object.isRequired
+};
 
-//                             //{...signUpDialog.props}
-//                         />
-//                     </>
-//                 }
-//             </Hidden>
-//         </>
-//     )
-// }
-
-// DialogHost.propTypes = {
-//     signedIn: PropTypes.bool.isRequired,
-//     dialogs: PropTypes.object.isRequired
-//   };
-
-// export default DialogHost
+export default DialogHost

@@ -35,7 +35,7 @@ const useStyles = makeStyles({
     }
 });
 
-const SignUpDialog = ({ fullScreen, open, onClose }) => {
+const SignUpDialog = ({ dialogProps }) => {
     const classes = useStyles();
 
     const [email, setEmail] = useState('')
@@ -62,64 +62,130 @@ const SignUpDialog = ({ fullScreen, open, onClose }) => {
     //     this.signUp();
     // };
 
+    //!<Dialog fullScreen={fullScreen} open={open} onClose={onClose}>
     return (
-        <Dialog fullScreen={fullScreen} open={open} onClose={onClose}>
+        <Dialog fullWidth maxWidth="md" {...dialogProps}>
             <DialogTitle>
                 Sign up for an account
             </DialogTitle>
 
-            <DialogContent>
-                <form>
-                    <TextField
-                        autoComplete="email"
-                        fullWidth
-                        label="E-mail address"
-                        margin="normal"
-                        onChange={e => setEmail(e.target.value)}
-                        required
-                        type="email"
-                        value={email}
-                    />
+            <DialogContent className={classes.dialogContent}>
+                <Hidden smDown>
+                    <Grid container direction="row">
+                        <Grid item xs={3}>
+                            <h1>[AUTH PROVIDERS]</h1>
+                        </Grid>
 
-                    <TextField
-                        autoComplete="new-password"
-                        fullWidth
-                        label="Password"
-                        margin="normal"
-                        onChange={e => setPassword(e.target.value)}
-                        required
-                        type="password"
-                        value={password}
-                    />
+                        <Grid item xs={1}>
+                            <Divider className={classes.divider} />
+                        </Grid>
 
-                    <TextField
-                        autoComplete="password"
-                        fullWidth
-                        label="Password confirmation"
-                        margin="normal"
-                        onChange={e => setPasswordConfirmation(e.target.value)}
-                        required
-                        type="password"
-                        value={passwordConfirmation}
-                    />
-                </form>
+                        <Grid item xs={8}>
+                            <Grid container spacing={4}>
+                                <Grid item xs>
+                                    <TextField
+                                        autoComplete="email"
+                                        fullWidth
+                                        label="E-mail address"
+                                        margin="normal"
+                                        onChange={e => setEmail(e.target.value)}
+                                        required
+                                        type="email"
+                                        value={email}
+                                    />
+                                </Grid>
+                            </Grid>
+
+                            <Grid container spacing={4}>
+                                <Grid item xs>
+                                    <TextField
+                                        autoComplete="new-password"
+                                        fullWidth
+                                        label="Password"
+                                        margin="normal"
+                                        onChange={e => setPassword(e.target.value)}
+                                        required
+                                        type="password"
+                                        value={password}
+                                    />
+                                </Grid>
+                            </Grid>
+
+                            <Grid container spacing={4}>
+                                <Grid item xs>
+                                    <TextField
+                                        autoComplete="password"
+                                        fullWidth
+                                        label="Password confirmation"
+                                        margin="normal"
+                                        onChange={e => setPasswordConfirmation(e.target.value)}
+                                        required
+                                        type="password"
+                                        value={passwordConfirmation}
+                                    />
+                                </Grid>
+                            </Grid>
+                            
+                        </Grid>
+
+                    </Grid>
+                </Hidden>
+
+                <Hidden mdUp>
+                    <h1>[AUTH PROVIDERS]</h1>
+
+                    <Grid container direction="column" spacing={2}>
+                        <Grid item xs>
+                            <TextField
+                                autoComplete="email"
+                                fullWidth
+                                label="E-mail address"
+                                margin="normal"
+                                onChange={e => setEmail(e.target.value)}
+                                required
+                                type="email"
+                                value={email}
+                            />
+                        </Grid>
+
+                        <Grid item xs>
+                        <TextField
+                            autoComplete="new-password"
+                            fullWidth
+                            label="Password"
+                            margin="normal"
+                            onChange={e => setPassword(e.target.value)}
+                            required
+                            type="password"
+                            value={password}
+                        />
+                        </Grid>
+
+                        <Grid item xs>
+                            <TextField
+                                autoComplete="password"
+                                fullWidth
+                                label="Password confirmation"
+                                margin="normal"
+                                onChange={e => setPasswordConfirmation(e.target.value)}
+                                required
+                                type="password"
+                                value={passwordConfirmation}
+                            />
+                        </Grid>
+                    </Grid>
+                </Hidden>
             </DialogContent>
-
             <DialogActions>
-                <Button color='primary' onClick={onClose}>Cancel</Button>
+                <Button color='primary' onClick={dialogProps.onClose}>Cancel</Button>
                 <Button color="primary" disabled={(!email || !password || !passwordConfirmation)} variant="contained" onClick={() => console.log('handleSignUpClick')}>Sign Up</Button>
             </DialogActions>
-
         </Dialog>
     )
 }
 
 SignUpDialog.propTypes = {
-    classes: PropTypes.object.isRequired,
-    dialogProps: PropTypes.object.isRequired,
-    fullScreen: PropTypes.bool,
-    open: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
+    dialogProps: PropTypes.object.isRequired
 };
 
 export default SignUpDialog

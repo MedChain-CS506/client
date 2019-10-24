@@ -9,7 +9,7 @@ import Landing from '../Landing';
 //import PatientProfile from '../PatientProfile';
 import NotFound from '../NotFound';
 
-const Routes = ({signedIn}) => {
+const Routes = ({ signedIn }) => {
     return (
         <Router>
           <Switch>
