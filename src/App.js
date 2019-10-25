@@ -13,11 +13,21 @@ import Routes from './pages/Routes';
 //*MUI
 import theme from './theme';
 
+
+//!ADDED FIREBASE
+import firebase, { firestore } from './firebase';
+
+
 function App() {
   const [signedIn] = useState(false);
   const [ready] = useState(true);
   const [signUpDialog, setSignUpDialog] = useState(false)
   const [signInDialog, setSignInDialog] = useState(false)
+
+  const signUp = (email, password, confirmationPassword) => {
+    if (!email || !password || !confirmationPassword) return;
+    if (signedIn) return;
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -43,6 +53,10 @@ function App() {
                     open: signUpDialog,
 
                     onClose: () => setSignUpDialog(false)
+                  },
+
+                  props: {
+                    signUp: () => signUp
                   }
                 },
 
@@ -51,7 +65,11 @@ function App() {
                     open: signInDialog,
 
                     onClose: () => setSignInDialog(false)
-                  }
+                  },
+
+                  // props: {
+                  //   signIn: () => signIn
+                  // }
                 }
               }
             }

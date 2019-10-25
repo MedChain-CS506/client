@@ -13,4 +13,16 @@ const config = {
     measurementId: "G-76PNKH5MWN"
 };
 
-firebase.initializeApp(config);
+class Firebase {
+	constructor() {
+		app.initializeApp(config)
+		this.auth = app.auth()
+		this.db = app.firestore()
+    }
+
+    async register(email, password) {
+		await this.auth.createUserWithEmailAndPassword(email, password)
+	}
+}
+
+export default new Firebase()

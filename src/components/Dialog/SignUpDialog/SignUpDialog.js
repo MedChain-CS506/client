@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 
 import PropTypes from 'prop-types';
 
+import validate from 'validate.js';
+
+import constraints from '../../../constraints';
+
 //*MUI
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -14,6 +18,8 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
+
+import firebase from '../../../firebase' //!FIREBASE
 
 const useStyles = makeStyles({
     dialogContent: {
@@ -41,10 +47,34 @@ const SignUpDialog = ({ dialogProps }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
+    //const [errors, setErrors] = useState(null)
 
     // const signUp = (emailAddress, password, passwordConfirmation) => {
 
-    // };
+
+    //     const errors = validate({
+    //         email: email,
+    //         password: password,
+    //         passwordConfirmation: passwordConfirmation
+    //     }, {
+    //         email: email,
+    //         password: password,
+    //         passwordConfirmation: passwordConfirmation
+    //     })
+    
+    //     if (errors) {
+    //         setErrors(errors)
+    //     } else {
+    //         setErrors(null), () => {
+    //           props.signUp (
+    //             email,
+    //             password,
+    //             passwordConfirmation
+    //           );
+    //         });
+    //       }
+        
+    // }
 
     // const handleKeyPress = (event) => {
     //     const key = event.key;
@@ -63,7 +93,7 @@ const SignUpDialog = ({ dialogProps }) => {
     // };
 
     return (
-        <Dialog fullWidth maxWidth="md" {...dialogProps}>
+        <Dialog fullWidth maxWidth="md" {...dialogProps} onKeyPress={console.log('handleKeyPress')} onExited={console.log('handleExited')} onSubmit={e => e.preventDefault()}>
             <DialogTitle>
                 Sign up for an account
             </DialogTitle>
@@ -177,10 +207,20 @@ const SignUpDialog = ({ dialogProps }) => {
             </DialogContent>
             <DialogActions>
                 <Button color='primary' onClick={dialogProps.onClose}>Cancel</Button>
-                <Button color="primary" disabled={(!email || !password || !passwordConfirmation)} variant="contained" onClick={() => console.log('handleSignUpClick')}>Sign Up</Button>
+                {/* <Button color="primary" disabled={(!email || !password || !passwordConfirmation)} variant="contained" onClick={() => console.log('handleSignUpClick')}>Sign Up</Button> */}
+                <Button color="primary" disabled={(!email || !password || !passwordConfirmation)} variant="contained" type="submit" onClick={onRegister}>Register</Button>
             </DialogActions>
         </Dialog>
     )
+
+    async function onRegister() {
+		try {
+			await firebase.register(email, password, passwordConfirmation)
+			//props.history.replace('/landing')
+		} catch(error) {
+			alert(error.message)
+		}
+	}
 }
 
 SignUpDialog.propTypes = {
