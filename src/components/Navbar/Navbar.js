@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import PropTypes from 'prop-types';
 
@@ -26,7 +26,10 @@ const useStyles = makeStyles({
 });
 
 const Navbar = ({ signedIn, onSignUpClick, onSignInClick }) => {
+    const [anchorEl, setAnchorEl]= useState(null)
+
     const classes = useStyles();
+
     return (
         <AppBar className={classes.root} position="static">
             <Toolbar variant="regular">
@@ -40,7 +43,7 @@ const Navbar = ({ signedIn, onSignUpClick, onSignInClick }) => {
                             <Avatar alt="Avatar"  />
                         </IconButton>
         
-                        <Menu>
+                        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
                             <MenuItem>Settings</MenuItem>
                             <MenuItem>Sign out</MenuItem>
                         </Menu>

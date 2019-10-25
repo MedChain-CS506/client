@@ -1,4 +1,12 @@
 {
+  "firstName": {
+    "presence": {
+      "allowEmpty": false
+    },
+
+    "type": "string"
+  },
+
   "email": {
     "email": {
       "message": "^E-mail address is invalid"
@@ -6,7 +14,9 @@
 
     "presence": {
       "allowEmpty": false
-    }
+    },
+
+    "type": "string"
   },
 
   "password": {
@@ -16,7 +26,9 @@
 
     "presence": {
       "allowEmpty": false
-    }
+    },
+
+    "type": "string"
   },
 
   "passwordConfirmation": {
@@ -28,6 +40,8 @@
 
     "presence": {
       "allowEmpty": false
-    }
+    },
+
+    "type": "string"
   }
 }

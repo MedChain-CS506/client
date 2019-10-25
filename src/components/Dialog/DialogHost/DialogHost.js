@@ -6,11 +6,13 @@ import Hidden from '@material-ui/core/Hidden';
 
 import SignUpDialog from '../SignUpDialog';
 import SignInDialog from '../SignInDialog';
+//import SettingsDialog from '../SettingsDialog';
 
 const DialogHost = ({ signedIn, dialogs }) => {
 
     const signUpDialog = dialogs.signUpDialog;
     const signInDialog = dialogs.signInDialog;
+    //const settingsDialog = dialogs.settingsDialog;
 
     return (
         <>
@@ -28,6 +30,17 @@ const DialogHost = ({ signedIn, dialogs }) => {
                     </>
                 }
             </Hidden>
+
+            {/* <Hidden smDown>
+                {signedIn &&
+                    <>
+                        <SettingsDialog
+                            dialogProps={settingsDialog.dialogProps}
+                            {...settingsDialog.props}
+                        />
+                    </>
+                }
+            </Hidden> */}
 
             <Hidden smUp>
                 {!signedIn &&
@@ -50,9 +63,27 @@ const DialogHost = ({ signedIn, dialogs }) => {
                     </>
                 }
             </Hidden>
+
+            {/* <Hidden mdUp>
+                {signedIn &&
+                    <>
+                        <SettingsDialog
+                            dialogProps={{
+                                fullScreen: true,
+                                ...settingsDialog.dialogProps
+                            }}
+                            {...settingsDialog.props}
+                        />
+                    </>
+                }
+            </Hidden> */}
         </>
     )
 }
+
+DialogHost.defaultProps = {
+    signedIn: false
+};
 
 DialogHost.propTypes = {
     signedIn: PropTypes.bool.isRequired,

@@ -1,6 +1,9 @@
-import app from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/firebase-firestore'
+import * as firebase from 'firebase/app' 
+
+import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/storage';
+import 'firebase/performance';
 
 const config = {
     apiKey: "AIzaSyBaebsr4HHrMKTddWSy6S35NISq4NriwgE",
@@ -13,16 +16,12 @@ const config = {
     measurementId: "G-76PNKH5MWN"
 };
 
-class Firebase {
-	constructor() {
-		app.initializeApp(config)
-		this.auth = app.auth()
-		this.db = app.firestore()
-    }
+firebase.initializeApp(config);
 
-    async register(email, password) {
-		await this.auth.createUserWithEmailAndPassword(email, password)
-	}
-}
+export default firebase;
+export const auth = firebase.auth();
+export const firestore = firebase.firestore();
+export const storage = firebase.storage();
+export const performance = firebase.performance();
 
-export default new Firebase()
+auth.useDeviceLanguage();
