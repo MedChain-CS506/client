@@ -19,7 +19,7 @@ import firebase, { firestore } from './firebase';
 
 
 function App() {
-  const [signedIn] = useState(false);
+  const [signedIn] = useState(true);
   const [ready] = useState(true);
   const [signUpDialog, setSignUpDialog] = useState(false)
   const [signInDialog, setSignInDialog] = useState(false)

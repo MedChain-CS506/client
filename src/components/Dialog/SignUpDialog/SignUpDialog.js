@@ -49,7 +49,7 @@ const SignUpDialog = ({ dialogProps }) => {
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
     //const [errors, setErrors] = useState(null)
 
-    // const signUp = (emailAddress, password, passwordConfirmation) => {
+    const signUp = (emailAddress, password, passwordConfirmation) => {
 
 
     //     const errors = validate({
@@ -74,26 +74,32 @@ const SignUpDialog = ({ dialogProps }) => {
     //         });
     //       }
         
-    // }
+    }
 
-    // const handleKeyPress = (event) => {
-    //     const key = event.key;
+    const handleKeyPress = (event) => {
+        const key = event.key;
     
-    //     if ( event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ) {
-    //       return;
-    //     }
-    
-    //     if (key === 'Enter') {
-    //       this.signUp();
-    //     }
-    // };
+        if ( event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ) return;
+
+        if ( !email || !password || !passwordConfirmation ) return;
+          
+        if (key === 'Enter') {
+            signUp();
+        };
+    }
 
     // const handleSignUpClick = () => {
     //     this.signUp();
     // };
 
+    const handleExited = () => { //resets back to initial state when user exits
+        setEmail('')
+        setPassword('')
+        setPasswordConfirmation('')
+    };
+
     return (
-        <Dialog fullWidth maxWidth="md" {...dialogProps} onKeyPress={console.log('handleKeyPress')} onExited={console.log('handleExited')} onSubmit={e => e.preventDefault()}>
+        <Dialog fullWidth maxWidth="md" {...dialogProps} onKeyPress={handleKeyPress} onExited={handleExited} onSubmit={e => e.preventDefault()}>
             <DialogTitle>
                 Sign up for an account
             </DialogTitle>
