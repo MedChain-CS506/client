@@ -19,9 +19,11 @@ const DialogHost = ({ signedIn, dialogs }) => {
                     <>
                         <SignUpDialog
                             dialogProps={signUpDialog.dialogProps}
+                            {...signUpDialog.props}
                         />
                         <SignInDialog
                             dialogProps={signInDialog.dialogProps}
+                            {...signInDialog.props}
                         />
                     </>
                 }
@@ -35,6 +37,7 @@ const DialogHost = ({ signedIn, dialogs }) => {
                                 fullScreen: true,
                                 ...signUpDialog.dialogProps
                             }}
+                            {...signUpDialog.props}
                         />
                         <SignInDialog
                             dialogProps={{
@@ -42,6 +45,7 @@ const DialogHost = ({ signedIn, dialogs }) => {
 
                             ...signInDialog.dialogProps
                             }}
+                            {...signInDialog.props}
                         />
                     </>
                 }
