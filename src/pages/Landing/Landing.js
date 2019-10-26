@@ -12,6 +12,7 @@ import Fab from '@material-ui/core/Fab';
 import HomeIcon from '@material-ui/icons/Home';
 import GitHubCircleIcon from 'mdi-material-ui/GithubCircle';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import AccountPlus from 'mdi-material-ui/AccountPlus';
 
 const useStyles = makeStyles({
     center: {
@@ -20,6 +21,10 @@ const useStyles = makeStyles({
         left: '50%',
         transform: 'translate(-50%, -50%)',
         textAlign: 'center'
+    },
+
+    icon: {
+        marginTop: 10
     }
 });
 
@@ -32,6 +37,9 @@ const Landing = ({signedIn}) => {
                 <HomeIcon color="action" />
                 <Typography color="textSecondary" variant="h5">Home</Typography>
                 <Search />
+                <Fab className={classes.icon} color="secondary" variant="extended">
+                    <AccountPlus /> Add New Patient
+                </Fab>
             </div>
         );
     }

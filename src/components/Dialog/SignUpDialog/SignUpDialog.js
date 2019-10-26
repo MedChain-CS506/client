@@ -14,11 +14,10 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
-// import firebase from '../../../firebase' //!FIREBASE
 // import validate from 'validate.js';
-
-//import constraints from '../../../constraints';
+// import constraints from '../../../constraints';
 import authentication from '../../../services/authentication'
+// import AuthProviderList from '../AuthProviderList';
 
 const useStyles = makeStyles({
     dialogContent: {
@@ -43,12 +42,14 @@ const useStyles = makeStyles({
 const SignUpDialog = ({ dialogProps }) => {
     const classes = useStyles();
 
+    //const [performingAction, setPerformingAction] = useState(false) //!added
+
     const [firstName, setFirstName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     //const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
-    const [errors, setErrors] = useState(null)
+    //const [errors, setErrors] = useState(null)
 
     //!NOT WORKING
     const signUp = () => {
@@ -71,8 +72,6 @@ const SignUpDialog = ({ dialogProps }) => {
         //         signUp(firstName, email, password, passwordConfirmation)
         //     }
         // }
-
-
         
         authentication.signUp({
             firstName: firstName,
@@ -89,12 +88,13 @@ const SignUpDialog = ({ dialogProps }) => {
         if ( event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ) return;
           
         //!NOT WORKING
-        // if (key === 'Enter') {
-        //     signUp();
-        // };
+        if (key === 'Enter') {
+            signUp();
+        };
     }
 
-    const handleExited = () => { //resets back to initial state when user exits
+    //resets back to initial state when user exits
+    const handleExited = () => {
         setFirstName('')
         setEmail('')
         setPassword('')

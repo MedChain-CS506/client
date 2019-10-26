@@ -14,15 +14,18 @@ import Routes from './pages/Routes';
 import theme from './theme';
 
 //!ADDED FIREBASE
-import firebase, { auth, firestore } from './firebase';
+//import { auth, firestore } from './firebase';
 
 function App() {
-  const [signedIn] = useState(false);
-  const [ready] = useState(true);
+  // const [user, setUser] = useState(null)
+  // const [userData, setUserData] = useState(null)
+  // const [performingAction, setPerformingAction]= useState(false)
 
+  const [signedIn] = useState(true);
+  const [ready] = useState(true);
   const [signUpDialog, setSignUpDialog] = useState(false)
   const [signInDialog, setSignInDialog] = useState(false)
-  //const [settingsDialog, setSettingsDialog] = useState(false)
+  const [settingsDialog, setSettingsDialog] = useState(false)
 
   return (
     <ThemeProvider theme={theme}>
@@ -33,9 +36,14 @@ function App() {
         <>
           <Navbar
             signedIn={signedIn}
+            // performingAction={performingAction}
+
+            // user={user}
+            // userData={userData}
+
             onSignUpClick={() => setSignUpDialog(true)}
             onSignInClick={() => setSignInDialog(true)}
-            //onSettingsClick={() => setSettingsDialog(true)}
+            onSettingsClick={() => setSettingsDialog(true)}
           />
 
           <Routes signedIn={signedIn} />
@@ -64,13 +72,13 @@ function App() {
                   // }
                 },
 
-                // settingsDialog: {
-                //   dialogProps: {
-                //     open: settingsDialog,
+                settingsDialog: {
+                  dialogProps: {
+                    open: settingsDialog,
 
-                //     onClose: () => setSettingsDialog(false)
-                //   }
-                // }
+                    onClose: () => setSettingsDialog(false)
+                  }
+                }
               }
             }
           />

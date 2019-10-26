@@ -6,13 +6,13 @@ import Hidden from '@material-ui/core/Hidden';
 
 import SignUpDialog from '../SignUpDialog';
 import SignInDialog from '../SignInDialog';
-//import SettingsDialog from '../SettingsDialog';
+import SettingsDialog from '../SettingsDialog';
 
 const DialogHost = ({ signedIn, dialogs }) => {
 
     const signUpDialog = dialogs.signUpDialog;
     const signInDialog = dialogs.signInDialog;
-    //const settingsDialog = dialogs.settingsDialog;
+    const settingsDialog = dialogs.settingsDialog;
 
     return (
         <>
@@ -31,7 +31,7 @@ const DialogHost = ({ signedIn, dialogs }) => {
                 }
             </Hidden>
 
-            {/* <Hidden smDown>
+            <Hidden smDown>
                 {signedIn &&
                     <>
                         <SettingsDialog
@@ -40,7 +40,7 @@ const DialogHost = ({ signedIn, dialogs }) => {
                         />
                     </>
                 }
-            </Hidden> */}
+            </Hidden>
 
             <Hidden smUp>
                 {!signedIn &&
@@ -64,7 +64,7 @@ const DialogHost = ({ signedIn, dialogs }) => {
                 }
             </Hidden>
 
-            {/* <Hidden mdUp>
+            <Hidden mdUp>
                 {signedIn &&
                     <>
                         <SettingsDialog
@@ -76,7 +76,7 @@ const DialogHost = ({ signedIn, dialogs }) => {
                         />
                     </>
                 }
-            </Hidden> */}
+            </Hidden>
         </>
     )
 }

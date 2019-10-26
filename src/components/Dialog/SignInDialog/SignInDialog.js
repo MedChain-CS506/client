@@ -15,6 +15,11 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
+// import validate from 'validate.js';
+// import constraints from '../../constraints';
+import authentication from '../../../services/authentication';
+// import AuthProviderList from '../AuthProviderList';
+
 const useStyles = makeStyles({
     icon: {
         marginRight: 0.5
@@ -37,8 +42,36 @@ const SignInDialog = ({ dialogProps }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const signIn = () => {
+
+        //!NEED VERIFICATION HERE
+
+        authentication.signIn({
+            email: email,
+            password: password
+        })
+    }
+
+    const handleKeyPress = (event) => {
+        if (!email || !password) return
+
+        const key = event.key
+
+        if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return
+
+        if (key === 'Enter') {
+            signIn()
+        }
+    }
+
+    //resets back to initial state when user exits
+    const handleExited = () => {
+        setEmail('')
+        setPassword('')
+    };
+
     return (
-        <Dialog fullWidth maxWidth="sm" {...dialogProps}>
+        <Dialog fullWidth maxWidth="sm" {...dialogProps} onKeyPress={handleKeyPress} onExited={handleExited}>
             <DialogTitle>
                 Sign in to your account
             </DialogTitle>
@@ -52,6 +85,7 @@ const SignInDialog = ({ dialogProps }) => {
                         <Grid item xs={1}>
                             <Divider className={classes.divider} />
                         </Grid>
+                        
                         <Grid item xs={7}>
                             <Grid container direction="column" spacing={2}>
                                 <Grid item xs>
@@ -121,7 +155,7 @@ const SignInDialog = ({ dialogProps }) => {
 
             <DialogActions>
                 <Button color="primary" onClick={dialogProps.onClose}>Cancel</Button>
-                <Button color="primary" disabled={(!email || !password)} variant="contained" onClick={() => console.log('handleSignInClick')}>Sign in</Button>
+                <Button color="primary" disabled={(!email || !password)} variant="contained" onClick={signIn}>Sign in</Button>
             </DialogActions>
         </Dialog>
     )

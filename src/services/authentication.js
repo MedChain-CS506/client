@@ -1,20 +1,21 @@
-import firebase, { analytics, auth, firestore, storage } from '../firebase';
+//import firebase, { analytics, auth, firestore, storage } from '../firebase';
 
-const avatarFileTypes = [
-  'image/gif',
-  'image/jpeg',
-  'image/png',
-  'image/webp',
-  'image/svg+xml'
-];
+import { analytics, auth, firestore } from '../firebase';
+
+// const avatarFileTypes = [
+//   'image/gif',
+//   'image/jpeg',
+//   'image/png',
+//   'image/webp',
+//   'image/svg+xml'
+// ];
 
 const authentication = {};
 
-authentication.signUp = (fields) => {
+authentication.signUp = (fields) => { 
   return new Promise((resolve, reject) => {
     if (!fields) {
       reject();
-
       return;
     }
 
@@ -24,15 +25,15 @@ authentication.signUp = (fields) => {
 
     if (!firstName || !email || !password) {
       reject();
-
       return;
     }
 
-    const currentUser = auth.currentUser;
+    const currentUser = auth.currentUser; 
+    console.log('currentUser:', currentUser)
 
+    //IF THERE IS A CURRENT USER, DON'T SIGN THEM UP
     if (currentUser) {
       reject();
-
       return;
     }
 
@@ -41,7 +42,6 @@ authentication.signUp = (fields) => {
 
       if (!user) {
         reject();
-
         return;
       }
 
@@ -49,15 +49,14 @@ authentication.signUp = (fields) => {
 
       if (!uid) {
         reject();
-
         return;
       }
 
+      //STORE THEM IN THE FIREBASE
       const reference = firestore.collection('users').doc(uid);
 
       if (!reference) {
         reject();
-
         return;
       }
 
@@ -77,5 +76,33 @@ authentication.signUp = (fields) => {
     });
   });
 };
+
+authentication.signIn = (email, password) => {
+  console.log('email:', email)
+  console.log('password:', password)
+  return new Promise((resolve, reject) => {
+    if (!email || !password) {
+      reject()
+      return
+    }
+
+    const currentUser = auth.currentUser
+
+    if (currentUser) {
+      reject()
+      return
+    }
+
+    auth.signInWithEmailAndPassword(email, password).then((value) => {
+      analytics.logEvent('login', {
+        method: 'password'
+      })
+
+      resolve(value)
+    }).catch((reason) => {
+      reject(reason)
+    }) 
+  })
+}
 
 export default authentication;

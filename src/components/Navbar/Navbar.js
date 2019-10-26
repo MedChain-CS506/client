@@ -22,13 +22,16 @@ const useStyles = makeStyles({
     signUpButton: {
         marginRight: 10
     }
-
 });
 
 const Navbar = ({ signedIn, onSignUpClick, onSignInClick }) => {
+    const classes = useStyles();
+    
     const [anchorEl, setAnchorEl]= useState(null)
 
-    const classes = useStyles();
+    const openMenu = () => {
+        console.log('openMenu:', openMenu)
+    }
 
     return (
         <AppBar className={classes.root} position="static">
@@ -39,7 +42,7 @@ const Navbar = ({ signedIn, onSignUpClick, onSignInClick }) => {
 
                 {signedIn &&
                     <>
-                        <IconButton color="inherit">
+                        <IconButton color="inherit" onClick={openMenu}>
                             <Avatar alt="Avatar"  />
                         </IconButton>
         
