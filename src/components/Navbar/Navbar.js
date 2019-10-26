@@ -24,13 +24,23 @@ const useStyles = makeStyles({
     }
 });
 
-const Navbar = ({ signedIn, onSignUpClick, onSignInClick }) => {
+const Navbar = ({ signedIn, onSignUpClick, onSignInClick, }) => { //!ADDED onSignOutClick and onSettingsClick
     const classes = useStyles();
     
-    const [anchorEl, setAnchorEl]= useState(null)
+    const [menu, setMenu]= useState({
+        anchorEl: null
+    })
 
-    const openMenu = () => {
-        console.log('openMenu:', openMenu)
+    // const openMenu = (event) => { //TODO: refactor... only one element is ever using this
+    //     setMenu({ anchorEl: event.currentTarget })
+    // }
+
+    const handleSettingsClose = () => {
+        setMenu({ anchorEl: null })
+    }
+
+    const handleSignOutClose = () => {
+        setMenu({ anchorEl: null })
     }
 
     return (
@@ -42,11 +52,11 @@ const Navbar = ({ signedIn, onSignUpClick, onSignInClick }) => {
 
                 {signedIn &&
                     <>
-                        <IconButton color="inherit" onClick={openMenu}>
+                        <IconButton color="inherit" onClick={(event) => setMenu({ anchorEl: event.currentTarget })}>
                             <Avatar alt="Avatar"  />
                         </IconButton>
         
-                        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
+                        <Menu anchorEl={menu.anchorEl} open={Boolean(menu.anchorEl)} onClose={() => setMenu({ anchorEl: null })}>
                             <MenuItem>Settings</MenuItem>
                             <MenuItem>Sign out</MenuItem>
                         </Menu>
@@ -71,7 +81,9 @@ Navbar.defaultProps = {
 };
 
 Navbar.propTypes = {
-    signedIn: PropTypes.bool.isRequired
+    signedIn: PropTypes.bool.isRequired,
+    onSettingsClick: PropTypes.func.isRequired,
+    onSignOutClick: PropTypes.func.isRequired
 };
 
 export default Navbar;
