@@ -8,11 +8,14 @@ import SignUpDialog from '../SignUpDialog';
 import SignInDialog from '../SignInDialog';
 import SettingsDialog from '../SettingsDialog';
 
+import AlertDialog from '../AlertDialog';
+
 const DialogHost = ({ signedIn, dialogs }) => {
 
     const signUpDialog = dialogs.signUpDialog;
     const signInDialog = dialogs.signInDialog;
     const settingsDialog = dialogs.settingsDialog;
+    const signOutDialog = dialogs.signOutDialog;
 
     return (
         <>
@@ -77,6 +80,15 @@ const DialogHost = ({ signedIn, dialogs }) => {
                     </>
                 }
             </Hidden>
+
+            {signedIn &&
+                <>
+                    <AlertDialog
+                        dialogProps={signOutDialog.dialogProps}
+                        {...signOutDialog.props}
+                    />
+                </>
+            }
         </>
     )
 }

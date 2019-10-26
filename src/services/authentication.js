@@ -105,4 +105,21 @@ authentication.signIn = (email, password) => {
   })
 }
 
+authentication.signOut = () => {
+  return new Promise((resolve, reject) => {
+    const currentUser = auth.currentUser
+    
+    if (!currentUser) {
+      reject()
+      return
+    }
+
+    auth.signOut.then((value) => {
+      resolve(value)
+    }).catch((reason) => {
+      reject(reason)
+    })
+  })
+}
+
 export default authentication;

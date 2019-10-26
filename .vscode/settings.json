@@ -2,6 +2,7 @@
     "emmet.triggerExpansionOnTab": true,
     "cSpell.ignoreWords": [
         "icon",
+        "scrollable",
         "swipeable",
         "wechat"
     ],

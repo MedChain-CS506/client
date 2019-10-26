@@ -24,10 +24,10 @@ import SecurityIcon from '@material-ui/icons/Security';
 
 import SwipeableViews from 'react-swipeable-views';
 
-// import AccountTab from '../AccountTab';
-// import AppearanceTab from '../AppearanceTab';
-// import LinksTab from '../LinksTab';
-// import SecurityTab from '../SecurityTab';
+import AccountTab from '../../../tabs/AccountTab';
+// import AppearanceTab from '.../../../tabs/AppearanceTab';
+// import LinksTab from '../../../tabs/LinksTab';
+// import SecurityTab from '../../../tabs/SecurityTab';
 
 const useStyles = makeStyles({
     closeButton: {
@@ -72,6 +72,14 @@ const SettingsDialog = ({ dialogProps }) => {
 
     const [selectedTab, setSelectedTab] = useState(0)
 
+    const handleTabChange = (event, value) => {
+        setSelectedTab(value)
+    };
+  
+    const handleIndexChange = (index) => {
+      setSelectedTab(index)
+    };
+
     return (
       <Dialog {...dialogProps}>
         <DialogTitle disableTypography>
@@ -94,28 +102,38 @@ const SettingsDialog = ({ dialogProps }) => {
             textColor="primary"
             value={selectedTab}
             variant="fullWidth"
-            onChange={console.log('handleTabChange')}
-          >
-
+            onChange={handleTabChange}>
+            {tabs.map((tab) => {
+              return (
+                <Tab key={tab.key} icon={tab.icon} label={tab.label} />
+              );
+            })}
           </Tabs>
         </Hidden>
-          <Tabs
-              classes={{ root: classes.tabs }}
-              style={{ overflow: 'initial', minHeight: 'initial' }}
-              indicatorColor="primary"
-              scrollButtons="off"
-              textColor="primary"
-              value={selectedTab}
-              variant="scrollable"
-              onChange={console.log('handleTabChange')}>
-
-            </Tabs>
+      
         <Hidden smUp>
-
+          <Tabs
+            classes={{ root: classes.tabs }}
+            style={{ overflow: 'initial', minHeight: 'initial' }}
+            indicatorColor="primary"
+            scrollButtons="off"
+            textColor="primary"
+            value={selectedTab}
+            variant="scrollable"
+            onChange={handleTabChange}>
+            {tabs.map((tab) => {
+              return (
+                <Tab key={tab.key} icon={tab.icon} label={tab.label} />
+              );
+            })}
+          </Tabs>
         </Hidden>
 
-        <SwipeableViews>
+        <SwipeableViews index={selectedTab} onChangeIndex={handleIndexChange}>
 
+          <AccountTab />
+          
+          
         </SwipeableViews>
         
       </Dialog>

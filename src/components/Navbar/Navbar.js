@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     }
 });
 
-const Navbar = ({ signedIn, onSignUpClick, onSignInClick, }) => { //!ADDED onSignOutClick and onSettingsClick
+const Navbar = ({ signedIn, onSignUpClick, onSignInClick, onSettingsClick, onSignOutClick }) => { //!ADDED onSettingsClick and onSignOutClick
     const classes = useStyles();
     
     const [menu, setMenu]= useState({
@@ -35,12 +35,14 @@ const Navbar = ({ signedIn, onSignUpClick, onSignInClick, }) => { //!ADDED onSig
     //     setMenu({ anchorEl: event.currentTarget })
     // }
 
-    const handleSettingsClose = () => {
+    const handleSettingsClick = () => {
         setMenu({ anchorEl: null })
+        
     }
 
-    const handleSignOutClose = () => {
+    const handleSignOutClick = () => {
         setMenu({ anchorEl: null })
+        onSignOutClick()
     }
 
     return (
@@ -57,8 +59,8 @@ const Navbar = ({ signedIn, onSignUpClick, onSignInClick, }) => { //!ADDED onSig
                         </IconButton>
         
                         <Menu anchorEl={menu.anchorEl} open={Boolean(menu.anchorEl)} onClose={() => setMenu({ anchorEl: null })}>
-                            <MenuItem>Settings</MenuItem>
-                            <MenuItem>Sign out</MenuItem>
+                            <MenuItem onClick={handleSettingsClick}>Settings</MenuItem>
+                            <MenuItem onClick={handleSignOutClick}>Sign out</MenuItem>
                         </Menu>
                     </>
                 }
