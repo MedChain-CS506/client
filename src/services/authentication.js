@@ -114,7 +114,9 @@ authentication.signOut = () => {
       return
     }
 
-    auth.signOut.then((value) => {
+    auth.signOut().then((value) => {
+      analytics.logEvent('sign_out');
+      
       resolve(value)
     }).catch((reason) => {
       reject(reason)

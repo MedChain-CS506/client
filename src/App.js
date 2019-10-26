@@ -25,7 +25,7 @@ function App() {
   // const [performingAction, setPerformingAction]= useState(false)
 
   const [signedIn, setSignedIn] = useState(false);
-  const [ready, setReady] = useState(true);
+  const [ready, setReady] = useState(false);
   const [signUpDialog, setSignUpDialog] = useState(false)
   const [signInDialog, setSignInDialog] = useState(false)
   const [settingsDialog, setSettingsDialog] = useState(false)
@@ -42,9 +42,9 @@ function App() {
     const removeAuthStateChangedObserver = auth.onAuthStateChanged((user) => {
       //* if there is no user...
       if (!user) {
-        // if (removeReferenceListener) {
-        //   removeReferenceListener()
-        // }
+        if (removeReferenceListener) {
+          removeReferenceListener()
+        }
 
         if (mounted) {
           setUser(null)
@@ -61,9 +61,9 @@ function App() {
 
       //* if there is no uid...
       if (!uid) {
-        // if (removeReferenceListener) {
-        //   removeReferenceListener()
-        // }
+        if (removeReferenceListener) {
+          removeReferenceListener()
+        }
 
         if (mounted) {
           setUser(null)
@@ -96,6 +96,7 @@ function App() {
       }
 
       const removeReferenceListener = reference.onSnapshot((snapshot) => { //!ADDED CONST HERE INSTEAD OF THIS
+        //*if the snapshot doesn't exist, removeReferenceListener
         if (!snapshot.exists) {
           if (removeReferenceListener) {
             removeReferenceListener();
@@ -114,6 +115,7 @@ function App() {
 
         const data = snapshot.data();
 
+        //*if data within the snapshot doesn't exist, removeReferenceListener
         if (!data) {
           if (removeReferenceListener) {
             removeReferenceListener();
@@ -130,6 +132,7 @@ function App() {
 
         }
 
+        //* if all of this passes, setup
         if (mounted) {
           setUser(user)
           setUserData(data)
@@ -141,17 +144,17 @@ function App() {
     })
 
     //!FOR THE componentWillUnmount
-    return () => {
-      if (removeAuthStateChangedObserver) {
-        removeAuthStateChangedObserver();
-      }
+    // return () => {
+    //   if (removeAuthStateChangedObserver) {
+    //     removeAuthStateChangedObserver();
+    //   }
   
-      // if (removeReferenceListener) {
-      //   removeReferenceListener();
-      // }
+    //   if (removeReferenceListener) {
+    //     removeReferenceListener();
+    //   }
   
-      setMounted(false);
-    }
+    //   setMounted(false);
+    // }
 
   }, [mounted]) 
 
