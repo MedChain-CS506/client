@@ -100,7 +100,7 @@ function App() {
                   props: {
                     title: 'Sign out?',
                     contentText: 'Confirm you would like to sign out.',
-                    dismissiveAction: <Button color="primary" onClick={() => setSignUpDialog(false)}>Cancel</Button>,
+                    dismissiveAction: <Button color="primary" onClick={() => setSignOutDialog(false)}>Cancel</Button>,
                     confirmingAction: <Button color="primary" variant="contained" onClick={signOut}>Sign Out</Button>
                   }
                 }
