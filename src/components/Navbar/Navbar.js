@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     }
 });
 
-const Navbar = ({ signedIn, onSignUpClick, onSignInClick, onSettingsClick, onSignOutClick }) => { //!ADDED onSettingsClick and onSignOutClick
+const Navbar = ({ user, userData, signedIn, onSignUpClick, onSignInClick, onSettingsClick, onSignOutClick }) => { //!ADDED onSettingsClick and onSignOutClick
     const classes = useStyles();
     
     const [menu, setMenu]= useState({

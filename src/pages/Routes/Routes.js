@@ -14,7 +14,8 @@ const Routes = ({ signedIn }) => {
         <Router>
           <Switch>
               <Route exact path="/"><Landing signedIn={signedIn} /></Route>
-              <Route exact path="/not-found" component={NotFound} />
+
+              <Route><NotFound /></Route>
               <Redirect to="/not-found" />
           </Switch>
         </Router>

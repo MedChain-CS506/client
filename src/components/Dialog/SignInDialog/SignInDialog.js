@@ -49,6 +49,8 @@ const SignInDialog = ({ dialogProps }) => {
         authentication.signIn({
             email: email,
             password: password
+        }).then((value) => {
+            dialogProps.onClose()
         })
     }
 

@@ -77,6 +77,8 @@ const SignUpDialog = ({ dialogProps }) => {
             firstName: firstName,
             email: email,
             password: password
+        }).then((value) => {
+            dialogProps.onClose()
         })
     }
 

@@ -20,8 +20,8 @@ import { auth, firestore } from './firebase';
 import authentication from './services/authentication';
 
 function App() {
-  // const [user, setUser] = useState(null)
-  // const [userData, setUserData] = useState(null)
+  const [user, setUser] = useState(null)
+  const [userData, setUserData] = useState(null)
   // const [performingAction, setPerformingAction]= useState(false)
 
   const [signedIn] = useState(true);
@@ -47,8 +47,8 @@ function App() {
             signedIn={signedIn}
             // performingAction={performingAction}
 
-            // user={user}
-            // userData={userData}
+            user={user}
+            userData={userData}
 
             onSignUpClick={() => setSignUpDialog(true)}
             onSignInClick={() => setSignInDialog(true)}

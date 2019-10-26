@@ -1,12 +1,10 @@
 import React from 'react'
 
-import PropTypes from 'prop-types';
-
 import { Link } from 'react-router-dom';
 
 //*MUI
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import FindIcon from '@material-ui/icons/FindInPage';
 import HomeIcon from '@material-ui/icons/Home';
@@ -47,9 +45,5 @@ const NotFound = () => {
         </div>
     )
 }
-
-NotFound.propTypes = {
-    classes: PropTypes.object.isRequired
-};
 
 export default NotFound
