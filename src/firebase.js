@@ -1,5 +1,6 @@
 import * as firebase from 'firebase/app' 
 
+import 'firebase/analytics';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
@@ -19,9 +20,8 @@ const config = {
 firebase.initializeApp(config);
 
 export default firebase;
+export const analytics = firebase.analytics();
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 export const storage = firebase.storage();
 export const performance = firebase.performance();
-
-auth.useDeviceLanguage();

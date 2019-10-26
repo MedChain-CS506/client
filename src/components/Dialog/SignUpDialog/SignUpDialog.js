@@ -14,10 +14,11 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
-import firebase from '../../../firebase' //!FIREBASE
+// import firebase from '../../../firebase' //!FIREBASE
+// import validate from 'validate.js';
 
-import validate from 'validate.js';
-import constraints from '../../../constraints';
+//import constraints from '../../../constraints';
+import authentication from '../../../services/authentication'
 
 const useStyles = makeStyles({
     dialogContent: {
@@ -45,35 +46,43 @@ const SignUpDialog = ({ dialogProps }) => {
     const [firstName, setFirstName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [passwordConfirmation, setPasswordConfirmation] = useState('')
+    //const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
     const [errors, setErrors] = useState(null)
 
     //!NOT WORKING
-    // const signUp = () => {
-    //     const errors = validate({
-    //         firstName: firstName,
-    //         email: email,
-    //         password: password,
-    //         passwordConfirmation: passwordConfirmation
-    //     }, {
-    //         firstName: constraints.firstName,
-    //         email: constraints.email,
-    //         password: constraints.password,
-    //         passwordConfirmation: constraints.passwordConfirmation
-    //     })
+    const signUp = () => {
+        // const errors = validate({
+        //     firstName: firstName,
+        //     email: email,
+        //     password: password,
+        //     passwordConfirmation: passwordConfirmation
+        // }, {
+        //     firstName: constraints.firstName,
+        //     email: constraints.email,
+        //     password: constraints.password,
+        //     passwordConfirmation: constraints.passwordConfirmation
+        // })
  
-    //     if (errors) {
-    //         setErrors(errors)
-    //     } else {
-    //         setErrors(null), () => { 
-    //             dialogProps.signUp(firstName, email, password, passwordConfirmation)
-    //         }
-    //     }
-    // }
+        // if (errors) {
+        //     setErrors(errors)
+        // } else {
+        //     setErrors(null), () => { 
+        //         signUp(firstName, email, password, passwordConfirmation)
+        //     }
+        // }
+
+
+        
+        authentication.signUp({
+            firstName: firstName,
+            email: email,
+            password: password
+        })
+    }
 
     const handleKeyPress = (event) => {
-        if ( !email || !password || !passwordConfirmation ) return;
+        if ( !firstName || !email || !password ) return;
 
         const key = event.key;
     
@@ -86,9 +95,10 @@ const SignUpDialog = ({ dialogProps }) => {
     }
 
     const handleExited = () => { //resets back to initial state when user exits
+        setFirstName('')
         setEmail('')
         setPassword('')
-        setPasswordConfirmation('')
+        //setPasswordConfirmation('')
     };
 
     return (
@@ -154,7 +164,7 @@ const SignUpDialog = ({ dialogProps }) => {
                                 </Grid>
                             </Grid>
 
-                            <Grid container spacing={4}>
+                            {/* <Grid container spacing={4}>
                                 <Grid item xs>
                                     <TextField
                                         autoComplete="password"
@@ -167,7 +177,7 @@ const SignUpDialog = ({ dialogProps }) => {
                                         onChange={e => setPasswordConfirmation(e.target.value)}
                                     />
                                 </Grid>
-                            </Grid>
+                            </Grid> */}
                             
                         </Grid>
 
@@ -218,7 +228,7 @@ const SignUpDialog = ({ dialogProps }) => {
                             />
                         </Grid>
 
-                        <Grid item xs>
+                        {/* <Grid item xs>
                             <TextField
                                 autoComplete="password"
                                 fullWidth
@@ -229,30 +239,21 @@ const SignUpDialog = ({ dialogProps }) => {
                                 value={passwordConfirmation}
                                 onChange={e => setPasswordConfirmation(e.target.value)}
                             />
-                        </Grid>
+                        </Grid> */}
+
                     </Grid>
                 </Hidden>
             </DialogContent>
             <DialogActions>
                 <Button color='primary' onClick={dialogProps.onClose}>Cancel</Button>
-                {/* <Button color="primary" disabled={(!email || !password || !passwordConfirmation)} variant="contained" onClick={() => console.log('handleSignUpClick')}>Sign Up</Button> */}
-                <Button color="primary" disabled={(!email || !password || !passwordConfirmation)} variant="contained" type="submit" onClick={onRegister}>Register</Button>
+                <Button color="primary" disabled={(!firstName ||!email || !password)} variant="contained" type="submit" onClick={signUp}>Sign Up</Button>
             </DialogActions>
         </Dialog>
     )
-
-    async function onRegister() {
-		try {
-			await firebase.register(email, password, passwordConfirmation)
-			//props.history.replace('/landing')
-		} catch(error) {
-			alert(error.message)
-		}
-	}
 }
 
 SignUpDialog.propTypes = {
-    dialogProps: PropTypes.object.isRequired
+    dialogProps: PropTypes.object.isRequired,
 };
 
 export default SignUpDialog

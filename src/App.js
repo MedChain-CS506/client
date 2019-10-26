@@ -15,8 +15,6 @@ import theme from './theme';
 
 //!ADDED FIREBASE
 import firebase, { auth, firestore } from './firebase';
-import validate from 'validate.js';
-import constraints from './constraints';
 
 function App() {
   const [signedIn] = useState(false);
@@ -25,40 +23,6 @@ function App() {
   const [signUpDialog, setSignUpDialog] = useState(false)
   const [signInDialog, setSignInDialog] = useState(false)
   //const [settingsDialog, setSettingsDialog] = useState(false)
-
-
-
-  //!NOT WORKING
-  // const signUp = (firstName, email, password, passwordConfirmation) => {
-  //   if (!firstName ||!email || !password || !passwordConfirmation) return;
-  //   if (signedIn) return;
-
-  //   const errors = validate({
-  //     firstName: firstName,
-  //     email: email,
-  //     password: password,
-  //     passwordConfirmation: passwordConfirmation
-  //   }, {
-  //     firstName: constraints.firstName,
-  //     emailAddress: constraints.emailAddress,
-  //     password: constraints.password,
-  //     passwordConfirmation: constraints.passwordConfirmation
-  //   });
-
-  //   if (errors) return
-
-  //   auth.createUserWithEmailAndPassword(email ,password).then((value) => {
-
-  //     const user = value.user
-  //     const uid = user.uid
-
-  //     firestore.collection('users').doc(uid).set({
-  //       firstName: firstName
-  //     }).then(() => setSignUpDialog(false))
-  //   })
-  // }
-
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -85,11 +49,7 @@ function App() {
                     open: signUpDialog,
 
                     onClose: () => setSignUpDialog(false)
-                  },
-
-                  // props: {
-                  //   signUp: () => signUp //!SIGN UP
-                  // }
+                  }
                 },
 
                 signInDialog: {
