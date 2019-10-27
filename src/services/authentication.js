@@ -1,6 +1,4 @@
-//import firebase, { analytics, auth, firestore, storage } from '../firebase';
-
-import { analytics, auth, firestore } from '../firebase';
+import firebase, { analytics, auth, firestore, storage } from '../firebase';
 
 // const avatarFileTypes = [
 //   'image/gif',
@@ -102,6 +100,39 @@ authentication.signIn = (email, password) => {
     }).catch((reason) => {
       reject(reason)
     }) 
+  })
+}
+
+authentication.signInWithAuthProvider = (providerId) => {
+  return new Promise((resolve, reject) => {
+    if (!providerId) {
+      reject()
+      return
+    }
+
+    const provider = new firebase.auth.OAuthProvider(providerId)
+
+    if (!provider) {
+      reject()
+      return
+    }
+
+    const currentUser = auth.currentUser
+
+    if (currentUser) {
+      reject()
+      return
+    }
+
+    auth.signInWithPopup(provider).then((value) => {
+      analytics.logEvent('login', {
+        method: providerId
+      });
+
+      resolve(value);
+    }).catch((reason) => {
+      reject(reason);
+    });
   })
 }
 

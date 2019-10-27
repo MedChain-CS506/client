@@ -77,8 +77,8 @@ const AuthProviderList = ({ gutterBottom, performingAction, onAuthProviderClick 
                       fullWidth
                       startIcon={authProvider.icon}
                       variant="contained"
-                      //onClick={() => onAuthProviderClick(authProvider.providerId)}
-                      >
+                      onClick={() => onAuthProviderClick(authProvider.providerId)}
+                    >
                       {authProvider.name}
                     </Button>
                   </MuiThemeProvider>
@@ -101,10 +101,10 @@ const AuthProviderList = ({ gutterBottom, performingAction, onAuthProviderClick 
                         fullWidth
                         startIcon={authProvider.icon}
                         variant="contained"
-                        //onClick={() => onAuthProviderClick(authProvider.providerId)}
-                        >
+                        onClick={() => onAuthProviderClick(authProvider.providerId)}
+                      >
                         {authProvider.name}
-                        </Button>
+                      </Button>
                     </MuiThemeProvider>
                 </Grid>
             );

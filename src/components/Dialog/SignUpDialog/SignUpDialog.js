@@ -47,7 +47,7 @@ const useStyles = makeStyles({
 const SignUpDialog = ({ dialogProps }) => {
     const classes = useStyles();
 
-    //const [performingAction, setPerformingAction] = useState(false) //!added
+    const [performingAction, setPerformingAction] = useState(false) //!added
 
     const [firstName, setFirstName] = useState('')
     const [email, setEmail] = useState('')
@@ -87,6 +87,19 @@ const SignUpDialog = ({ dialogProps }) => {
         })
     }
 
+    const signInWithAuthProvider = (providerId) => {
+        console.log('hello')
+        // setPerformingAction(true), () => {
+        //     authentication.signInWithAuthProvider(providerId).then((value) => {
+        //         dialogPropsProps.onClose(() => {
+        //             const user = value.user;
+        //             // const displayName = user.displayName;
+        //             // const emailAddress = user.email;
+        //         })
+        //     })
+        // }
+    }
+
     const handleKeyPress = (event) => {
         if ( !firstName || !email || !password ) return;
 
@@ -119,9 +132,8 @@ const SignUpDialog = ({ dialogProps }) => {
                     <Grid container direction="row">
                         <Grid className={classes.authProvidersWideScreen} item xs={3}>
                             <AuthProviderList
-                                
                                 // performingAction={performingAction}
-                                // onAuthProviderClick={this.signInWithAuthProvider}
+                                onAuthProviderClick={signInWithAuthProvider}
                             />
                         </Grid>
 
@@ -200,7 +212,7 @@ const SignUpDialog = ({ dialogProps }) => {
                     <AuthProviderList
                         gutterBottom
                         // performingAction={performingAction}
-                        // onAuthProviderClick={this.signInWithAuthProvider}
+                        onAuthProviderClick={signInWithAuthProvider}
                     />
 
                     <Grid container direction="column" spacing={2}>

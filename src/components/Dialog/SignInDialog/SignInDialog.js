@@ -18,7 +18,7 @@ import TextField from '@material-ui/core/TextField';
 // import validate from 'validate.js';
 // import constraints from '../../constraints';
 import authentication from '../../../services/authentication';
-// import AuthProviderList from '../AuthProviderList';
+import AuthProviderList from '../AuthProviderList';
 
 const useStyles = makeStyles({
     icon: {
@@ -83,11 +83,15 @@ const SignInDialog = ({ dialogProps }) => {
             <DialogTitle>
                 Sign in to your account
             </DialogTitle>
+
             <DialogContent>
                 <Hidden xsDown>
                     <Grid container direction="row">
                         <Grid item xs={4}>
-                            <h1>[AUTH PROVIDERS]</h1>
+                            <AuthProviderList
+                                // performingAction={performingAction}
+                                // onAuthProviderClick={this.signInWithAuthProvider}
+                            />
                         </Grid>
 
                         <Grid item xs={1}>
@@ -129,7 +133,11 @@ const SignInDialog = ({ dialogProps }) => {
                 </Hidden>
 
                 <Hidden smUp>
-                    <h1>[AUTH PROVIDERS]</h1>   
+                    <AuthProviderList
+                        gutterBottom
+                        // performingAction={performingAction}
+                        // onAuthProviderClick={this.signInWithAuthProvider}
+                    />  
                     <Grid container direction="column" spacing={2}>
                         <Grid item xs>
                             <TextField
