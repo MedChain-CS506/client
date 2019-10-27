@@ -49,9 +49,15 @@ const SignInDialog = ({ dialogProps }) => {
         authentication.signIn({
             email: email,
             password: password
-        }).then((value) => {
-            dialogProps.onClose()
         })
+            // .then((value) => {
+            //     dialogProps.onClose(() => {
+            //         const user = value.user;
+            //         const displayName = user.displayName;
+            //         const email = user.email;
+            //         openSnackbar(`Signed in as ${email}`);
+            //     })
+            // })
     }
 
     const handleKeyPress = (event) => {

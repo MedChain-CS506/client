@@ -58,7 +58,6 @@ const DialogHost = ({ signedIn, dialogs }) => {
                         <SignInDialog
                             dialogProps={{
                             fullScreen: true,
-
                             ...signInDialog.dialogProps
                             }}
                             {...signInDialog.props}

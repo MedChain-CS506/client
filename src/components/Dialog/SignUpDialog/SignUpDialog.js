@@ -256,6 +256,7 @@ const SignUpDialog = ({ dialogProps }) => {
 
 SignUpDialog.propTypes = {
     dialogProps: PropTypes.object.isRequired,
+    //openSnackbar: PropTypes.func.isRequired
 };
 
 export default SignUpDialog
