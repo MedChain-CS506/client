@@ -25,7 +25,7 @@ import authentication from './services/authentication';
 function App() {
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState(null)
-  // const [performingAction, setPerformingAction]= useState(false)
+  const [performingAction, setPerformingAction]= useState(false)
 
   const [signedIn, setSignedIn] = useState(false);
   const [ready, setReady] = useState(true);
@@ -158,7 +158,7 @@ function App() {
         <>
           <Navbar
             signedIn={signedIn}
-            // performingAction={performingAction}
+            performingAction={performingAction}
 
             user={user}
             userData={userData}
@@ -183,6 +183,8 @@ function App() {
                   },
 
                   props: {
+                    performingAction: performingAction,
+
                     openSnackbar: () => openSnackbar()
                   }
 
@@ -196,6 +198,8 @@ function App() {
                   },
 
                   props: {
+                    performingAction: performingAction,
+                    
                     openSnackbar: () => openSnackbar()
                   }
                 },

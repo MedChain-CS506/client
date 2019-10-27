@@ -11,6 +11,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
+
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -24,20 +25,45 @@ const useStyles = makeStyles({
     }
 });
 
-const Navbar = ({ user, userData, signedIn, onSignUpClick, onSignInClick, onSettingsClick, onSignOutClick }) => { //!ADDED onSettingsClick and onSignOutClick
+const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onSignInClick, onSettingsClick, onSignOutClick }) => { //!ADDED onSettingsClick and onSignOutClick
     const classes = useStyles();
     
     const [menu, setMenu]= useState({
         anchorEl: null
     })
 
+    const getNameInitials = () => {
+        const firstName = userData.firstName;
+        const lastName = userData.lastName;
+        const username = userData.username;
+        const displayName = user.displayName;
+    
+        if (firstName && lastName) {
+          return firstName.charAt(0) + lastName.charAt(0);
+        } else if (firstName) {
+          return firstName.charAt(0)
+        } else if (lastName) {
+          return lastName.charAt(0);
+        } else if (username) {
+          return username.charAt(0);
+        } else if (displayName) {
+          return displayName.charAt(0);
+        } else {
+          return 'NN';
+        }
+    };
+
     // const openMenu = (event) => { //TODO: refactor... only one element is ever using this
     //     setMenu({ anchorEl: event.currentTarget })
     // }
 
+    // const closeMenu = () => { //TODO: refactor... only one element is ever using this
+    //     setMenu({ anchorEl: null })
+    // }
+
     const handleSettingsClick = () => {
         setMenu({ anchorEl: null })
-        
+        onSettingsClick()
     }
 
     const handleSignOutClick = () => {
@@ -54,13 +80,13 @@ const Navbar = ({ user, userData, signedIn, onSignUpClick, onSignInClick, onSett
 
                 {signedIn &&
                     <>
-                        <IconButton color="inherit" onClick={(event) => setMenu({ anchorEl: event.currentTarget })}>
+                        <IconButton color="inherit" disabled={performingAction} onClick={(event) => setMenu({ anchorEl: event.currentTarget })}>
                             <Avatar alt="Avatar"  />
                         </IconButton>
         
                         <Menu anchorEl={menu.anchorEl} open={Boolean(menu.anchorEl)} onClose={() => setMenu({ anchorEl: null })}>
-                            <MenuItem onClick={handleSettingsClick}>Settings</MenuItem>
-                            <MenuItem onClick={handleSignOutClick}>Sign out</MenuItem>
+                            <MenuItem disabled={performingAction} onClick={handleSettingsClick}>Settings</MenuItem>
+                            <MenuItem disabled={performingAction} onClick={handleSignOutClick}>Sign out</MenuItem>
                         </Menu>
                     </>
                 }
@@ -68,8 +94,8 @@ const Navbar = ({ user, userData, signedIn, onSignUpClick, onSignInClick, onSett
                 {!signedIn &&
                     <>
                         <Box mr={1}>
-                            <Button className={classes.signUpButton} color="secondary" variant="contained" onClick={onSignUpClick}>Sign Up</Button>
-                            <Button color="secondary" variant="contained" onClick={onSignInClick}>Sign In</Button>
+                            <Button className={classes.signUpButton} color="secondary" disabled={performingAction} variant="contained" onClick={onSignUpClick}>Sign Up</Button>
+                            <Button color="secondary" disabled={performingAction} variant="contained" onClick={onSignInClick}>Sign In</Button>
                         </Box>
                     </>
                 }
@@ -79,11 +105,16 @@ const Navbar = ({ user, userData, signedIn, onSignUpClick, onSignInClick, onSett
 }
 
 Navbar.defaultProps = {
+    performingAction: false,
     signedIn: false
 };
 
 Navbar.propTypes = {
+    performingAction: PropTypes.bool.isRequired,
     signedIn: PropTypes.bool.isRequired,
+    // user: PropTypes.object,
+    // userData: PropTypes.object,
+
     onSettingsClick: PropTypes.func.isRequired,
     onSignOutClick: PropTypes.func.isRequired
 };
