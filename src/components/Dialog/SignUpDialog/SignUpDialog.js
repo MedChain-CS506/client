@@ -17,7 +17,7 @@ import TextField from '@material-ui/core/TextField';
 // import validate from 'validate.js';
 // import constraints from '../../../constraints';
 import authentication from '../../../services/authentication'
-// import AuthProviderList from '../AuthProviderList';
+import AuthProviderList from '../AuthProviderList';
 
 const useStyles = makeStyles({
     dialogContent: {
@@ -36,7 +36,12 @@ const useStyles = makeStyles({
     
     grid: {
         marginBottom: 2
+    },
+
+    authProvidersWideScreen: {
+        paddingTop: 35
     }
+
 });
 
 const SignUpDialog = ({ dialogProps }) => {
@@ -109,11 +114,15 @@ const SignUpDialog = ({ dialogProps }) => {
                 Sign up for an account
             </DialogTitle>
 
-            <DialogContent className={classes.dialogContent}>
-                <Hidden smDown>
+            <Hidden smDown>
+                <DialogContent className={classes.dialogContent}>
                     <Grid container direction="row">
-                        <Grid item xs={3}>
-                            <h1>[AUTH PROVIDERS]</h1>
+                        <Grid className={classes.authProvidersWideScreen} item xs={3}>
+                            <AuthProviderList
+                                
+                                // performingAction={performingAction}
+                                // onAuthProviderClick={this.signInWithAuthProvider}
+                            />
                         </Grid>
 
                         <Grid item xs={1}>
@@ -182,12 +191,17 @@ const SignUpDialog = ({ dialogProps }) => {
                             </Grid> */}
                             
                         </Grid>
-
                     </Grid>
-                </Hidden>
+                </DialogContent>
+            </Hidden>
 
-                <Hidden mdUp>
-                    <h1>[AUTH PROVIDERS]</h1>
+            <Hidden mdUp>
+                <DialogContent>
+                    <AuthProviderList
+                        gutterBottom
+                        // performingAction={performingAction}
+                        // onAuthProviderClick={this.signInWithAuthProvider}
+                    />
 
                     <Grid container direction="column" spacing={2}>
                         <Grid item xs>
@@ -202,7 +216,6 @@ const SignUpDialog = ({ dialogProps }) => {
                                 onChange={e => setFirstName(e.target.value)}
                             />
                         </Grid>
-
 
                         <Grid item xs>
                             <TextField
@@ -242,10 +255,10 @@ const SignUpDialog = ({ dialogProps }) => {
                                 onChange={e => setPasswordConfirmation(e.target.value)}
                             />
                         </Grid> */}
-
                     </Grid>
-                </Hidden>
-            </DialogContent>
+                </DialogContent>
+            </Hidden>
+
             <DialogActions>
                 <Button color='primary' onClick={dialogProps.onClose}>Cancel</Button>
                 <Button color="primary" disabled={(!firstName ||!email || !password)} variant="contained" type="submit" onClick={signUp}>Sign Up</Button>

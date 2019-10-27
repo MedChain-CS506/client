@@ -7,9 +7,9 @@ import { makeStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
+import GoogleIcon from 'mdi-material-ui/Google';
 import FacebookBoxIcon from 'mdi-material-ui/FacebookBox';
 import GitHubCircleIcon from 'mdi-material-ui/GithubCircle';
-import GoogleIcon from 'mdi-material-ui/Google';
 
 const useStyles = makeStyles({
     grid: {
@@ -22,6 +22,19 @@ const AuthProviderList = ({ gutterBottom, performingAction, onAuthProviderClick 
     const classes = useStyles();
 
     const authProviders = [
+        {
+          providerId: 'google.com',
+          theme: createMuiTheme({
+            palette: {
+              primary: {
+                main: '#4285f4',
+                contrastText: '#ffffff'
+              }
+            }
+          }),
+          icon: <GoogleIcon />,
+          name: 'Google'
+        },
         {
           providerId: 'facebook.com',
           theme: createMuiTheme({
@@ -47,22 +60,10 @@ const AuthProviderList = ({ gutterBottom, performingAction, onAuthProviderClick 
           }),
           icon: <GitHubCircleIcon />,
           name: 'GitHub'
-        },
-        {
-          providerId: 'google.com',
-          theme: createMuiTheme({
-            palette: {
-              primary: {
-                main: '#4285f4',
-                contrastText: '#ffffff'
-              }
-            }
-          }),
-          icon: <GoogleIcon />,
-          name: 'Google'
         }
     ];
 
+    //*gutterBottom meaning if there is margin in the bottom for larger screens
     if (gutterBottom) {
         return (
           <Grid className={classes.grid} container direction="column" spacing={1}>
@@ -76,7 +77,8 @@ const AuthProviderList = ({ gutterBottom, performingAction, onAuthProviderClick 
                       fullWidth
                       startIcon={authProvider.icon}
                       variant="contained"
-                      onClick={() => onAuthProviderClick(authProvider.providerId)}>
+                      //onClick={() => onAuthProviderClick(authProvider.providerId)}
+                      >
                       {authProvider.name}
                     </Button>
                   </MuiThemeProvider>
@@ -88,8 +90,8 @@ const AuthProviderList = ({ gutterBottom, performingAction, onAuthProviderClick 
     }
 
     return (
-        <Grid container direction="column" spacing={1}>
-            {authProviders.map((authProvider) => {
+      <Grid container direction="column" spacing={1}>
+          {authProviders.map((authProvider) => {
             return (
                 <Grid key={authProvider.providerId} item>
                     <MuiThemeProvider theme={authProvider.theme}>
@@ -99,13 +101,14 @@ const AuthProviderList = ({ gutterBottom, performingAction, onAuthProviderClick 
                         fullWidth
                         startIcon={authProvider.icon}
                         variant="contained"
-                        onClick={() => onAuthProviderClick(authProvider.providerId)}>
+                        //onClick={() => onAuthProviderClick(authProvider.providerId)}
+                        >
                         {authProvider.name}
                         </Button>
                     </MuiThemeProvider>
                 </Grid>
             );
-        })}
+          })}
       </Grid>
     )
 }
@@ -115,10 +118,7 @@ AuthProviderList.defaultProps = {
     performingAction: false
 };  
 
-AuthProviderList.propTypes = {
-    // Styling
-    classes: PropTypes.object.isRequired,
-  
+AuthProviderList.propTypes = {  
     // Properties
     gutterBottom: PropTypes.bool,
     performingAction: PropTypes.bool,
