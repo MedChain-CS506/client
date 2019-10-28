@@ -15,8 +15,8 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
-// import validate from 'validate.js';
-// import constraints from '../../constraints';
+import validate from 'validate.js';
+import constraints from '../../../constraints';
 import authentication from '../../../services/authentication';
 import AuthProviderList from '../AuthProviderList';
 
@@ -26,9 +26,7 @@ const useStyles = makeStyles({
     },
     
     divider: {
-        margin: 'auto',
-        width: 0.125,
-        height: '100%'
+        margin: 'auto'
     },
     
     grid: {
@@ -39,25 +37,54 @@ const useStyles = makeStyles({
 const SignInDialog = ({ dialogProps }) => {
     const classes = useStyles();
 
+    const [performingAction, setPerformingAction] = useState(false)
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const [globalErrors, setGlobalErrors] = useState(null)
+
     const signIn = () => {
-
-        //!NEED VERIFICATION HERE
-
-        authentication.signIn({
+        const errors = validate({
             email: email,
             password: password
+          }, {
+            emailAddress: constraints.emailAddress,
+            password: constraints.password
         })
-            // .then((value) => {
-            //     dialogProps.onClose(() => {
-            //         const user = value.user;
-            //         const displayName = user.displayName;
-            //         const email = user.email;
-            //         openSnackbar(`Signed in as ${email}`);
-            //     })
-            // })
+
+        if (errors) {
+            setGlobalErrors(errors)
+        } else {
+            setPerformingAction(true)
+            setGlobalErrors(null)
+            authentication.signIn(email, password).then((value) => {
+                dialogProps.onClose(() => {
+                    const user = value.user;
+                    // const displayName = user.displayName;
+                    // const email = user.email;
+                    // openSnackbar(`Signed in as ${email}`);
+                })
+            }).catch((reason) => {
+                const code = reason.code;
+                const message = reason.message;
+
+                switch (code) {
+                    case 'auth/invalid-email':
+                    case 'auth/user-disabled':
+                    case 'auth/user-not-found':
+                    case 'auth/wrong-password':
+                    //this.props.openSnackbar(message);
+                    return;
+
+                    default:
+                    //this.props.openSnackbar(message);
+                    return;
+                }
+            }).finally(() => {
+                setPerformingAction(false)
+            })
+        }
     }
 
     const handleKeyPress = (event) => {
@@ -72,13 +99,14 @@ const SignInDialog = ({ dialogProps }) => {
         }
     }
 
-    //resets back to initial state when user exits
     const handleExited = () => {
         setEmail('')
         setPassword('')
+        setPerformingAction(false)
     };
 
     return (
+        //?Anything different than doing '() =>' as oppose to simply calling the function like such?
         <Dialog fullWidth maxWidth="sm" {...dialogProps} onKeyPress={handleKeyPress} onExited={handleExited}>
             <DialogTitle>
                 Sign in to your account
@@ -89,13 +117,13 @@ const SignInDialog = ({ dialogProps }) => {
                     <Grid container direction="row">
                         <Grid item xs={4}>
                             <AuthProviderList
-                                // performingAction={performingAction}
+                                performingAction={performingAction}
                                 // onAuthProviderClick={this.signInWithAuthProvider}
                             />
                         </Grid>
 
                         <Grid item xs={1}>
-                            <Divider className={classes.divider} />
+                            <Divider className={classes.divider} orientation="vertical" />
                         </Grid>
                         
                         <Grid item xs={7}>
@@ -103,6 +131,7 @@ const SignInDialog = ({ dialogProps }) => {
                                 <Grid item xs>
                                     <TextField
                                         autoComplete="email"
+                                        disabled={performingAction}
                                         fullWidth
                                         label="E-mail address"
                                         placeholder="john@doe.com"
@@ -116,6 +145,7 @@ const SignInDialog = ({ dialogProps }) => {
                                 <Grid item xs>
                                     <TextField
                                         autoComplete="current-password"
+                                        disabled={performingAction}
                                         fullWidth
                                         label="Password"
                                         placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
@@ -135,13 +165,14 @@ const SignInDialog = ({ dialogProps }) => {
                 <Hidden smUp>
                     <AuthProviderList
                         gutterBottom
-                        // performingAction={performingAction}
+                        performingAction={performingAction}
                         // onAuthProviderClick={this.signInWithAuthProvider}
                     />  
                     <Grid container direction="column" spacing={2}>
                         <Grid item xs>
                             <TextField
                                 autoComplete="email"
+                                disabled={performingAction}
                                 fullWidth
                                 label="E-mail address"
                                 placeholder="john@doe.com"
@@ -155,6 +186,7 @@ const SignInDialog = ({ dialogProps }) => {
                         <Grid item xs>
                             <TextField
                                 autoComplete="current-password"
+                                disabled={performingAction}
                                 fullWidth
                                 label="Password"
                                 placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
