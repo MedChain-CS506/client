@@ -31,11 +31,11 @@ function App() {
   const [signUpDialog, setSignUpDialog] = useState(false)
   const [signInDialog, setSignInDialog] = useState(false)
   const [settingsDialog, setSettingsDialog] = useState(false)
+  const [signOutDialog, setSignOutDialog] = useState(false)
 
   const [snackbar, setSnackbar] = useState({ autoHideDuration: 0, message: '', open: false })
 
-  const [signOutDialog, setSignOutDialog] = useState(false)
-
+  //* like componentDidMount
   useEffect(() => {
     const removeAuthStateChangedObserver = auth.onAuthStateChanged(
       user => {

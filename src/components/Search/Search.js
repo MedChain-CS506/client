@@ -8,35 +8,37 @@ import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles({
-    root: {
-      padding: '2px 4px',
-      display: 'flex',
-      alignItems: 'center',
-      width: 400,
-    },
-    input: {
-      marginLeft: 1,
-      flex: 1,
-    },
-    iconButton: {
-      padding: 10,
-    }
+  root: {
+    padding: '2px 4px',
+    display: 'flex',
+    alignItems: 'center',
+    width: 400,
+  },
+
+  input: {
+    marginLeft: 1,
+    flex: 1,
+  },
+  
+  iconButton: {
+    padding: 10,
+  }
 });
 
 const Search = () => {
-    const classes = useStyles();
-    return (
-        <Paper className={classes.root}>
-            <InputBase
-                className={classes.input}
-                placeholder="Search Registered Patients"
-                inputProps={{ 'aria-label': 'search patients' }}
-            />
-            <IconButton className={classes.iconButton} aria-label="search">
-                <SearchIcon />
-            </IconButton>
-        </Paper>
-    )
+  const classes = useStyles();
+  return (
+    <Paper className={classes.root}>
+      <InputBase
+        className={classes.input}
+        placeholder="Search Registered Patients"
+        inputProps={{ 'aria-label': 'search patients' }}
+      />
+      <IconButton className={classes.iconButton} aria-label="search">
+        <SearchIcon />
+      </IconButton>
+    </Paper>
+  )
 }
 
 export default Search

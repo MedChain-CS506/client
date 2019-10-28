@@ -18,99 +18,98 @@ const useStyles = makeStyles({
 });
 
 const AuthProviderList = ({ gutterBottom, performingAction, onAuthProviderClick }) => {
+  const classes = useStyles();
 
-    const classes = useStyles();
-
-    const authProviders = [
-        {
-          providerId: 'google.com',
-          theme: createMuiTheme({
-            palette: {
-              primary: {
-                main: '#4285f4',
-                contrastText: '#ffffff'
-              }
+  const authProviders = [
+      {
+        providerId: 'google.com',
+        theme: createMuiTheme({
+          palette: {
+            primary: {
+              main: '#4285f4',
+              contrastText: '#ffffff'
             }
-          }),
-          icon: <GoogleIcon />,
-          name: 'Google'
-        },
-        {
-          providerId: 'facebook.com',
-          theme: createMuiTheme({
-            palette: {
-              primary: {
-                main: '#3c5a99',
-                contrastText: '#ffffff'
-              }
+          }
+        }),
+        icon: <GoogleIcon />,
+        name: 'Google'
+      },
+      {
+        providerId: 'facebook.com',
+        theme: createMuiTheme({
+          palette: {
+            primary: {
+              main: '#3c5a99',
+              contrastText: '#ffffff'
             }
-          }),
-          icon: <FacebookBoxIcon />,
-          name: 'Facebook'
-        },
-        {
-          providerId: 'github.com',
-          theme: createMuiTheme({
-            palette: {
-              primary: {
-                main: '#24292e',
-                contrastText: '#ffffff'
-              }
+          }
+        }),
+        icon: <FacebookBoxIcon />,
+        name: 'Facebook'
+      },
+      {
+        providerId: 'github.com',
+        theme: createMuiTheme({
+          palette: {
+            primary: {
+              main: '#24292e',
+              contrastText: '#ffffff'
             }
-          }),
-          icon: <GitHubCircleIcon />,
-          name: 'GitHub'
-        }
-    ];
+          }
+        }),
+        icon: <GitHubCircleIcon />,
+        name: 'GitHub'
+      }
+  ];
 
-    //*gutterBottom meaning if there is margin in the bottom for larger screens
-    if (gutterBottom) {
-        return (
-          <Grid className={classes.grid} container direction="column" spacing={1}>
-            {authProviders.map((authProvider) => {
-              return (
-                <Grid key={authProvider.providerId} item>
-                  <MuiThemeProvider theme={authProvider.theme}>
-                    <Button
-                      color="primary"
-                      disabled={performingAction}
-                      fullWidth
-                      startIcon={authProvider.icon}
-                      variant="contained"
-                      onClick={() => onAuthProviderClick(authProvider.providerId)}
-                    >
-                      {authProvider.name}
-                    </Button>
-                  </MuiThemeProvider>
-                </Grid>
-              );
-            })}
-          </Grid>
-        );
-    }
-
-    return (
-      <Grid container direction="column" spacing={1}>
+  //*gutterBottom meaning if there is margin in the bottom for larger screens
+  if (gutterBottom) {
+      return (
+        <Grid className={classes.grid} container direction="column" spacing={1}>
           {authProviders.map((authProvider) => {
             return (
-                <Grid key={authProvider.providerId} item>
-                    <MuiThemeProvider theme={authProvider.theme}>
-                        <Button
-                        color="primary"
-                        disabled={performingAction}
-                        fullWidth
-                        startIcon={authProvider.icon}
-                        variant="contained"
-                        onClick={() => onAuthProviderClick(authProvider.providerId)}
-                      >
-                        {authProvider.name}
-                      </Button>
-                    </MuiThemeProvider>
-                </Grid>
+              <Grid key={authProvider.providerId} item>
+                <MuiThemeProvider theme={authProvider.theme}>
+                  <Button
+                    color="primary"
+                    disabled={performingAction}
+                    fullWidth
+                    startIcon={authProvider.icon}
+                    variant="contained"
+                    onClick={() => onAuthProviderClick(authProvider.providerId)}
+                  >
+                    {authProvider.name}
+                  </Button>
+                </MuiThemeProvider>
+              </Grid>
             );
           })}
-      </Grid>
-    )
+        </Grid>
+      );
+  }
+
+  return (
+    <Grid container direction="column" spacing={1}>
+        {authProviders.map((authProvider) => {
+          return (
+            <Grid key={authProvider.providerId} item>
+              <MuiThemeProvider theme={authProvider.theme}>
+                  <Button
+                  color="primary"
+                  disabled={performingAction}
+                  fullWidth
+                  startIcon={authProvider.icon}
+                  variant="contained"
+                  onClick={() => onAuthProviderClick(authProvider.providerId)}
+                >
+                  {authProvider.name}
+                </Button>
+              </MuiThemeProvider>
+            </Grid>
+          );
+        })}
+    </Grid>
+  )
 }
 
 AuthProviderList.defaultProps = {
