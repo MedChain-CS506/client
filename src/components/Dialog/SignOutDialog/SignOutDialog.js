@@ -1,5 +1,3 @@
-//!for the signout dialog
-
 import React from 'react'
 
 import PropTypes from 'prop-types';
@@ -18,7 +16,7 @@ const useStyles = makeStyles({
     }
 });
 
-const AlertDialog = ({ dialogProps, title, contentText, dismissiveAction, confirmingAction, acknowledgementAction }) => {
+const SignOutDialog = ({ dialogProps, title, contentText, dismissiveAction, confirmingAction, acknowledgementAction }) => {
     const classes = useStyles();
 
     return (
@@ -44,7 +42,7 @@ const AlertDialog = ({ dialogProps, title, contentText, dismissiveAction, confir
     )
 }
 
-AlertDialog.propTypes = {
+SignOutDialog.propTypes = {
     // Dialog Properties
     dialogProps: PropTypes.object.isRequired,
   
@@ -56,4 +54,4 @@ AlertDialog.propTypes = {
     acknowledgementAction: PropTypes.element,
 };
 
-export default AlertDialog
+export default SignOutDialog

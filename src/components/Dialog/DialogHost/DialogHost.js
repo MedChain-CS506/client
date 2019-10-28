@@ -7,8 +7,7 @@ import Hidden from '@material-ui/core/Hidden';
 import SignUpDialog from '../SignUpDialog';
 import SignInDialog from '../SignInDialog';
 import SettingsDialog from '../SettingsDialog';
-
-import AlertDialog from '../AlertDialog';
+import SignOutDialog from '../SignOutDialog';
 
 const DialogHost = ({ signedIn, dialogs }) => {
 
@@ -82,7 +81,7 @@ const DialogHost = ({ signedIn, dialogs }) => {
 
             {signedIn &&
                 <>
-                    <AlertDialog
+                    <SignOutDialog
                         dialogProps={signOutDialog.dialogProps}
                         {...signOutDialog.props}
                     />

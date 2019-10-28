@@ -24,7 +24,7 @@ import authentication from './services/authentication';
 function App() {
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState(null)
-  const [performingAction]= useState(false) //!NO setPerformingAction YET
+  const [performingAction, setPerformingAction]= useState(false)
 
   const [signedIn, setSignedIn] = useState(false);
   const [ready, setReady] = useState(true);
@@ -34,7 +34,7 @@ function App() {
 
   const [snackbar, setSnackbar] = useState({ autoHideDuration: 0, message: '', open: false })
 
-  const [signOutDialog, setSignOutDialog] = useState(false) //!ADDED
+  const [signOutDialog, setSignOutDialog] = useState(false)
 
   useEffect(() => {
     const removeAuthStateChangedObserver = auth.onAuthStateChanged(
@@ -118,7 +118,7 @@ function App() {
     authentication.signOut().then(() => setSignOutDialog(false))
   }
 
-  const openSnackbar = (message, autoHideDuration = 2, callback) => { //!CORRECT WAY TO DO A CALLBACK
+  const openSnackbar = (message, autoHideDuration = 2, callback) => { //!CORRECT WAY TO DO A CALLBACK?
     setSnackbar({ 
       autoHideDuration: readingTime(message).time * autoHideDuration, 
       message, 
@@ -228,7 +228,6 @@ function App() {
             open={snackbar.open}
             onClose={closeSnackbar}
           />
-
         </>
       }
     </ThemeProvider>
