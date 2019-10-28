@@ -33,10 +33,6 @@ const useStyles = makeStyles({
 
     buttonIcon: {
         marginRight: 10
-    },
-
-    icon: {
-        marginTop: 10
     }
 });
 
@@ -49,8 +45,8 @@ const Landing = ({ signedIn }) => {
                 <HomeIcon className={classes.icon} color="action" />
                 <Typography color="textSecondary" variant="h5">Home</Typography>
                 <Search />
-                <Fab className={classes.icon} color="secondary" variant="extended">
-                    <AccountPlus /> Add New Patient
+                <Fab className={classes.button} color="secondary" variant="extended">
+                    <AccountPlus className={classes.buttonIcon} /> Add New Patient
                 </Fab>
             </div>
         );

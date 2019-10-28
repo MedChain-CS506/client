@@ -16,8 +16,8 @@ import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
 import AuthProviderList from '../AuthProviderList';
-// import validate from 'validate.js';
-// import constraints from '../../../constraints';
+import validate from 'validate.js';
+import constraints from '../../../constraints';
 import authentication from '../../../services/authentication'
 
 const useStyles = makeStyles({
@@ -50,57 +50,77 @@ const SignUpDialog = ({ dialogProps }) => {
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
-    //const [errors, setErrors] = useState(null)
+    const [globalErrors, setGlobalErrors] = useState(null) //!Changed from 'errors' => 'globalErrors'
 
     const signUp = () => {
-        // const errors = validate({
-        //     firstName: firstName,
-        //     email: email,
-        //     password: password,
-        //     passwordConfirmation: passwordConfirmation
-        // }, {
-        //     firstName: constraints.firstName,
-        //     email: constraints.email,
-        //     password: constraints.password,
-        //     passwordConfirmation: constraints.passwordConfirmation
-        // })
- 
-        // if (errors) {
-        //     setErrors(errors)
-        // } else {
-        //     setErrors(null), () => { 
-        //         signUp(firstName, email, password, passwordConfirmation)
-        //     }
-        // }
-        
-        authentication.signUp({
+        const errors = validate({
             firstName: firstName,
             lastName: lastName,
             userName: userName,
             email: email,
-            password: password
-        }).then((value) => {
-            dialogProps.onClose()
-        }).catch((reason) => {
-
-        }).finally(() => setPerformingAction(false))
+            password: password,
+            passwordConfirmation: passwordConfirmation
+        }, {
+            firstName: constraints.firstName,
+            lastName: constraints.lastName,
+            userName: constraints.userName,
+            email: constraints.email,
+            password: constraints.password,
+            passwordConfirmation: constraints.passwordConfirmation
+        })
+ 
+        if (errors) {
+            setGlobalErrors(errors)
+        } else {
+            setPerformingAction(true)
+            setGlobalErrors(null)
+            authentication.signUp({
+                firstName: firstName,
+                lastName: lastName,
+                userName: userName,
+                email: email,
+                password: password
+            }).then((value) => {
+                dialogProps.onClose()
+            }).catch((reason) => {
+    
+            }).finally(() => setPerformingAction(false))
+            
+        }
     }
 
-    // useEffect(() => {
-    //     authentication
-    // }, [performingAction])
-
     const signInWithAuthProvider = (providerId) => {
-        console.log('hello')
-        // setPerformingAction(true), () => {
-        //     authentication.signInWithAuthProvider(providerId).then((value) => {
-        //         dialogPropsProps.onClose(() => {
-        //             const user = value.user;
-        //             // const displayName = user.displayName;
-        //             // const emailAddress = user.email;
-        //         })
+        console.log(providerId)
+        // setPerformingAction(true)
+        // authentication.signInWithAuthProvider(providerId).then((value) => {
+        //     dialogProps.onClose(() => {
+        //         const user = value.user;
+        //         // const displayName = user.displayName;
+        //         // const emailAddress = user.email;
         //     })
-        // }
+        // }).catch((reason) => {
+        //     const code = reason.code;
+        //     const message = reason.message;
+    
+        //     switch (code) {
+        //       case 'auth/account-exists-with-different-credential':
+        //       case 'auth/auth-domain-config-required':
+        //       case 'auth/cancelled-popup-request':
+        //       case 'auth/operation-not-allowed':
+        //       case 'auth/operation-not-supported-in-this-environment':
+        //       case 'auth/popup-blocked':
+        //       case 'auth/popup-closed-by-user':
+        //       case 'auth/unauthorized-domain':
+        //         // this.props.openSnackbar(message);
+        //         return;
+    
+        //       default:
+        //         // this.props.openSnackbar(message);
+        //         return;
+        //     }
+        // }).finally(() => {
+        //     setPerformingAction(false)
+        // });
     }
 
     const handleKeyPress = (event) => {

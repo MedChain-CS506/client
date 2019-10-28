@@ -87,6 +87,10 @@ const SignInDialog = ({ dialogProps }) => {
         }
     }
 
+    const signInWithAuthProvider = (providerId) => {
+        console.log(providerId)
+    }
+
     const handleKeyPress = (event) => {
         if (!email || !password) return
 
@@ -118,7 +122,7 @@ const SignInDialog = ({ dialogProps }) => {
                         <Grid item xs={4}>
                             <AuthProviderList
                                 performingAction={performingAction}
-                                // onAuthProviderClick={this.signInWithAuthProvider}
+                                onAuthProviderClick={() => signInWithAuthProvider()}
                             />
                         </Grid>
 
@@ -166,7 +170,7 @@ const SignInDialog = ({ dialogProps }) => {
                     <AuthProviderList
                         gutterBottom
                         performingAction={performingAction}
-                        // onAuthProviderClick={this.signInWithAuthProvider}
+                        onAuthProviderClick={() => signInWithAuthProvider()}
                     />  
                     <Grid container direction="column" spacing={2}>
                         <Grid item xs>
