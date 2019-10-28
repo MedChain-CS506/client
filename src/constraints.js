@@ -15,19 +15,6 @@ const constraints = {
     type: 'string'
   },
 
-  username: {
-    length: {
-      minimum: 2,
-      maximum: 20
-    },
-
-    presence: {
-      allowEmpty: false
-    },
-
-    type: 'string'
-  },
-
   email: {
     email: {
       message: '^E-mail address is invalid'

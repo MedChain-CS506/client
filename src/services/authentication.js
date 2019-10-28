@@ -19,11 +19,10 @@ authentication.signUp = (fields) => {
 
     const firstName = fields.firstName;
     const lastName = fields.lastName;
-    const userName = fields.username;
     const email = fields.email;
     const password = fields.password;
 
-    if (!firstName || !lastName || !userName || !email || !password) {
+    if (!firstName || !lastName || !email || !password) {
       reject();
       return;
     }
@@ -63,7 +62,6 @@ authentication.signUp = (fields) => {
       reference.set({
         firstName: firstName,
         lastName: lastName,
-        userName: userName
       }).then((value) => {
         analytics.logEvent('sign_up', {
           method: 'password'

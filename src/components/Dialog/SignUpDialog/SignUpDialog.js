@@ -45,7 +45,6 @@ const SignUpDialog = ({ dialogProps }) => {
 
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [userName, setUserName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
@@ -56,14 +55,12 @@ const SignUpDialog = ({ dialogProps }) => {
         const errors = validate({
             firstName: firstName,
             lastName: lastName,
-            userName: userName,
             email: email,
             password: password,
             passwordConfirmation: passwordConfirmation
         }, {
             firstName: constraints.firstName,
             lastName: constraints.lastName,
-            userName: constraints.userName,
             email: constraints.email,
             password: constraints.password,
             passwordConfirmation: constraints.passwordConfirmation
@@ -77,7 +74,6 @@ const SignUpDialog = ({ dialogProps }) => {
             authentication.signUp({
                 firstName: firstName,
                 lastName: lastName,
-                userName: userName,
                 email: email,
                 password: password
             }).then((value) => {
@@ -124,7 +120,7 @@ const SignUpDialog = ({ dialogProps }) => {
     }
 
     const handleKeyPress = (event) => {
-        if ( !firstName || !lastName || !userName || !email || !password || !passwordConfirmation ) return;
+        if ( !firstName || !lastName || !email || !password || !passwordConfirmation ) return;
 
         const key = event.key;
     
@@ -138,7 +134,6 @@ const SignUpDialog = ({ dialogProps }) => {
     const handleExited = () => {
         setFirstName('')
         setLastName('')
-        setUserName('')
         setEmail('')
         setPassword('')
         setPasswordConfirmation('')
@@ -193,25 +188,6 @@ const SignUpDialog = ({ dialogProps }) => {
                                         value={lastName}
                                         variant="outlined"
                                         onChange={e => setLastName(e.target.value)}
-                                    />
-                                </Grid>
-                            </Grid>
-
-                            <Grid container spacing={4}>
-                                <Grid item xs>
-                                    <TextField
-                                        autoComplete="username"
-                                        disabled={performingAction}
-                                        // error={!!(errors && errors.username)}
-                                        fullWidth
-                                        // helperText={(errors && errors.username) ? errors.username[0] : ''}
-                                        label="Username"
-                                        placeholder="John"
-                                        required
-                                        type="text"
-                                        value={userName}
-                                        variant="outlined"
-                                        onChange={e => setUserName(e.target.value)}
                                     />
                                 </Grid>
                             </Grid>
@@ -314,23 +290,6 @@ const SignUpDialog = ({ dialogProps }) => {
 
                         <Grid item xs>
                             <TextField
-                                autoComplete="username"
-                                disabled={performingAction}
-                                // error={!!(errors && errors.username)}
-                                fullWidth
-                                // helperText={(errors && errors.username) ? errors.username[0] : ''}
-                                label="Username"
-                                placeholder="John"
-                                required
-                                type="text"
-                                value={userName}
-                                variant="outlined"
-                                onChange={e => setUserName(e.target.value)}
-                            />
-                        </Grid>
-
-                        <Grid item xs>
-                            <TextField
                                 autoComplete="email"
                                 disabled={performingAction}
                                 fullWidth
@@ -379,7 +338,7 @@ const SignUpDialog = ({ dialogProps }) => {
 
             <DialogActions>
                 <Button color='primary' onClick={dialogProps.onClose}>Cancel</Button>
-                <Button color="primary" disabled={(!firstName || !lastName || !userName || !email || !password || !passwordConfirmation || performingAction)} variant="contained" onClick={signUp}>Sign Up</Button>
+                <Button color="primary" disabled={(!firstName || !lastName || !email || !password || !passwordConfirmation || performingAction)} variant="contained" onClick={signUp}>Sign Up</Button>
             </DialogActions>
         </Dialog>
     )

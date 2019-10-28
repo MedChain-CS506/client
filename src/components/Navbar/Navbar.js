@@ -35,7 +35,6 @@ const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onS
     const getNameInitials = () => {
         const firstName = userData.firstName;
         const lastName = userData.lastName;
-        const username = userData.username;
         const displayName = user.displayName;
     
         if (firstName && lastName) {
@@ -44,8 +43,6 @@ const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onS
           return firstName.charAt(0)
         } else if (lastName) {
           return lastName.charAt(0);
-        } else if (username) {
-          return username.charAt(0);
         } else if (displayName) {
           return displayName.charAt(0);
         } else {
