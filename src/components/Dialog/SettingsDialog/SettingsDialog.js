@@ -25,9 +25,9 @@ import SecurityIcon from '@material-ui/icons/Security';
 import SwipeableViews from 'react-swipeable-views';
 
 import AccountTab from '../../../tabs/AccountTab';
-// import AppearanceTab from '.../../../tabs/AppearanceTab';
-// import LinksTab from '../../../tabs/LinksTab';
-// import SecurityTab from '../../../tabs/SecurityTab';
+import AppearanceTab from '../../../tabs/AppearanceTab';
+import LinksTab from '../../../tabs/LinksTab';
+import SecurityTab from '../../../tabs/SecurityTab';
 
 const useStyles = makeStyles({
     closeButton: {
@@ -132,6 +132,9 @@ const SettingsDialog = ({ dialogProps }) => {
         <SwipeableViews index={selectedTab} onChangeIndex={handleIndexChange}>
 
           <AccountTab />
+          <AppearanceTab />
+          <LinksTab />
+          <SecurityTab />
           
           
         </SwipeableViews>
