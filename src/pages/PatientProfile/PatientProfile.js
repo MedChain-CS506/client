@@ -1,9 +1,9 @@
 import React from 'react'
 
-const PatientProfile = () => {
+const PatientProfile = ({ signedIn }) => {
     return (
         <div>
-            
+           <h1>Patient Profile</h1> 
         </div>
     )
 }
