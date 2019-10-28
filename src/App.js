@@ -18,14 +18,13 @@ import Snackbar from '@material-ui/core/Snackbar';
 
 import theme from './theme';
 
-//!ADDED FIREBASE
 import { auth, firestore } from './firebase';
 import authentication from './services/authentication';
 
 function App() {
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState(null)
-  const [performingAction, setPerformingAction]= useState(false)
+  const [performingAction]= useState(false) //!NO setPerformingAction YET
 
   const [signedIn, setSignedIn] = useState(false);
   const [ready, setReady] = useState(true);
@@ -115,17 +114,11 @@ function App() {
     };
   }, [])
 
-
-
-
-
-
-
   const signOut = () => {
     authentication.signOut().then(() => setSignOutDialog(false))
   }
 
-  const openSnackbar = (message, autoHideDuration = 2, callback) => { //?CORRECT WAY TO DO A CALLBACK
+  const openSnackbar = (message, autoHideDuration = 2, callback) => { //!CORRECT WAY TO DO A CALLBACK
     setSnackbar({ 
       autoHideDuration: readingTime(message).time * autoHideDuration, 
       message, 
@@ -143,11 +136,6 @@ function App() {
         open: false
     });
   };
-
-
-
-
-
   
   return (
     <ThemeProvider theme={theme}>
