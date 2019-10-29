@@ -25,11 +25,6 @@ const useStyles = makeStyles({
         textAlign: 'center'
     },
 
-    search: {
-        flexGrow: 1,
-        paddingTop: 8
-    }, 
-
     iconSpacing: {
         fontSize: 50
     },
@@ -48,7 +43,7 @@ const Landing = ({ signedIn }) => {
 
     if (signedIn) {
         return (
-            <div className={classes.search}>
+            <div>
                 <Search />
             </div>
         );
