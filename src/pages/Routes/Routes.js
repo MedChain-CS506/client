@@ -28,7 +28,7 @@ const Routes = ({ signedIn }) => {
             <div className={classes.container}>
                 <Switch>  
                     <Route exact path="/"><Landing signedIn={signedIn} /></Route>
-                    <Route exact path='/new-patient'><PatientForm signedIn={signedIn} /></Route>
+                    <Route exact path='/patient-form'><PatientForm signedIn={signedIn} /></Route>
                     <Route exact path='/patient-profile'><PatientProfile signedIn={signedIn} /></Route>
                     <Route><NotFound /></Route>
                     <Redirect to="/not-found" />
