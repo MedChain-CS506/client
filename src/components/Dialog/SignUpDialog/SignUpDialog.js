@@ -15,7 +15,6 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
-import AuthProviderList from '../AuthProviderList';
 import validate from 'validate.js';
 import constraints from '../../../constraints';
 import authentication from '../../../services/authentication'
@@ -27,10 +26,6 @@ const useStyles = makeStyles({
     
     icon: {
         marginRight: 0.5
-    },
-    
-    divider: {
-        margin: 'auto'
     },
     
     grid: {
@@ -85,40 +80,6 @@ const SignUpDialog = ({ dialogProps }) => {
         }
     }
 
-    const signInWithAuthProvider = (providerId) => {
-        console.log(providerId)
-        // setPerformingAction(true)
-        // authentication.signInWithAuthProvider(providerId).then((value) => {
-        //     dialogProps.onClose(() => {
-        //         const user = value.user;
-        //         // const displayName = user.displayName;
-        //         // const emailAddress = user.email;
-        //     })
-        // }).catch((reason) => {
-        //     const code = reason.code;
-        //     const message = reason.message;
-    
-        //     switch (code) {
-        //       case 'auth/account-exists-with-different-credential':
-        //       case 'auth/auth-domain-config-required':
-        //       case 'auth/cancelled-popup-request':
-        //       case 'auth/operation-not-allowed':
-        //       case 'auth/operation-not-supported-in-this-environment':
-        //       case 'auth/popup-blocked':
-        //       case 'auth/popup-closed-by-user':
-        //       case 'auth/unauthorized-domain':
-        //         // this.props.openSnackbar(message);
-        //         return;
-    
-        //       default:
-        //         // this.props.openSnackbar(message);
-        //         return;
-        //     }
-        // }).finally(() => {
-        //     setPerformingAction(false)
-        // });
-    }
-
     const handleKeyPress = (event) => {
         if ( !firstName || !lastName || !email || !password || !passwordConfirmation ) return;
 
@@ -148,18 +109,7 @@ const SignUpDialog = ({ dialogProps }) => {
             <Hidden smDown>
                 <DialogContent className={classes.dialogContent}>
                     <Grid container direction="row">
-                        <Grid item xs={3}>
-                            <AuthProviderList
-                                performingAction={performingAction}
-                                onAuthProviderClick={() => signInWithAuthProvider()}
-                            />
-                        </Grid>
-
-                        <Grid item xs={1}>
-                            <Divider className={classes.divider} orientation="vertical" />
-                        </Grid>
-
-                        <Grid item xs={8}>
+                        <Grid item xs={12}>
                             <Grid container spacing={4}>
                                 <Grid item xs>
                                     <TextField
@@ -249,12 +199,6 @@ const SignUpDialog = ({ dialogProps }) => {
 
             <Hidden mdUp>
                 <DialogContent>
-                    <AuthProviderList
-                        gutterBottom
-                        performingAction={performingAction}
-                        onAuthProviderClick={() => signInWithAuthProvider()}
-                    />
-
                     <Grid container direction="column" spacing={2}>
                         <Grid item xs>
                             <TextField

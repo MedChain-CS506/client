@@ -18,15 +18,10 @@ import TextField from '@material-ui/core/TextField';
 import validate from 'validate.js';
 import constraints from '../../../constraints';
 import authentication from '../../../services/authentication';
-import AuthProviderList from '../AuthProviderList';
 
 const useStyles = makeStyles({
     icon: {
         marginRight: 0.5
-    },
-    
-    divider: {
-        margin: 'auto'
     },
     
     grid: {
@@ -87,10 +82,6 @@ const SignInDialog = ({ dialogProps }) => {
         }
     }
 
-    const signInWithAuthProvider = (providerId) => {
-        console.log(providerId)
-    }
-
     const handleKeyPress = (event) => {
         if (!email || !password) return
 
@@ -118,19 +109,8 @@ const SignInDialog = ({ dialogProps }) => {
 
             <DialogContent>
                 <Hidden xsDown>
-                    <Grid container direction="row">
-                        <Grid item xs={4}>
-                            <AuthProviderList
-                                performingAction={performingAction}
-                                onAuthProviderClick={() => signInWithAuthProvider()}
-                            />
-                        </Grid>
-
-                        <Grid item xs={1}>
-                            <Divider className={classes.divider} orientation="vertical" />
-                        </Grid>
-                        
-                        <Grid item xs={7}>
+                    <Grid container direction="row">         
+                        <Grid item xs={12}>
                             <Grid container direction="column" spacing={2}>
                                 <Grid item xs>
                                     <TextField
@@ -167,11 +147,6 @@ const SignInDialog = ({ dialogProps }) => {
                 </Hidden>
 
                 <Hidden smUp>
-                    <AuthProviderList
-                        gutterBottom
-                        performingAction={performingAction}
-                        onAuthProviderClick={() => signInWithAuthProvider()}
-                    />  
                     <Grid container direction="column" spacing={2}>
                         <Grid item xs>
                             <TextField
