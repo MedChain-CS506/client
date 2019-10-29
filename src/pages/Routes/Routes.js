@@ -7,17 +7,33 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 //*PAGES
 import Landing from '../Landing';
 import PatientForm from '../PatientForm'
+import PatientProfile from '../../patients/PatientProfile'
 import NotFound from '../NotFound';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    container: {
+        maxWidth: '1100px',
+        m: 'auto',
+        overflow: 'hidden',
+        padding: '1rem 2rem'
+    }
+});
+
 const Routes = ({ signedIn }) => {
+    const classes = useStyles();
     return (
         <Router>
-            <Switch>
-                <Route exact path="/"><Landing signedIn={signedIn} /></Route>
-                <Route exact path='/new-patient'><PatientForm signedIn={signedIn} /></Route>
-                <Route><NotFound /></Route>
-                <Redirect to="/not-found" />
-          </Switch>
+            <div className={classes.container}>
+                <Switch>  
+                    <Route exact path="/"><Landing signedIn={signedIn} /></Route>
+                    <Route exact path='/new-patient'><PatientForm signedIn={signedIn} /></Route>
+                    <Route exact path='/patient-profile'><PatientProfile signedIn={signedIn} /></Route>
+                    <Route><NotFound /></Route>
+                    <Redirect to="/not-found" />
+                </Switch>
+            </div>
         </Router>
     )
 }

@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 //*Components
 import Search from '../../components/Search'
 
+import PatientList from '../../patients/PatientList'
+
 //*MUI
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
@@ -13,8 +15,6 @@ import GitHubCircleIcon from 'mdi-material-ui/GithubCircle';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import AccountPlus from 'mdi-material-ui/AccountPlus';
-
-
 
 const useStyles = makeStyles({
     center: {
@@ -43,9 +43,10 @@ const Landing = ({ signedIn }) => {
 
     if (signedIn) {
         return (
-            <div>
+            <>
                 <Search />
-            </div>
+                <PatientList />
+            </>
         );
     }
 
