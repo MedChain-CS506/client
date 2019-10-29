@@ -24,14 +24,14 @@ function App() {
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState(null)
 
-  const [performingAction, setPerformingAction]= useState(false)
   const [signedIn, setSignedIn] = useState(false);
   const [ready, setReady] = useState(true);
+  const [performingAction, setPerformingAction]= useState(false)
 
   const [signUpDialog, setSignUpDialog] = useState(false)
   const [signInDialog, setSignInDialog] = useState(false)
   const [settingsDialog, setSettingsDialog] = useState(false)
-  const [deleteAccountDialout, setDeleteAccountDialog] = useState(false)
+  const [deleteAccountDialog, setDeleteAccountDialog] = useState(false)
   const [signOutDialog, setSignOutDialog] = useState(false)
 
   const [snackbar, setSnackbar] = useState({ autoHideDuration: 0, message: '', open: false })
@@ -127,7 +127,9 @@ function App() {
   }
 
   const signOut = () => {
+    setPerformingAction(true)
     authentication.signOut().then(() => setSignOutDialog(false))
+    setPerformingAction(false)
   }
 
   const openSnackbar = (message, autoHideDuration = 2, callback) => { //!CORRECT WAY TO DO A CALLBACK?
