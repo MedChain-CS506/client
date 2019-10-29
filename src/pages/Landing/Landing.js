@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import AccountPlus from 'mdi-material-ui/AccountPlus';
 
+
+
 const useStyles = makeStyles({
     center: {
         position: 'absolute',
@@ -22,6 +24,11 @@ const useStyles = makeStyles({
         transform: 'translate(-50%, -50%)',
         textAlign: 'center'
     },
+
+    search: {
+        flexGrow: 1,
+        paddingTop: 8
+    }, 
 
     iconSpacing: {
         fontSize: 50
@@ -41,13 +48,8 @@ const Landing = ({ signedIn }) => {
 
     if (signedIn) {
         return (
-            <div className={classes.center}>
-                <HomeIcon className={classes.icon} color="action" />
-                <Typography color="textSecondary" variant="h5">Home</Typography>
+            <div className={classes.search}>
                 <Search />
-                <Fab className={classes.button} color="secondary" variant="extended">
-                    <AccountPlus className={classes.buttonIcon} /> Add New Patient
-                </Fab>
             </div>
         );
     }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { ThemeProvider } from '@material-ui/core/styles';
-
 import readingTime from 'reading-time';
+
+import { ThemeProvider } from '@material-ui/core/styles';
 
 //*Components
 import Navbar from './components/Navbar';
@@ -13,24 +13,25 @@ import DialogHost from './components/Dialog/DialogHost';
 import Routes from './pages/Routes';
 
 //*MUI
-import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import Button from '@material-ui/core/Button';
 
 import theme from './theme';
-
 import { auth, firestore } from './firebase';
 import authentication from './services/authentication';
 
 function App() {
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState(null)
-  const [performingAction, setPerformingAction]= useState(false)
 
+  const [performingAction, setPerformingAction]= useState(false)
   const [signedIn, setSignedIn] = useState(false);
   const [ready, setReady] = useState(true);
+
   const [signUpDialog, setSignUpDialog] = useState(false)
   const [signInDialog, setSignInDialog] = useState(false)
   const [settingsDialog, setSettingsDialog] = useState(false)
+  const [deleteAccountDialout, setDeleteAccountDialog] = useState(false)
   const [signOutDialog, setSignOutDialog] = useState(false)
 
   const [snackbar, setSnackbar] = useState({ autoHideDuration: 0, message: '', open: false })
@@ -113,6 +114,17 @@ function App() {
       }
     };
   }, [])
+
+  const deleteAccount = () => {
+    setPerformingAction(true)
+    authentication.deleteAccount().then(() => {
+
+    }).catch((reason) => {
+
+    }).finally(() => {
+      setPerformingAction(false)
+    })
+  }
 
   const signOut = () => {
     authentication.signOut().then(() => setSignOutDialog(false))

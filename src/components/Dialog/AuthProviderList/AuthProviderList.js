@@ -8,8 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 import GoogleIcon from 'mdi-material-ui/Google';
-import FacebookBoxIcon from 'mdi-material-ui/FacebookBox';
-import GitHubCircleIcon from 'mdi-material-ui/GithubCircle';
 
 const useStyles = makeStyles({
     grid: {
@@ -33,32 +31,6 @@ const AuthProviderList = ({ gutterBottom, performingAction, onAuthProviderClick 
         }),
         icon: <GoogleIcon />,
         name: 'Google'
-      },
-      {
-        providerId: 'facebook.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#3c5a99',
-              contrastText: '#ffffff'
-            }
-          }
-        }),
-        icon: <FacebookBoxIcon />,
-        name: 'Facebook'
-      },
-      {
-        providerId: 'github.com',
-        theme: createMuiTheme({
-          palette: {
-            primary: {
-              main: '#24292e',
-              contrastText: '#ffffff'
-            }
-          }
-        }),
-        icon: <GitHubCircleIcon />,
-        name: 'GitHub'
       }
   ];
 

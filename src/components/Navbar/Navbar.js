@@ -15,12 +15,19 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import Fab from '@material-ui/core/Fab';
+import AccountPlus from 'mdi-material-ui/AccountPlus';
+
 const useStyles = makeStyles({
     root: {
         background: 'linear-gradient(45deg, #F00000 30%, #DC281E 90%)'
     },
 
     signUpButton: {
+        marginRight: 10
+    },
+
+    buttonIcon: {
         marginRight: 10
     }
 });
@@ -77,6 +84,10 @@ const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onS
 
                 {signedIn &&
                     <>
+                        <Fab color="secondary" variant="extended">
+                            <AccountPlus className={classes.buttonIcon} /> Add New Patient
+                        </Fab>
+
                         <IconButton color="inherit" disabled={performingAction} onClick={(event) => setMenu({ anchorEl: event.currentTarget })}>
                             <Avatar alt="Avatar"  />
                         </IconButton>
