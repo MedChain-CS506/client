@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PatientProfile = ({ signedIn }) => {
+const PatientProfile = () => {
     return (
         <div>
            <h1>Patient Profile</h1> 

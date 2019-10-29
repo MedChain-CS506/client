@@ -6,8 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 
 //*PAGES
 import Landing from '../Landing';
-import NewPatientForm from '../NewPatientForm'
-import PatientProfile from '../PatientProfile';
+import PatientForm from '../PatientForm'
 import NotFound from '../NotFound';
 
 const Routes = ({ signedIn }) => {
@@ -15,8 +14,7 @@ const Routes = ({ signedIn }) => {
         <Router>
             <Switch>
                 <Route exact path="/"><Landing signedIn={signedIn} /></Route>
-                <Route exact path='/new-patient'><NewPatientForm signedIn={signedIn} /></Route>
-                <Route exact path='/patient-profile'><PatientProfile signedIn={signedIn} /></Route>
+                <Route exact path='/new-patient'><PatientForm signedIn={signedIn} /></Route>
                 <Route><NotFound /></Route>
                 <Redirect to="/not-found" />
           </Switch>
