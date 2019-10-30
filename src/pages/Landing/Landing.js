@@ -33,6 +33,10 @@ const useStyles = makeStyles({
         marginTop: 10
     },
 
+    addNewPatientIcon: {
+        marginBottom: 10 
+    },
+
     buttonIcon: {
         marginRight: 10
     }
@@ -43,7 +47,10 @@ const Landing = ({ signedIn }) => {
 
     if (signedIn) {
         return (
-            <>
+            <>  
+                <Fab className={classes.addNewPatientIcon} color="secondary" variant="extended">
+                    <AccountPlus className={classes.buttonIcon} /> Add New Patient
+                </Fab>
                 <Search />
                 <PatientList />
             </>
