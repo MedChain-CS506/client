@@ -16,6 +16,8 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import AccountPlus from 'mdi-material-ui/AccountPlus';
 
+import { Link } from 'react-router-dom'
+
 const useStyles = makeStyles({
     center: {
         position: 'absolute',
@@ -48,9 +50,11 @@ const Landing = ({ signedIn }) => {
     if (signedIn) {
         return (
             <>  
-                <Fab className={classes.addNewPatientIcon} color="secondary" variant="extended">
-                    <AccountPlus className={classes.buttonIcon} /> Add New Patient
-                </Fab>
+                <Link to='/patient-form'>
+                    <Fab className={classes.addNewPatientIcon} color="secondary" variant="extended">
+                        <AccountPlus className={classes.buttonIcon} /> Add New Patient
+                    </Fab>
+                </Link>
                 <Search />
                 <PatientList />
             </>

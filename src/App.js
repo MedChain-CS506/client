@@ -115,16 +115,16 @@ function App() {
     };
   }, [])
 
-  const deleteAccount = () => {
-    setPerformingAction(true)
-    authentication.deleteAccount().then(() => {
+  // const deleteAccount = () => {
+  //   setPerformingAction(true)
+  //   authentication.deleteAccount().then(() => {
 
-    }).catch((reason) => {
+  //   }).catch((reason) => {
 
-    }).finally(() => {
-      setPerformingAction(false)
-    })
-  }
+  //   }).finally(() => {
+  //     setPerformingAction(false)
+  //   })
+  // }
 
   const signOut = () => {
     setPerformingAction(true)
