@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     patientGrid: {
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
-        gridGap: '1rem'
+        gridGap: '0.5rem'
     }
 });
 
