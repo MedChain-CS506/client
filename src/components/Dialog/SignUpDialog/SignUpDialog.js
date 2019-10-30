@@ -12,7 +12,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
 import validate from 'validate.js';
@@ -22,14 +21,6 @@ import authentication from '../../../services/authentication'
 const useStyles = makeStyles({
     dialogContent: {
         overflowY: 'hidden'
-    },
-    
-    icon: {
-        marginRight: 0.5
-    },
-    
-    grid: {
-        marginBottom: 2
     }
 });
 
