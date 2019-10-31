@@ -31,7 +31,7 @@ function App() {
   const [signUpDialog, setSignUpDialog] = useState(false)
   const [signInDialog, setSignInDialog] = useState(false)
   const [settingsDialog, setSettingsDialog] = useState(false)
-  const [deleteAccountDialog, setDeleteAccountDialog] = useState(false)
+  //const [deleteAccountDialog, setDeleteAccountDialog] = useState(false)
   const [signOutDialog, setSignOutDialog] = useState(false)
 
   const [snackbar, setSnackbar] = useState({ autoHideDuration: 0, message: '', open: false })
@@ -137,12 +137,20 @@ function App() {
       autoHideDuration: readingTime(message).time * autoHideDuration, 
       message, 
       open: true
-      }, () => {
-      if (callback && typeof callback === 'function') {
-        callback();
-      }
-    });
+      });
   };
+
+  // const openSnackbar = (message, autoHideDuration = 2, callback) => { //!CORRECT WAY TO DO A CALLBACK?
+  //   setSnackbar({ 
+  //     autoHideDuration: readingTime(message).time * autoHideDuration, 
+  //     message, 
+  //     open: true
+  //     }, () => {
+  //     if (callback && typeof callback === 'function') {
+  //       callback();
+  //     }
+  //   });
+  // };
 
   const closeSnackbar = (clearMessage = false) => {
     setSnackbar({
@@ -187,7 +195,7 @@ function App() {
                   props: {
                     performingAction: performingAction,
 
-                    openSnackbar: () => openSnackbar()
+                    openSnackbar: () => openSnackbar //try: () => openSnackbar(), openSnackbar, openSnackbar()
                   }
 
                 },

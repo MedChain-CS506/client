@@ -24,7 +24,8 @@ const useStyles = makeStyles({
     }
 });
 
-const SignUpDialog = ({ dialogProps }) => {
+const SignUpDialog = ({ dialogProps, ...props }) => {
+    console.log(props.openSnackbar)
     const classes = useStyles();
 
     const [performingAction, setPerformingAction] = useState(false)
@@ -65,7 +66,22 @@ const SignUpDialog = ({ dialogProps }) => {
             }).then((value) => {
                 dialogProps.onClose()
             }).catch((reason) => {
-    
+                // console.log(reason.message)
+                const code = reason.code;
+                const message = reason.message;
+
+                // switch (code) {
+                //     case 'auth/email-already-in-use':
+                //     case 'auth/invalid-email':
+                //     case 'auth/operation-not-allowed':
+                //     case 'auth/weak-password':
+                //         openSnackbar(message);
+                //         return;
+        
+                //     default:
+                //         openSnackbar(message);
+                //         return;
+                //   }
             }).finally(() => setPerformingAction(false))
             
         }
@@ -281,7 +297,7 @@ const SignUpDialog = ({ dialogProps }) => {
 
 SignUpDialog.propTypes = {
     dialogProps: PropTypes.object.isRequired,
-    //openSnackbar: PropTypes.func.isRequired
+    openSnackbar: PropTypes.func.isRequired
 };
 
 export default SignUpDialog

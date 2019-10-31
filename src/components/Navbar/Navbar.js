@@ -69,11 +69,11 @@ const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onS
                             {/* {user.photoURL &&
                                 <Avatar alt="Avatar" src={user.photoURL} />
                             } */}
-                            {!user.photoURL &&
+                            {/* {!user.photoURL && */}
                                 <Avatar alt="Avatar">
                                     {getInitials()}
                                 </Avatar>
-                            }
+                            {/* } */}
                         </IconButton>
         
                         <Menu anchorEl={menu.anchorEl} open={Boolean(menu.anchorEl)} onClose={() => setMenu({ anchorEl: null })}>

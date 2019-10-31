@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 
 //*MUI
-import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -12,26 +11,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
 import validate from 'validate.js';
 import constraints from '../../../constraints';
 import authentication from '../../../services/authentication';
 
-const useStyles = makeStyles({
-    icon: {
-        marginRight: 0.5
-    },
-    
-    grid: {
-        marginBottom: 2
-    }
-});
-
 const SignInDialog = ({ dialogProps }) => {
-    const classes = useStyles();
-
     const [performingAction, setPerformingAction] = useState(false)
 
     const [email, setEmail] = useState('')

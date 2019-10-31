@@ -1,4 +1,5 @@
-import firebase, { analytics, auth, firestore, storage } from '../firebase';
+import { analytics, auth, firestore } from '../firebase';
+// import firebase, { analytics, auth, firestore, storage } from '../firebase';
 
 // const avatarFileTypes = [
 //   'image/gif',
