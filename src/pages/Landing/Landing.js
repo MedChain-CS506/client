@@ -13,7 +13,7 @@ import Fab from '@material-ui/core/Fab';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import AccountPlus from 'mdi-material-ui/AccountPlus';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import { Link } from 'react-router-dom'
 
@@ -51,7 +51,7 @@ const Landing = ({ signedIn }) => {
             <>  
                 <Link to='/patient-form'>
                     <Fab className={classes.addNewPatientIcon} color="secondary" variant="extended">
-                        <AccountPlus className={classes.buttonIcon} /> Add New Patient
+                        <AddCircleIcon className={classes.buttonIcon} /> Add New Patient
                     </Fab>
                 </Link>
                 <Search />

@@ -34,7 +34,7 @@ function App() {
   //const [deleteAccountDialog, setDeleteAccountDialog] = useState(false)
   const [signOutDialog, setSignOutDialog] = useState(false)
 
-  const [snackbar, setSnackbar] = useState({ autoHideDuration: 0, message: '', open: false })
+  const [snackbar, setSnackbar] = useState({ open: false, autoHideDuration: 0, message: 'cool' })
 
   //* like componentDidMount
   useEffect(() => {
@@ -132,30 +132,11 @@ function App() {
     setPerformingAction(false)
   }
 
-  const openSnackbar = (message, autoHideDuration = 2, callback) => { //!CORRECT WAY TO DO A CALLBACK?
+  const openSnackbar = (message, autoHideDuration = 2) => {
     setSnackbar({ 
-      autoHideDuration: readingTime(message).time * autoHideDuration, 
+      open: true,
       message, 
-      open: true
-      });
-  };
-
-  // const openSnackbar = (message, autoHideDuration = 2, callback) => { //!CORRECT WAY TO DO A CALLBACK?
-  //   setSnackbar({ 
-  //     autoHideDuration: readingTime(message).time * autoHideDuration, 
-  //     message, 
-  //     open: true
-  //     }, () => {
-  //     if (callback && typeof callback === 'function') {
-  //       callback();
-  //     }
-  //   });
-  // };
-
-  const closeSnackbar = (clearMessage = false) => {
-    setSnackbar({
-        message: clearMessage ? '' : snackbar.message,
-        open: false
+      autoHideDuration: readingTime(message).time * autoHideDuration, 
     });
   };
   
@@ -195,7 +176,7 @@ function App() {
                   props: {
                     performingAction: performingAction,
 
-                    openSnackbar: () => openSnackbar //try: () => openSnackbar(), openSnackbar, openSnackbar()
+                    openSnackbar: () => openSnackbar() //?try: openSnackbar()
                   }
 
                 },
@@ -204,13 +185,13 @@ function App() {
                   dialogProps: {
                     open: signInDialog,
 
-                    onClose: () => setSignInDialog(false)
+                    onClose: () => setSignInDialog(false),
+
+                    openSnackbar: (message) => openSnackbar(message) //!ADDED
                   },
 
                   props: {
                     performingAction: performingAction,
-                    
-                    openSnackbar: () => openSnackbar()
                   }
                 },
 
@@ -245,10 +226,10 @@ function App() {
           />
 
           <Snackbar
+            open={snackbar.open}
             autoHideDuration={snackbar.autoHideDuration}
             message={snackbar.message}
-            open={snackbar.open}
-            onClose={closeSnackbar}
+            onClose={() => setSnackbar({ open: false })} //!MAKE SURE WE DON'T NEED TO DO A SPREAD HERE
           />
         </>
       }

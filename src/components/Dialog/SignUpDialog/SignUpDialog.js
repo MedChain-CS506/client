@@ -25,7 +25,6 @@ const useStyles = makeStyles({
 });
 
 const SignUpDialog = ({ dialogProps, ...props }) => {
-    console.log(props.openSnackbar)
     const classes = useStyles();
 
     const [performingAction, setPerformingAction] = useState(false)
@@ -56,6 +55,7 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
         if (errors) {
             setGlobalErrors(errors)
         } else {
+            console.log('getting here')
             setPerformingAction(true)
             setGlobalErrors(null)
             authentication.signUp({
@@ -70,18 +70,18 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
                 const code = reason.code;
                 const message = reason.message;
 
-                // switch (code) {
-                //     case 'auth/email-already-in-use':
-                //     case 'auth/invalid-email':
-                //     case 'auth/operation-not-allowed':
-                //     case 'auth/weak-password':
-                //         openSnackbar(message);
-                //         return;
+                switch (code) {
+                    case 'auth/email-already-in-use':
+                    case 'auth/invalid-email':
+                    case 'auth/operation-not-allowed':
+                    case 'auth/weak-password':
+                        props.openSnackbar(message);
+                        return;
         
-                //     default:
-                //         openSnackbar(message);
-                //         return;
-                //   }
+                    default:
+                        props.openSnackbar(message);
+                        return;
+                  }
             }).finally(() => setPerformingAction(false))
             
         }

@@ -79,9 +79,7 @@ authentication.signUp = (fields) => {
 };
 
 authentication.signIn = (email, password) => {
-  console.log('email:', email)
-  console.log('password:', password)
-  return new Promise((resolve, reject) => {
+return new Promise((resolve, reject) => {
     if (!email || !password) {
       reject()
       return

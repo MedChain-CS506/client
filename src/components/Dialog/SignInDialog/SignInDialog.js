@@ -23,45 +23,44 @@ const SignInDialog = ({ dialogProps }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const [globalErrors, setGlobalErrors] = useState(null)
+    const [errors, setErrors] = useState(null)
+    //const [globalErrors, setGlobalErrors] = useState(null)
 
     const signIn = () => {
-        const errors = validate({
+        const signInErrors = validate({
             email: email,
             password: password
           }, {
-            emailAddress: constraints.emailAddress,
+            email: constraints.email,
             password: constraints.password
         })
 
-        if (errors) {
-            setGlobalErrors(errors)
+        if (signInErrors) {
+            setErrors(signInErrors)
         } else {
             setPerformingAction(true)
-            setGlobalErrors(null)
-            authentication.signIn(email, password).then((value) => {
-                dialogProps.onClose(() => {
-                    const user = value.user;
-                    // const displayName = user.displayName;
-                    // const email = user.email;
-                    // openSnackbar(`Signed in as ${email}`);
-                })
+            setErrors(null)
+            authentication.signIn(email, password).then((value) => {  
+                dialogProps.onClose()
+                const user = value.user;
+                const email = user.email;
+                dialogProps.openSnackbar(`Signed in as ${email}`);
+
             }).catch((reason) => {
                 const code = reason.code;
                 const message = reason.message;
 
                 switch (code) {
                     case 'auth/invalid-email':
-                    case 'auth/user-disabled':
                     case 'auth/user-not-found':
                     case 'auth/wrong-password':
-                    //this.props.openSnackbar(message);
-                    return;
+                        dialogProps.openSnackbar(message);
+                        return;
 
                     default:
-                    //this.props.openSnackbar(message);
-                    return;
-                }
+                        dialogProps.openSnackbar(message);
+                        return;
+                    }
             }).finally(() => {
                 setPerformingAction(false)
             })
