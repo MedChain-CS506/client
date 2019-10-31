@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     }
 });
 
-const SignUpDialog = ({ dialogProps }) => {
+const SignUpDialog = ({ dialogProps, ...props }) => {
     const classes = useStyles();
 
     const [performingAction, setPerformingAction] = useState(false)
@@ -35,10 +35,10 @@ const SignUpDialog = ({ dialogProps }) => {
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
-    const [globalErrors, setGlobalErrors] = useState(null) //!Changed from 'errors' => 'globalErrors'
+    const [errors, setErrors] = useState(null)
 
     const signUp = () => {
-        const errors = validate({
+        const signUpErrors = validate({
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -52,20 +52,36 @@ const SignUpDialog = ({ dialogProps }) => {
             passwordConfirmation: constraints.passwordConfirmation
         })
  
-        if (errors) {
-            setGlobalErrors(errors)
+        if (signUpErrors) {
+            setErrors(signUpErrors)
         } else {
+            console.log('getting here')
             setPerformingAction(true)
-            setGlobalErrors(null)
+            setErrors(null)
             authentication.signUp({
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
                 password: password
-            }).then((value) => {
+            }).then(() => {
                 dialogProps.onClose()
             }).catch((reason) => {
-    
+                // console.log(reason.message)
+                const code = reason.code;
+                const message = reason.message;
+
+                switch (code) {
+                    case 'auth/email-already-in-use':
+                    case 'auth/invalid-email':
+                    case 'auth/operation-not-allowed':
+                    case 'auth/weak-password':
+                        props.openSnackbar(message);
+                        return;
+        
+                    default:
+                        props.openSnackbar(message);
+                        return;
+                  }
             }).finally(() => setPerformingAction(false))
             
         }
@@ -281,7 +297,7 @@ const SignUpDialog = ({ dialogProps }) => {
 
 SignUpDialog.propTypes = {
     dialogProps: PropTypes.object.isRequired,
-    //openSnackbar: PropTypes.func.isRequired
+    openSnackbar: PropTypes.func.isRequired
 };
 
 export default SignUpDialog

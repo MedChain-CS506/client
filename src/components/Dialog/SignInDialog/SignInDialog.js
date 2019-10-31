@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types';
 
 //*MUI
-import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -12,73 +11,56 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 
 import validate from 'validate.js';
 import constraints from '../../../constraints';
 import authentication from '../../../services/authentication';
 
-const useStyles = makeStyles({
-    icon: {
-        marginRight: 0.5
-    },
-    
-    grid: {
-        marginBottom: 2
-    }
-});
-
-const SignInDialog = ({ dialogProps }) => {
-    const classes = useStyles();
-
+const SignInDialog = ({ dialogProps,...props }) => {
     const [performingAction, setPerformingAction] = useState(false)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const [globalErrors, setGlobalErrors] = useState(null)
+    const [errors, setErrors] = useState(null)
 
     const signIn = () => {
-        const errors = validate({
+        const signInErrors = validate({
             email: email,
             password: password
           }, {
-            emailAddress: constraints.emailAddress,
+            email: constraints.email,
             password: constraints.password
         })
 
-        if (errors) {
-            setGlobalErrors(errors)
+        if (signInErrors) {
+            setErrors(signInErrors)
         } else {
             setPerformingAction(true)
-            setGlobalErrors(null)
-            authentication.signIn(email, password).then((value) => {
-                dialogProps.onClose(() => {
-                    const user = value.user;
-                    // const displayName = user.displayName;
-                    // const email = user.email;
-                    // openSnackbar(`Signed in as ${email}`);
-                })
+            setErrors(null)
+            authentication.signIn(email, password).then((value) => {  
+                dialogProps.onClose()
+                const user = value.user;
+                const email = user.email;
+                dialogProps.openSnackbar(`Signed in as ${email}`);
+
             }).catch((reason) => {
                 const code = reason.code;
                 const message = reason.message;
 
                 switch (code) {
                     case 'auth/invalid-email':
-                    case 'auth/user-disabled':
                     case 'auth/user-not-found':
                     case 'auth/wrong-password':
-                    //this.props.openSnackbar(message);
-                    return;
+                        props.openSnackbar(message);
+                        return;
 
                     default:
-                    //this.props.openSnackbar(message);
-                    return;
-                }
-            }).finally(() => {
-                setPerformingAction(false)
-            })
+                        props.openSnackbar(message);
+                        return;
+                    }
+            }).finally(() => setPerformingAction(false))
         }
     }
 
@@ -101,7 +83,6 @@ const SignInDialog = ({ dialogProps }) => {
     };
 
     return (
-        //?Anything different than doing '() =>' as oppose to simply calling the function like such?
         <Dialog fullWidth maxWidth="sm" {...dialogProps} onKeyPress={handleKeyPress} onExited={handleExited}>
             <DialogTitle>
                 Sign in to your account

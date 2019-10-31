@@ -10,11 +10,10 @@ import PatientList from '../../patients/PatientList'
 //*MUI
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
-import HomeIcon from '@material-ui/icons/Home';
-import GitHubCircleIcon from 'mdi-material-ui/GithubCircle';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import AccountPlus from 'mdi-material-ui/AccountPlus';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import { Link } from 'react-router-dom'
 
@@ -52,7 +51,7 @@ const Landing = ({ signedIn }) => {
             <>  
                 <Link to='/patient-form'>
                     <Fab className={classes.addNewPatientIcon} color="secondary" variant="extended">
-                        <AccountPlus className={classes.buttonIcon} /> Add New Patient
+                        <AddCircleIcon className={classes.buttonIcon} /> Add New Patient
                     </Fab>
                 </Link>
                 <Search />
@@ -67,7 +66,7 @@ const Landing = ({ signedIn }) => {
             <Typography color="textSecondary" variant="h3">{process.env.REACT_APP_NAME}</Typography>
             <Typography color="textSecondary" variant="subtitle1">The simple health file application</Typography>
             <Fab className={classes.button} color="secondary" href="https://github.com/MedChain-CS506" rel="noopener noreferrer" target="_blank" variant="extended">
-                <GitHubCircleIcon className={classes.buttonIcon} /> Repo
+                <GitHubIcon className={classes.buttonIcon} /> Repo
             </Fab>
         </div>
     )

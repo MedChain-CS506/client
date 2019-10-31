@@ -29,9 +29,9 @@ const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onS
     })
 
     const getInitials = () => {
+        console.log(userData)
         const firstName = userData.firstName;
         const lastName = userData.lastName;
-        const displayName = user.displayName;
     
         if (firstName && lastName) {
           return firstName.charAt(0) + lastName.charAt(0);
@@ -39,8 +39,6 @@ const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onS
           return firstName.charAt(0)
         } else if (lastName) {
           return lastName.charAt(0);
-        } else if (displayName) {
-          return displayName.charAt(0);
         } else {
           return 'NN';
         }
@@ -66,12 +64,12 @@ const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onS
                 {signedIn &&
                     <>
                         <IconButton color="inherit" disabled={performingAction} onClick={(event) => setMenu({ anchorEl: event.currentTarget })}>
-                            {user.photoURL &&
+                            {/* {user.photoURL &&
                                 <Avatar alt="Avatar" src={user.photoURL} />
-                            }
-                            {!user.photoURL &&
+                            } */}
+                            {true && // replace true with !user.photoURL
                                 <Avatar alt="Avatar">
-                                    {getInitials()}
+                                    {/* {getInitials()} */}
                                 </Avatar>
                             }
                         </IconButton>
