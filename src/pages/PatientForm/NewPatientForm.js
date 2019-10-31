@@ -31,9 +31,29 @@ const useStyles = makeStyles({
   }
 });
 export default function AddressForm() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const handleButtonPress = event => {
-    console.log(event);
+  const [dateOfBirth, setDateOfBirth] = useState(new Date());
+  const [aadhar, setAadhar] = useState("");
+  const [age, setAge] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [weight, setWeight] = useState("");
+  const [allergies, setAllergies] = useState("");
+  const [diseaseHistory, setDiseaseHistory] = useState("");
+  const [prescriptions, setPrescriptions] = useState("");
+  const [doctors, setDoctors] = useState("");
+
+  const handleOnSubmit = () => {
+    console.log(dateOfBirth);
+    console.log(aadhar);
+    console.log(age);
+    console.log(firstName);
+    console.log(lastName);
+    console.log(weight);
+    console.log(allergies);
+    console.log(diseaseHistory);
+    console.log(prescriptions);
+    console.log(doctors);
+
   };
   const classes = useStyles();
 
@@ -54,6 +74,8 @@ export default function AddressForm() {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <TextField
+                  value={aadhar}
+                  onChange={(e) => setAadhar(e.target.value)}
                   required
                   id="Aadhar"
                   name="aadhar"
@@ -64,6 +86,8 @@ export default function AddressForm() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  value={age}
+                  onChange={e => setAge(e.target.value)}
                   required
                   id="Age"
                   name="age"
@@ -74,6 +98,8 @@ export default function AddressForm() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  value={firstName}
+                  onChange={e => setFirstName(e.target.value)}
                   required
                   id="firstName"
                   name="firstName"
@@ -84,6 +110,8 @@ export default function AddressForm() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
                   required
                   id="lastName"
                   name="lastName"
@@ -101,8 +129,8 @@ export default function AddressForm() {
                     margin="normal"
                     id="date-of-birth"
                     label="Date of Birth"
-                    value={selectedDate}
-                    onChange={e => setSelectedDate(e)}
+                    value={dateOfBirth}
+                    onChange={e => setDateOfBirth(e)}
                     KeyboardButtonProps={{
                       "aria-label": "change date"
                     }}
@@ -111,6 +139,8 @@ export default function AddressForm() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  value={weight}
+                  onChange={e => setWeight(e.target.value)}
                   required
                   id="weight"
                   name="weight"
@@ -121,6 +151,8 @@ export default function AddressForm() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  value={allergies}
+                  onChange={e => setAllergies(e.target.value)}
                   required
                   id="allergies"
                   name="allergies"
@@ -131,6 +163,8 @@ export default function AddressForm() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  value={diseaseHistory}
+                  onChange={e => setDiseaseHistory(e.target.value)}
                   required
                   id="disease-history"
                   name="disease-history"
@@ -141,6 +175,8 @@ export default function AddressForm() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  value={prescriptions}
+                  onChange={e => setPrescriptions(e.target.value)}
                   required
                   id="prescription-ids"
                   name="prescription-ids"
@@ -151,6 +187,8 @@ export default function AddressForm() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  value={doctors}
+                  onChange={e => setDoctors(e.target.value)}
                   required
                   id="doctor-ids"
                   name="doctor-ids"
@@ -166,7 +204,7 @@ export default function AddressForm() {
           <CardContent>
             <Button
               className={classes.button}
-              onClick={handleButtonPress}
+              onClick={handleOnSubmit}
               variant="extended"
               fullWidth
             >
