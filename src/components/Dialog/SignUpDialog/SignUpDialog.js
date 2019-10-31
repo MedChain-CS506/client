@@ -35,10 +35,10 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
-    const [globalErrors, setGlobalErrors] = useState(null) //!Changed from 'errors' => 'globalErrors'
+    const [errors, setErrors] = useState(null)
 
     const signUp = () => {
-        const errors = validate({
+        const signUpErrors = validate({
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -52,18 +52,18 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
             passwordConfirmation: constraints.passwordConfirmation
         })
  
-        if (errors) {
-            setGlobalErrors(errors)
+        if (signUpErrors) {
+            setErrors(signUpErrors)
         } else {
             console.log('getting here')
             setPerformingAction(true)
-            setGlobalErrors(null)
+            setErrors(null)
             authentication.signUp({
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
                 password: password
-            }).then((value) => {
+            }).then(() => {
                 dialogProps.onClose()
             }).catch((reason) => {
                 // console.log(reason.message)

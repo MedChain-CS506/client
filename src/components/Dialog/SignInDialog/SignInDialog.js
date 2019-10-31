@@ -17,14 +17,13 @@ import validate from 'validate.js';
 import constraints from '../../../constraints';
 import authentication from '../../../services/authentication';
 
-const SignInDialog = ({ dialogProps }) => {
+const SignInDialog = ({ dialogProps,...props }) => {
     const [performingAction, setPerformingAction] = useState(false)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const [errors, setErrors] = useState(null)
-    //const [globalErrors, setGlobalErrors] = useState(null)
 
     const signIn = () => {
         const signInErrors = validate({
@@ -54,16 +53,14 @@ const SignInDialog = ({ dialogProps }) => {
                     case 'auth/invalid-email':
                     case 'auth/user-not-found':
                     case 'auth/wrong-password':
-                        dialogProps.openSnackbar(message);
+                        props.openSnackbar(message);
                         return;
 
                     default:
-                        dialogProps.openSnackbar(message);
+                        props.openSnackbar(message);
                         return;
                     }
-            }).finally(() => {
-                setPerformingAction(false)
-            })
+            }).finally(() => setPerformingAction(false))
         }
     }
 
@@ -86,7 +83,6 @@ const SignInDialog = ({ dialogProps }) => {
     };
 
     return (
-        //?Anything different than doing '() =>' as oppose to simply calling the function like such?
         <Dialog fullWidth maxWidth="sm" {...dialogProps} onKeyPress={handleKeyPress} onExited={handleExited}>
             <DialogTitle>
                 Sign in to your account

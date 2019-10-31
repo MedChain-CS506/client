@@ -176,7 +176,7 @@ function App() {
                   props: {
                     performingAction: performingAction,
 
-                    openSnackbar: () => openSnackbar() //?try: openSnackbar()
+                    openSnackbar: (message) => openSnackbar(message)
                   }
 
                 },
@@ -186,11 +186,11 @@ function App() {
                     open: signInDialog,
 
                     onClose: () => setSignInDialog(false),
-
-                    openSnackbar: (message) => openSnackbar(message) //!ADDED
                   },
 
                   props: {
+                    openSnackbar: (message) => openSnackbar(message),
+
                     performingAction: performingAction,
                   }
                 },
