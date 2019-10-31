@@ -203,7 +203,7 @@ function App() {
                   },
 
                   props: {
-                    openSnackbar: () => openSnackbar()
+                    openSnackbar: (message) => openSnackbar(message)
                   }
                 },
 

@@ -36,7 +36,7 @@ const Search = () => {
       </Paper>
 
       <Paper className={classes.paperButton}>
-        <Button className={classes.button} variant="extended" fullWidth>
+        <Button className={classes.button} fullWidth>
           Search
         </Button>
       </Paper>
