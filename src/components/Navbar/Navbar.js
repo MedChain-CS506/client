@@ -66,9 +66,9 @@ const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onS
                 {signedIn &&
                     <>
                         <IconButton color="inherit" disabled={performingAction} onClick={(event) => setMenu({ anchorEl: event.currentTarget })}>
-                            {user.photoURL &&
+                            {/* {user.photoURL &&
                                 <Avatar alt="Avatar" src={user.photoURL} />
-                            }
+                            } */}
                             {!user.photoURL &&
                                 <Avatar alt="Avatar">
                                     {getInitials()}
