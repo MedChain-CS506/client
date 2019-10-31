@@ -46,7 +46,7 @@ const useStyles = makeStyles({
 const Landing = ({ signedIn }) => {
     const classes = useStyles();
 
-    if (true) {
+    if (signedIn) {
         return (
             <>  
                 <Link to='/patient-form'>
