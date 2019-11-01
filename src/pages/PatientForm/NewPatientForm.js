@@ -65,6 +65,7 @@ export default function AddressForm() {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <TextField
+                  type="number"
                   value={aadhar}
                   onChange={e => setAadhar(e.target.value)}
                   required
@@ -77,6 +78,7 @@ export default function AddressForm() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  type="number"
                   value={age}
                   onChange={e => setAge(e.target.value)}
                   required
@@ -113,6 +115,7 @@ export default function AddressForm() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  inputProps={{ pattern: "[a-z]" }}
                   value={lastName}
                   onChange={e => setLastName(e.target.value)}
                   required
@@ -142,6 +145,7 @@ export default function AddressForm() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  type="number"
                   value={weight}
                   onChange={e => setWeight(e.target.value)}
                   required
@@ -162,18 +166,6 @@ export default function AddressForm() {
                   label="Patient Allergies"
                   fullWidth
                   autoComplete="allergies"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  value={diseaseHistory}
-                  onChange={e => setDiseaseHistory(e.target.value)}
-                  required
-                  id="disease-history"
-                  name="disease-history"
-                  label="Disease History"
-                  fullWidth
-                  autoComplete="dHistory"
                 />
               </Grid>
             </Grid>
