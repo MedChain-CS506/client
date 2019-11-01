@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -11,6 +11,33 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
 import { Link } from 'react-router-dom';
+import { Tab } from '@material-ui/core';
+
+//TODO: GIVE THE LINK THE THE PROFILE
+const columns = [
+    { id: 'aadhar', label: 'Aadhar #', minWidth: 170 },
+    { id: 'lastName', label: 'Last Name', minWidth: 170 },
+    { id: 'firstName', label: 'First Name', minWidth: 170, format: value => value.toLocaleString() },
+    { id: 'button', label: 'Profile', minWidth: 170, align: 'right' }
+];
+
+function createObject(aadhar, firstName, lastName, profile) {
+    return { aadhar, firstName, lastName, profile };
+}
+
+const rows = [
+    createObject(499118665246, 'Muhammad', 'Muhammad', 1),
+    createObject(499118665246, 'Muhammad', 'Muhammad', 2),
+    createObject(499118665246, 'Muhammad', 'Muhammad', 3),
+    createObject(499118665246, 'Muhammad', 'Muhammad', 4),
+    createObject(499118665246, 'Muhammad', 'Muhammad', 5),
+    createObject(499118665246, 'Muhammad', 'Muhammad', 6),
+    createObject(499118665246, 'Muhammad', 'Muhammad', 7),
+    createObject(499118665246, 'Muhammad', 'Muhammad', 8),
+    createObject(499118665246, 'Muhammad', 'Muhammad', 9),
+    createObject(499118665246, 'Muhammad', 'Muhammad', 10),
+    createObject(499118665246, 'Muhammad', 'Muhammad', 11),
+];
 
 const useStyles = makeStyles({
     root: {
@@ -30,18 +57,35 @@ const PatientTable = () => {
             <Grid item xs={12}>
                 <Paper className={classes.root}>
                     <div className={classes.tableWrapper}>
-                        <Table stickyHeader aria-label="sticky table">
+                        <Table>
                             <TableHead>
                                 <TableRow>
-                                    COL LABEL
+                                    {columns.map(column => (
+                                        <TableCell
+                                            key={column.id}
+                                            align={column.align}
+                                            style={{ minWidth: column.minWidth }}
+                                        >
+                                            {column.label}
+                                        </TableCell>
+                                    ))}
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                <TableRow>
-                                    <TableCell>
-                                        Table Cell
-                                    </TableCell>
-                                </TableRow>
+                                {rows.map(row => {
+                                    return (
+                                        <TableRow hover role='checkbox' tabIndex={-1} key={row.code}>
+                                            {columns.map(column => {
+                                                const value = row[column.id]
+                                                return (
+                                                    <TableCell key={column.id} align={column.align}>
+                                                        {column.format && typeof value === 'number' ? column.format(value) : value}
+                                                    </TableCell>
+                                                )
+                                            })}
+                                        </TableRow>
+                                    )
+                                })}
                             </TableBody>
                         </Table>
                     </div>
@@ -50,24 +94,5 @@ const PatientTable = () => {
         </Grid>
     )
 }
-
-{/* <Card className={classes.card}>
-    <CardContent>
-        <Typography align='center' gutterBottom variant="h5" component="h2">
-            Patient Name
-        </Typography>
-        <Typography align='center' variant="body2" color="textSecondary" component="p">
-            Aadhaar #
-        </Typography>
-    </CardContent>
-    <CardActions style={{justifyContent: 'center'}}>
-        <Button variant="contained" size="small" color="primary">
-            <Link to='/patient-profile'>
-                Select
-            </Link>
-        </Button>
-    </CardActions>
-</Card> */}
-
 
 export default PatientTable
