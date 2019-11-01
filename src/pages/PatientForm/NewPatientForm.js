@@ -33,28 +33,19 @@ const useStyles = makeStyles({
 export default function AddressForm() {
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const [aadhar, setAadhar] = useState("");
+  const [sex, setSex] = useState("");
   const [age, setAge] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [weight, setWeight] = useState("");
   const [allergies, setAllergies] = useState("");
   const [diseaseHistory, setDiseaseHistory] = useState("");
-  const [prescriptions, setPrescriptions] = useState("");
-  const [doctors, setDoctors] = useState("");
 
   const handleOnSubmit = () => {
-    console.log(dateOfBirth);
-    console.log(aadhar);
-    console.log(age);
-    console.log(firstName);
-    console.log(lastName);
-    console.log(weight);
-    console.log(allergies);
-    console.log(diseaseHistory);
-    console.log(prescriptions);
-    console.log(doctors);
-
+    const fullName = `${firstName} ${lastName}`;
+    return { aadhar, age, fullName, dateOfBirth, weight, sex, allergies };
   };
+
   const classes = useStyles();
 
   return (
@@ -75,7 +66,7 @@ export default function AddressForm() {
               <Grid item xs={12}>
                 <TextField
                   value={aadhar}
-                  onChange={(e) => setAadhar(e.target.value)}
+                  onChange={e => setAadhar(e.target.value)}
                   required
                   id="Aadhar"
                   name="aadhar"
@@ -94,6 +85,18 @@ export default function AddressForm() {
                   label="Age"
                   fullWidth
                   autoComplete="age"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  value={sex}
+                  onChange={e => setSex(e.target.value)}
+                  required
+                  id="Sex"
+                  name="sex"
+                  label="Sex"
+                  fullWidth
+                  autoComplete="sex"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -171,30 +174,6 @@ export default function AddressForm() {
                   label="Disease History"
                   fullWidth
                   autoComplete="dHistory"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  value={prescriptions}
-                  onChange={e => setPrescriptions(e.target.value)}
-                  required
-                  id="prescription-ids"
-                  name="prescription-ids"
-                  label="Prescription Ids"
-                  fullWidth
-                  autoComplete="pIds"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  value={doctors}
-                  onChange={e => setDoctors(e.target.value)}
-                  required
-                  id="doctor-ids"
-                  name="doctor-ids"
-                  label="Doctor Ids"
-                  fullWidth
-                  autoComplete="dIds"
                 />
               </Grid>
             </Grid>
