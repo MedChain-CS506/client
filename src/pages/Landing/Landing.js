@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 //*Components
 import Search from '../../components/Search'
 
-import PatientList from '../../patients/PatientList'
+import PatientTable from '../../patients/PatientTable'
 
 //*MUI
 import { makeStyles } from '@material-ui/core/styles';
@@ -55,7 +55,7 @@ const Landing = ({ signedIn }) => {
                     </Fab>
                 </Link>
                 <Search />
-                <PatientList />
+                <PatientTable />
             </>
         );
     }
