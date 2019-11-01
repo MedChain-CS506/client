@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import React from 'react'
 
 //*MUI
