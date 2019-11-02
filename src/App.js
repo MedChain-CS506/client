@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 import readingTime from 'reading-time';
 
-import { ThemeProvider } from '@material-ui/core/styles';
-
 import theme from './theme';
 import { auth, firestore } from './firebase';
 import authentication from './services/authentication';
@@ -17,26 +15,24 @@ import DialogHost from './components/Dialog/DialogHost';
 import Routes from './pages/Routes';
 
 //*MUI
+import { ThemeProvider } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
 
 function App() {
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState(null)
-
   const [signedIn, setSignedIn] = useState(false);
   const [ready, setReady] = useState(false);
   const [performingAction, setPerformingAction]= useState(false)
-
   const [signUpDialog, setSignUpDialog] = useState(false)
   const [signInDialog, setSignInDialog] = useState(false)
   const [settingsDialog, setSettingsDialog] = useState(false)
   //const [deleteAccountDialog, setDeleteAccountDialog] = useState(false)
   const [signOutDialog, setSignOutDialog] = useState(false)
 
-  const [snackbar, setSnackbar] = useState({ open: false, autoHideDuration: 0, message: 'cool' })
+  const [snackbar, setSnackbar] = useState({ open: false, autoHideDuration: 0, message: '' })
 
-  //* like componentDidMount
   useEffect(() => {
     const removeAuthStateChangedObserver = auth.onAuthStateChanged(
       user => {
