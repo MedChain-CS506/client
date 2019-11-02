@@ -44,10 +44,10 @@ const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onS
         }
     };
 
-    const handleSettingsClick = () => {
-        setMenu({ anchorEl: null })
-        onSettingsClick()
-    }
+    // const handleSettingsClick = () => {
+    //     setMenu({ anchorEl: null })
+    //     onSettingsClick()
+    // }
 
     const handleSignOutClick = () => {
         setMenu({ anchorEl: null })
@@ -75,7 +75,7 @@ const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onS
                         </IconButton>
         
                         <Menu anchorEl={menu.anchorEl} open={Boolean(menu.anchorEl)} onClose={() => setMenu({ anchorEl: null })}>
-                            <MenuItem disabled={performingAction} onClick={handleSettingsClick}>Settings</MenuItem>
+                            {/* <MenuItem disabled={performingAction} onClick={handleSettingsClick}>Settings</MenuItem> */}
                             <MenuItem disabled={performingAction} onClick={handleSignOutClick}>Sign out</MenuItem>
                         </Menu>
                     </>
@@ -105,8 +105,8 @@ Navbar.propTypes = {
     user: PropTypes.object,
     userData: PropTypes.object,
 
-    onSettingsClick: PropTypes.func.isRequired,
-    onSignOutClick: PropTypes.func.isRequired
+    //onSettingsClick: PropTypes.func.isRequired,
+    //onSignOutClick: PropTypes.func.isRequired
 };
 
 export default Navbar;
