@@ -34,7 +34,7 @@ const useStyles = makeStyles({
     }
 });
 
-const AccountTab = ({ user, userData }) => {
+const AccountTab = ({ user, userData, openSnackbar }) => {
     const [showingField, setShowingField] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -81,16 +81,15 @@ const AccountTab = ({ user, userData }) => {
         setPerformingAction(true)
         
         authentication.changeFirstName(firstName).then(() => {
-            hideFields(() => {
-                // props.openSnackbar('Changed first name');
-            })
+          hideFields()
+          openSnackbar('Changed first name');
         }).catch((reason) => {
             const code = reason.code;
             const message = reason.message;
 
             switch (code) {
             default:
-                // props.openSnackbar(message);
+                openSnackbar(message);
                 return;
             }
         }).finally(() => {
@@ -99,7 +98,6 @@ const AccountTab = ({ user, userData }) => {
     };
 
     const changeLastName = () => {
-    
         const errors = validate({
             lastName: lastName
         }, {
@@ -121,17 +119,16 @@ const AccountTab = ({ user, userData }) => {
         setPerformingAction(true)
         
         authentication.changeLastName(lastName).then(() => {
-            hideFields(() => {
-                // props.openSnackbar('Changed last name');
-            })
+          hideFields()
+          openSnackbar('Changed last name');
         }).catch((reason) => {
             const code = reason.code;
             const message = reason.message;
 
             switch (code) {
             default:
-                // props.openSnackbar(message);
-                // return;
+                openSnackbar(message);
+                return;
             }
         }).finally(() => {
             setPerformingAction(false)
@@ -161,16 +158,15 @@ const AccountTab = ({ user, userData }) => {
         setPerformingAction(true)
         
         authentication.changeEmail(email).then(() => {
-            hideFields(() => {
-                // props.openSnackbar('Changed email address');
-            })
+          openSnackbar('Changed email address')
+            hideFields()
         }).catch((reason) => {
             const code = reason.code;
             const message = reason.message;
 
             switch (code) {
             default:
-                // props.openSnackbar(message);
+                openSnackbar(message);
                 return;
             }
         }).finally(() => {
@@ -444,7 +440,7 @@ const AccountTab = ({ user, userData }) => {
 AccountTab.propTypes = {
     user: PropTypes.object.isRequired,
     userData: PropTypes.object.isRequired,
-    // openSnackbar: PropTypes.func.isRequired
+    openSnackbar: PropTypes.func.isRequired
 };
 
 export default AccountTab

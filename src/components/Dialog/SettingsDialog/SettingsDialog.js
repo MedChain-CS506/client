@@ -88,7 +88,6 @@ const SettingsDialog = ({ dialogProps, user, userData, openSnackbar, onDeleteAcc
         </Hidden>
       
         <Hidden smUp>
-          settings smUp
           <Tabs
             classes={{ root: classes.tabs }}
             style={{ overflow: 'initial', minHeight: 'initial' }}

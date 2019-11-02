@@ -29,17 +29,15 @@ function App() {
     signUpDialog: false,
     signInDialog: false,
     settingsDialog: false,
-    signOutDialog: false
+    signOutDialog: false, 
+    deleteAccountDialog: false 
   })
-  //!Add this above
-  //const [deleteAccountDialog, setDeleteAccountDialog] = useState(false)
+
   const [snackbar, setSnackbar] = useState({ 
     open: false, 
     autoHideDuration: 0, 
     message: '' 
   })
-
-  //console.log(snackbar)
 
   useEffect(() => {
     const removeAuthStateChangedObserver = auth.onAuthStateChanged(
@@ -119,16 +117,24 @@ function App() {
     };
   }, [])
 
-  // const deleteAccount = () => {
-  //   setPerformingAction(true)
-  //   authentication.deleteAccount().then(() => {
+  const deleteAccount = () => {
+    setPerformingAction(true)
+    authentication.deleteAccount().then(() => {
+      setDialog({...dialog, deleteAccountDialog: false})
+      openSnackbar('Deleted account')
+    }).catch((reason) => {
+      const code = reason.code;
+      const message = reason.message;
 
-  //   }).catch((reason) => {
-
-  //   }).finally(() => {
-  //     setPerformingAction(false)
-  //   })
-  // }
+      switch (code) {
+        default:
+          this.openSnackbar(message);
+          return;
+      }
+    }).finally(() => {
+      setPerformingAction(false)
+    })
+  }
 
   const openSnackbar = (message, autoHideDuration = 2) => {
     setSnackbar({ 
@@ -201,20 +207,18 @@ function App() {
                   }
                 },
 
-                // deleteAccountDialog: {
-                //   dialogProps: {
-                //     open: deleteAccountDialog.open,
+                deleteAccountDialog: {
+                  dialogProps: {
+                    open: dialog.deleteAccountDialog,
+                    onClose: () => setDialog({...dialog, deleteAccountDialog: false})
+                  },
 
-                //     onClose: () => this.closeDialog('deleteAccountDialog')
-                //   },
-
-                //   props: {
-                //     performingAction: performingAction,
-                //     userData: userData,
-
-                //     deleteAccount: this.deleteAccount
-                //   }
-                // },
+                  props: {
+                    performingAction: performingAction,
+                    userData: userData,
+                    deleteAccount: () => deleteAccount()
+                  }
+                },
 
                 signOutDialog: {
                   dialogProps: {

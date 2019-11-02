@@ -1,4 +1,4 @@
-import firebase, { analytics, auth, firestore } from '../firebase';
+import firebase, { auth, firestore } from '../firebase';
 
 const authentication = {};
 
@@ -55,9 +55,9 @@ authentication.signUp = (fields) => {
         firstName: firstName,
         lastName: lastName,
       }).then((value) => {
-        analytics.logEvent('sign_up', {
-          method: 'password'
-        });
+        // analytics.logEvent('sign_up', {
+        //   method: 'password'
+        // });
 
         resolve(value);
       }).catch((reason) => {
@@ -84,9 +84,9 @@ return new Promise((resolve, reject) => {
     }
 
     auth.signInWithEmailAndPassword(email, password).then((value) => {
-      analytics.logEvent('login', {
-        method: 'password'
-      })
+      // analytics.logEvent('login', {
+      //   method: 'password'
+      // })
 
       resolve(value)
     }).catch((reason) => {
@@ -105,7 +105,7 @@ authentication.signOut = () => {
     }
 
     auth.signOut().then((value) => {
-      analytics.logEvent('sign_out');
+      //ytics.logEvent('sign_out');
       
       resolve(value)
     }).catch((reason) => {
@@ -149,7 +149,7 @@ authentication.changeFirstName = (firstName) => {
     reference.update({
       firstName: firstName
     }).then((value) => {
-      analytics.logEvent('change_first_name');
+      //analytics.logEvent('change_first_name');
 
       resolve(value);
     }).catch((reason) => {
@@ -193,7 +193,7 @@ authentication.changeLastName = (lastName) => {
     reference.update({
       lastName: lastName
     }).then((value) => {
-      analytics.logEvent('change_last_name');
+      //analytics.logEvent('change_last_name');
 
       resolve(value);
     }).catch((reason) => {
@@ -227,7 +227,7 @@ authentication.changeEmail = (email) => {
     }
 
     currentUser.updateEmail(email).then((value) => {
-      analytics.logEvent('change_email_address');
+      //analytics.logEvent('change_email_address');
 
       resolve(value);
     }).catch((reason) => {
@@ -272,7 +272,7 @@ authentication.changePassword = (password) => {
       reference.update({
         lastPasswordChange: firebase.firestore.FieldValue.serverTimestamp()
       }).then((value) => {
-        analytics.logEvent('change_password');
+        //analytics.logEvent('change_password');
 
         resolve(value);
       }).catch((reason) => {
@@ -295,7 +295,7 @@ authentication.deleteAccount = () => {
     }
 
     currentUser.delete().then((value) => {
-      analytics.logEvent('delete_account');
+      //analytics.logEvent('delete_account');
 
       resolve(value);
     }).catch((reason) => {

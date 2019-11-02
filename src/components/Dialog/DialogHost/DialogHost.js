@@ -8,7 +8,7 @@ import SignUpDialog from '../SignUpDialog';
 import SignInDialog from '../SignInDialog';
 import SettingsDialog from '../SettingsDialog';
 import SignOutDialog from '../SignOutDialog';
-//import DeleteAccountDialog from '../DeleteAccountDialog';
+import DeleteAccountDialog from '../DeleteAccountDialog';
 
 
 const DialogHost = ({ signedIn = false, dialogs }) => {
@@ -17,12 +17,12 @@ const DialogHost = ({ signedIn = false, dialogs }) => {
     const signInDialog = dialogs.signInDialog;
     const settingsDialog = dialogs.settingsDialog;
     const signOutDialog = dialogs.signOutDialog;
-    //const deleteAccountDialog = dialogs.deleteAccountDialog;
+    const deleteAccountDialog = dialogs.deleteAccountDialog;
 
     return (
         <>
             <Hidden xsDown>
-                {/* {signedIn &&
+                {signedIn &&
                     <>
                         <DeleteAccountDialog
                             dialogProps={deleteAccountDialog.dialogProps}
@@ -30,7 +30,7 @@ const DialogHost = ({ signedIn = false, dialogs }) => {
                             {...deleteAccountDialog.props}
                         />
                     </>
-                } */}
+                }
                 {!signedIn &&
                     <>
                         <SignUpDialog
@@ -57,7 +57,7 @@ const DialogHost = ({ signedIn = false, dialogs }) => {
             </Hidden>
 
             <Hidden smUp>
-                {/* {signedIn &&
+                {signedIn &&
                     <>
                         <DeleteAccountDialog
                             dialogProps={{
@@ -68,7 +68,7 @@ const DialogHost = ({ signedIn = false, dialogs }) => {
                             {...deleteAccountDialog.props}
                         />
                     </>
-                } */}
+                }
                 {!signedIn &&
                     <>
                         <SignUpDialog

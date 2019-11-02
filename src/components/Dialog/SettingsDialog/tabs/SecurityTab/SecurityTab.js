@@ -29,7 +29,7 @@ import Divider from '@material-ui/core/Divider';
 import constraints from '../../../../../utils/constraints';
 import authentication from '../../../../../utils/authentication';
 
-const SecurityTab = ({ user, userData, onDeleteAccountClick }) => {
+const SecurityTab = ({ user, userData, openSnackbar, onDeleteAccountClick }) => {
   const[showingField, setShowingField] = useState('')
   const[password, setPassword] = useState('')
   const[passwordConfirmation, setPasswordConfirmation] = useState('')
@@ -94,16 +94,15 @@ const SecurityTab = ({ user, userData, onDeleteAccountClick }) => {
     setErrors(null)
     setPerformingAction(true)
     authentication.changePassword(password).then(() => {
-      hideFields(() => {
-        //this.props.openSnackbar('Changed password');
-      })
+      openSnackbar('Changed password');
+      hideFields()
     }).catch((reason) => {
       const code = reason.code;
       const message = reason.message;
 
       switch (code) {
         default:
-          //this.props.openSnackbar(message);
+          openSnackbar(message);
           return;
       }
     }).finally(() => {
@@ -136,14 +135,14 @@ const SecurityTab = ({ user, userData, onDeleteAccountClick }) => {
   const deleteAccount = () => {
     setPerformingAction(true)
     authentication.deleteAccount().then(() => {
-        // props.openSnackbar('Deleted account');
+        openSnackbar('Deleted account');
       }).catch((reason) => {
         const code = reason.code;
         const message = reason.message;
 
         switch (code) {
           default:
-            // props.openSnackbar(message);
+            openSnackbar(message);
             return;
         }
       }).finally(() => {
