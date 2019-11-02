@@ -1,4 +1,4 @@
-import firebase, { analytics, auth, firestore, storage } from '../firebase';
+import firebase, { analytics, auth, firestore } from '../firebase';
 
 const authentication = {};
 

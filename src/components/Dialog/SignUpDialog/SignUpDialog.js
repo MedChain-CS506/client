@@ -15,8 +15,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import validate from 'validate.js';
-import constraints from '../../../constraints';
-import authentication from '../../../services/authentication'
+import constraints from '../../../utils/constraints';
+import authentication from '../../../utils/authentication'
 
 const useStyles = makeStyles({
     dialogContent: {

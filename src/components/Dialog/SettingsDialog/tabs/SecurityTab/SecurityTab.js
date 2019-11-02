@@ -26,8 +26,8 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Divider from '@material-ui/core/Divider';
 
-import constraints from '../../constraints';
-import authentication from '../../services/authentication';
+import constraints from '../../../../../utils/constraints';
+import authentication from '../../../../../utils/authentication';
 
 const SecurityTab = ({ user, userData, onDeleteAccountClick }) => {
   const[showingField, setShowingField] = useState('')

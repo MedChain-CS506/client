@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import readingTime from 'reading-time';
 
-import theme from './theme';
+import theme from './utils/theme';
 import { auth, firestore } from './firebase';
-import authentication from './services/authentication';
+import authentication from './utils/authentication';
 
 //*Components
 import Navbar from './components/Navbar';

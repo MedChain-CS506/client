@@ -11,7 +11,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button'
 
-import authentication from '../../../services/authentication';
+import authentication from '../../../utils/authentication';
 
 const useStyles = makeStyles({
     noTitlePadding: {

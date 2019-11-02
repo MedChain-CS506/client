@@ -22,9 +22,9 @@ import SecurityIcon from '@material-ui/icons/Security';
 
 import SwipeableViews from 'react-swipeable-views';
 
-import AccountTab from '../../../tabs/AccountTab';
+import AccountTab from './tabs/AccountTab';
 //import AppearanceTab from '../../../tabs/AppearanceTab';
-import SecurityTab from '../../../tabs/SecurityTab';
+import SecurityTab from './tabs/SecurityTab';
 
 const useStyles = makeStyles({
   closeButton: {

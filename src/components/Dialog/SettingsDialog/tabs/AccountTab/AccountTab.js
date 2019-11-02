@@ -25,8 +25,8 @@ import EmailIcon from '@material-ui/icons/Email';
 import WarningIcon from '@material-ui/icons/Warning';
 import CheckIcon from '@material-ui/icons/Check';
 
-import constraints from '../../constraints';
-import authentication from '../../services/authentication';
+import constraints from '../../../../../utils/constraints';
+import authentication from '../../../../../utils/authentication';
 
 const useStyles = makeStyles({
     dialogContent: {
