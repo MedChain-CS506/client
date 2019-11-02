@@ -43,7 +43,7 @@ const useStyles = makeStyles({
     }
 });
 
-const Landing = ({ signedIn }) => {
+const Landing = ({ signedIn = false }) => {
     const classes = useStyles();
 
     if (signedIn) {
@@ -71,10 +71,6 @@ const Landing = ({ signedIn }) => {
         </div>
     )
 }
-
-Landing.defaultProps = {
-    signedIn: false
-};
 
 Landing.propTypes = {
     signedIn: PropTypes.bool.isRequired

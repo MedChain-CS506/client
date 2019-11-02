@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import PropTypes from 'prop-types';
 
@@ -9,6 +9,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button'
+
+import authentication from '../../../services/authentication';
 
 const useStyles = makeStyles({
     noTitlePadding: {
@@ -16,42 +19,43 @@ const useStyles = makeStyles({
     }
 });
 
-const SignOutDialog = ({ dialogProps, title, contentText, dismissiveAction, confirmingAction, acknowledgementAction }) => {
+const SignOutDialog = ({ dialogProps }) => {
     const classes = useStyles();
+
+    const [performingAction, setPerformingAction] = useState(false)
+
+    const signOut = () => {
+        setPerformingAction(true)
+        authentication.signOut().then(() => dialogProps.onClose())
+        setPerformingAction(false)
+    }
 
     return (
         <Dialog {...dialogProps}>
-            {title &&
-                <DialogTitle>{title}</DialogTitle>
-            }
-
-            <DialogContent className={title ? null : classes.noTitlePadding}>
-                <DialogContentText>
-                    {contentText}
-                </DialogContentText>
-            </DialogContent>
-
-            {(dismissiveAction || confirmingAction || acknowledgementAction) &&
+        
+            <DialogTitle>Sign out?</DialogTitle>
+                <DialogContent className={classes.noTitlePadding}>
+                    <DialogContentText>
+                        Confirm you would like to sign out.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button color="primary" onClick={dialogProps.onClose}>Cancel</Button>
+                    <Button color="primary" variant="contained" onClick={signOut}>Sign Out</Button>
+                </DialogActions>
+            {/* {(dismissiveAction || confirmingAction || acknowledgementAction) &&
                 <DialogActions>
                     {dismissiveAction}
                     {confirmingAction}
                     {acknowledgementAction}
                 </DialogActions>
-            }
+            } */}
         </Dialog>
     )
 }
 
 SignOutDialog.propTypes = {
-    // Dialog Properties
-    dialogProps: PropTypes.object.isRequired,
-  
-    // Custom Properties
-    title: PropTypes.string,
-    contentText: PropTypes.string.isRequired,
-    dismissiveAction: PropTypes.element,
-    confirmingAction: PropTypes.element,
-    acknowledgementAction: PropTypes.element,
+    dialogProps: PropTypes.object.isRequired
 };
 
 export default SignOutDialog

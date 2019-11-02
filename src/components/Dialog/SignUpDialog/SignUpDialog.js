@@ -289,7 +289,7 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
 
             <DialogActions>
                 <Button color='primary' onClick={dialogProps.onClose}>Cancel</Button>
-                <Button color="primary" disabled={(!firstName || !lastName || !email || !password || !passwordConfirmation || performingAction)} variant="contained" onClick={signUp}>Sign Up</Button>
+                <Button name='signUp' color="primary" disabled={(!firstName || !lastName || !email || !password || !passwordConfirmation || performingAction)} variant="contained" onClick={signUp}>Sign Up</Button>
             </DialogActions>
         </Dialog>
     )

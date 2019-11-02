@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     }
 });
 
-const Routes = ({ signedIn }) => {
+const Routes = ({ signedIn = false }) => {
     const classes = useStyles();
     return (
         <Router>
@@ -36,10 +36,6 @@ const Routes = ({ signedIn }) => {
         </Router>
     )
 }
-
-Routes.defaultProps = {
-    signedIn: false
-};
 
 Routes.propTypes = {
     signedIn: PropTypes.bool.isRequired

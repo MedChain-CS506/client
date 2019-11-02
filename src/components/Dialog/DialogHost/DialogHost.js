@@ -11,7 +11,7 @@ import SignOutDialog from '../SignOutDialog';
 //import DeleteAccountDialog from '../DeleteAccountDialog';
 
 
-const DialogHost = ({ signedIn, dialogs }) => {
+const DialogHost = ({ signedIn = false, dialogs }) => {
 
     const signUpDialog = dialogs.signUpDialog;
     const signInDialog = dialogs.signInDialog;
@@ -114,10 +114,6 @@ const DialogHost = ({ signedIn, dialogs }) => {
         </>
     )
 }
-
-DialogHost.defaultProps = {
-    signedIn: false
-};
 
 DialogHost.propTypes = {
     signedIn: PropTypes.bool.isRequired,

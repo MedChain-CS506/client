@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 import readingTime from 'reading-time';
 
-import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
+import { auth, firestore } from './firebase';
+import authentication from './services/authentication';
 
 //*Components
 import Navbar from './components/Navbar';
@@ -13,30 +15,32 @@ import DialogHost from './components/Dialog/DialogHost';
 import Routes from './pages/Routes';
 
 //*MUI
+import { ThemeProvider } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
-
-import theme from './theme';
-import { auth, firestore } from './firebase';
-import authentication from './services/authentication';
 
 function App() {
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState(null)
-
   const [signedIn, setSignedIn] = useState(false);
-  const [ready, setReady] = useState(true);
+  const [ready, setReady] = useState(false);
   const [performingAction, setPerformingAction]= useState(false)
-
-  const [signUpDialog, setSignUpDialog] = useState(false)
-  const [signInDialog, setSignInDialog] = useState(false)
-  const [settingsDialog, setSettingsDialog] = useState(false)
+  const [dialog, setDialog] = useState({
+    signUpDialog: false,
+    signInDialog: false,
+    settingsDialog: false,
+    signOutDialog: false
+  })
+  //!Add this above
   //const [deleteAccountDialog, setDeleteAccountDialog] = useState(false)
-  const [signOutDialog, setSignOutDialog] = useState(false)
+  const [snackbar, setSnackbar] = useState({ 
+    open: false, 
+    autoHideDuration: 0, 
+    message: '' 
+  })
 
-  const [snackbar, setSnackbar] = useState({ open: false, autoHideDuration: 0, message: 'cool' })
+  //console.log(snackbar)
 
-  //* like componentDidMount
   useEffect(() => {
     const removeAuthStateChangedObserver = auth.onAuthStateChanged(
       user => {
@@ -126,12 +130,6 @@ function App() {
   //   })
   // }
 
-  const signOut = () => {
-    setPerformingAction(true)
-    authentication.signOut().then(() => setSignOutDialog(false))
-    setPerformingAction(false)
-  }
-
   const openSnackbar = (message, autoHideDuration = 2) => {
     setSnackbar({ 
       open: true,
@@ -150,14 +148,12 @@ function App() {
           <Navbar
             signedIn={signedIn}
             performingAction={performingAction}
-
             user={user}
             userData={userData}
-
-            onSignUpClick={() => setSignUpDialog(true)}
-            onSignInClick={() => setSignInDialog(true)}
-            onSettingsClick={() => setSettingsDialog(true)}
-            onSignOutClick={() => setSignOutDialog(true)}
+            onSignUpClick={() => setDialog({...dialog, signUpDialog: true})}
+            onSignInClick={() => setDialog({...dialog, signInDialog: true})}
+            onSettingsClick={() => setDialog({...dialog, settingsDialog: true})}
+            onSignOutClick={() => setDialog({...dialog, signOutDialog: true})}
           />
 
           <Routes signedIn={signedIn} />
@@ -168,38 +164,32 @@ function App() {
               {
                 signUpDialog: {
                   dialogProps: {
-                    open: signUpDialog,
-
-                    onClose: () => setSignUpDialog(false)
+                    open: dialog.signUpDialog,
+                    onClose: () => setDialog({...dialog, signUpDialog: false})
                   },
 
                   props: {
                     performingAction: performingAction,
-
                     openSnackbar: (message) => openSnackbar(message)
                   }
-
                 },
 
                 signInDialog: {
                   dialogProps: {
-                    open: signInDialog,
-
-                    onClose: () => setSignInDialog(false),
+                    open: dialog.signInDialog,
+                    onClose: () => setDialog({...dialog, signInDialog: false})
                   },
 
                   props: {
-                    openSnackbar: (message) => openSnackbar(message),
-
                     performingAction: performingAction,
+                    openSnackbar: (message) => openSnackbar(message),
                   }
                 },
 
                 settingsDialog: {
                   dialogProps: {
-                    open: settingsDialog,
-
-                    onClose: () => setSettingsDialog(false)
+                    open: dialog.settingsDialog,
+                    onClose: () => setDialog({...dialog, settingsDialog: false})
                   },
 
                   props: {
@@ -207,18 +197,29 @@ function App() {
                   }
                 },
 
+                // deleteAccountDialog: {
+                //   dialogProps: {
+                //     open: deleteAccountDialog.open,
+
+                //     onClose: () => this.closeDialog('deleteAccountDialog')
+                //   },
+
+                //   props: {
+                //     performingAction: performingAction,
+                //     userData: userData,
+
+                //     deleteAccount: this.deleteAccount
+                //   }
+                // },
+
                 signOutDialog: {
                   dialogProps: {
-                    open: signOutDialog,
-
-                    onClose: () => setSignOutDialog(false)
+                    open: dialog.signOutDialog,
+                    onClose: () => setDialog({...dialog, signOutDialog: false})
                   },
 
                   props: {
-                    title: 'Sign out?',
-                    contentText: 'Confirm you would like to sign out.',
-                    dismissiveAction: <Button color="primary" onClick={() => setSignOutDialog(false)}>Cancel</Button>,
-                    confirmingAction: <Button color="primary" variant="contained" onClick={signOut}>Sign Out</Button>
+                    performingAction: performingAction
                   }
                 }
               }

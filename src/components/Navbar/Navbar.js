@@ -11,7 +11,6 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
-
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -21,15 +20,12 @@ const useStyles = makeStyles({
     }
 });
 
-const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onSignInClick, onSettingsClick, onSignOutClick }) => {
+const Navbar = ({ signedIn = false, performingAction = false, user, userData, onSignUpClick, onSignInClick, onSettingsClick, onSignOutClick }) => {
     const classes = useStyles();
     
-    const [menu, setMenu]= useState({
-        anchorEl: null
-    })
+    const [anchorEl, setAnchorEl]= useState(null)
 
     const getInitials = () => {
-        console.log(userData)
         const firstName = userData.firstName;
         const lastName = userData.lastName;
     
@@ -45,12 +41,12 @@ const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onS
     };
 
     // const handleSettingsClick = () => {
-    //     setMenu({ anchorEl: null })
+    //     setAnchorEl(null)
     //     onSettingsClick()
     // }
 
     const handleSignOutClick = () => {
-        setMenu({ anchorEl: null })
+        setAnchorEl(null)
         onSignOutClick()
     }
 
@@ -63,18 +59,20 @@ const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onS
 
                 {signedIn &&
                     <>
-                        <IconButton color="inherit" disabled={performingAction} onClick={(event) => setMenu({ anchorEl: event.currentTarget })}>
-                            {/* {user.photoURL &&
+                        <IconButton color="inherit" disabled={performingAction} onClick={(event) => setAnchorEl(event.currentTarget)}>
+                            {/* replace with 'user.photoURL' */}
+                            {false &&
                                 <Avatar alt="Avatar" src={user.photoURL} />
-                            } */}
-                            {true && // replace true with !user.photoURL
+                            }
+                            {/* replace with '!user.photoURL' */}
+                            {true &&
                                 <Avatar alt="Avatar">
                                     {/* {getInitials()} */}
                                 </Avatar>
                             }
                         </IconButton>
         
-                        <Menu anchorEl={menu.anchorEl} open={Boolean(menu.anchorEl)} onClose={() => setMenu({ anchorEl: null })}>
+                        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
                             {/* <MenuItem disabled={performingAction} onClick={handleSettingsClick}>Settings</MenuItem> */}
                             <MenuItem disabled={performingAction} onClick={handleSignOutClick}>Sign out</MenuItem>
                         </Menu>
@@ -86,18 +84,13 @@ const Navbar = ({ signedIn, performingAction, user, userData, onSignUpClick, onS
                         <Box mr={1}>
                             <Button color="secondary" disabled={performingAction} variant="contained" onClick={onSignUpClick}>Sign Up</Button>
                         </Box>
-                            <Button color="secondary" disabled={performingAction} variant="contained" onClick={onSignInClick}>Sign In</Button>
+                        <Button color="secondary" disabled={performingAction} variant="contained" onClick={onSignInClick}>Sign In</Button>
                     </>
                 }
             </Toolbar>
         </AppBar>
     )
 }
-
-Navbar.defaultProps = {
-    performingAction: false,
-    signedIn: false
-};
 
 Navbar.propTypes = {
     performingAction: PropTypes.bool.isRequired,
