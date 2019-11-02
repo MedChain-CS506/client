@@ -193,7 +193,11 @@ function App() {
                   },
 
                   props: {
-                    openSnackbar: (message) => openSnackbar(message)
+                    user: user,
+                    userData: userData,
+                    theme: theme,
+                    openSnackbar: (message) => openSnackbar(message),
+                    onDeleteAccountClick: () => console.log('deleteAccountDialog')
                   }
                 },
 

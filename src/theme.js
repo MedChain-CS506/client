@@ -14,4 +14,16 @@ const theme = createMuiTheme({
   },
 });
 
+const types = {
+  light: {
+    id: 'light',
+    name: 'Light'
+  },
+
+  dark: {
+    id: 'dark',
+    name: 'Dark'
+  }
+};
+
 export default theme;

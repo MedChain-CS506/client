@@ -1,13 +1,4 @@
-import { analytics, auth, firestore } from '../firebase';
-// import firebase, { analytics, auth, firestore, storage } from '../firebase';
-
-// const avatarFileTypes = [
-//   'image/gif',
-//   'image/jpeg',
-//   'image/png',
-//   'image/webp',
-//   'image/svg+xml'
-// ];
+import firebase, { analytics, auth, firestore, storage } from '../firebase';
 
 const authentication = {};
 
@@ -122,5 +113,195 @@ authentication.signOut = () => {
     })
   })
 }
+
+authentication.changeFirstName = (firstName) => {
+  return new Promise((resolve, reject) => {
+    if (!firstName) {
+      reject();
+
+      return;
+    }
+
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+      reject();
+
+      return;
+    }
+
+    const uid = currentUser.uid;
+
+    if (!uid) {
+      reject();
+
+      return;
+    }
+
+    const reference = firestore.collection('users').doc(uid);
+
+    if (!reference) {
+      reject();
+
+      return;
+    }
+
+    reference.update({
+      firstName: firstName
+    }).then((value) => {
+      analytics.logEvent('change_first_name');
+
+      resolve(value);
+    }).catch((reason) => {
+      reject(reason);
+    });
+  });
+};
+
+authentication.changeLastName = (lastName) => {
+  return new Promise((resolve, reject) => {
+    if (!lastName) {
+      reject();
+
+      return;
+    }
+
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+      reject();
+
+      return;
+    }
+
+    const uid = currentUser.uid;
+
+    if (!uid) {
+      reject();
+
+      return;
+    }
+
+    const reference = firestore.collection('users').doc(uid);
+
+    if (!reference) {
+      reject();
+
+      return;
+    }
+
+    reference.update({
+      lastName: lastName
+    }).then((value) => {
+      analytics.logEvent('change_last_name');
+
+      resolve(value);
+    }).catch((reason) => {
+      reject(reason);
+    });
+  });
+};
+
+authentication.changeEmail = (email) => {
+  return new Promise((resolve, reject) => {
+    if (!email) {
+      reject();
+
+      return;
+    }
+
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+      reject();
+
+      return;
+    }
+
+    const uid = currentUser.uid;
+
+    if (!uid) {
+      reject();
+
+      return;
+    }
+
+    currentUser.updateEmail(email).then((value) => {
+      analytics.logEvent('change_email_address');
+
+      resolve(value);
+    }).catch((reason) => {
+      reject(reason);
+    });
+  });
+};
+
+authentication.changePassword = (password) => {
+  return new Promise((resolve, reject) => {
+    if (!password) {
+      reject();
+
+      return;
+    }
+
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+      reject();
+
+      return;
+    }
+
+    const uid = currentUser.uid;
+
+    if (!uid) {
+      reject();
+
+      return;
+    }
+
+    currentUser.updatePassword(password).then((value) => {
+      const reference = firestore.collection('users').doc(uid);
+
+      if (!reference) {
+        reject();
+
+        return;
+      }
+
+      reference.update({
+        lastPasswordChange: firebase.firestore.FieldValue.serverTimestamp()
+      }).then((value) => {
+        analytics.logEvent('change_password');
+
+        resolve(value);
+      }).catch((reason) => {
+        reject(reason);
+      });
+    }).catch((reason) => {
+      reject(reason);
+    });
+  });
+};
+
+authentication.deleteAccount = () => {
+  return new Promise((resolve, reject) => {
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+      reject();
+
+      return;
+    }
+
+    currentUser.delete().then((value) => {
+      analytics.logEvent('delete_account');
+
+      resolve(value);
+    }).catch((reason) => {
+      reject(reason);
+    });
+  });
+};
 
 export default authentication;

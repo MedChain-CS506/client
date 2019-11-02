@@ -40,10 +40,10 @@ const Navbar = ({ signedIn = false, performingAction = false, user, userData, on
         }
     };
 
-    // const handleSettingsClick = () => {
-    //     setAnchorEl(null)
-    //     onSettingsClick()
-    // }
+    const handleSettingsClick = () => {
+        setAnchorEl(null)
+        onSettingsClick()
+    }
 
     const handleSignOutClick = () => {
         setAnchorEl(null)
@@ -73,7 +73,7 @@ const Navbar = ({ signedIn = false, performingAction = false, user, userData, on
                         </IconButton>
         
                         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
-                            {/* <MenuItem disabled={performingAction} onClick={handleSettingsClick}>Settings</MenuItem> */}
+                            <MenuItem disabled={performingAction} onClick={handleSettingsClick}>Settings</MenuItem>
                             <MenuItem disabled={performingAction} onClick={handleSignOutClick}>Sign out</MenuItem>
                         </Menu>
                     </>
