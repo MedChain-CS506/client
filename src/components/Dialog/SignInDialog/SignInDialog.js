@@ -43,7 +43,7 @@ const SignInDialog = ({ dialogProps,...props }) => {
                 dialogProps.onClose()
                 const user = value.user;
                 const email = user.email;
-                dialogProps.openSnackbar(`Signed in as ${email}`);
+                props.openSnackbar(`Signed in as ${email}`);
 
             }).catch((reason) => {
                 const code = reason.code;
