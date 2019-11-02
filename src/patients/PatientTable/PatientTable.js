@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+//*MUI
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -9,9 +10,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import { Tab } from '@material-ui/core';
 
 import { Link } from 'react-router-dom';
-import { Tab } from '@material-ui/core';
 
 //TODO: GIVE THE LINK THE THE PROFILE
 const columns = [

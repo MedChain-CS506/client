@@ -1,13 +1,12 @@
 import React from 'react'
 
 //*MUI
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-
 
 const useStyles = makeStyles({
   root: {
@@ -25,7 +24,7 @@ const useStyles = makeStyles({
 const PatientProfile = () => {
   const classes = useStyles();
   return (
-    <React.Fragment>
+    <>
       <Grid
         container
         spacing={0}
@@ -69,7 +68,7 @@ const PatientProfile = () => {
           </CardContent>
         </Card>
       </Grid>
-    </React.Fragment>
+    </>
   );
 };
 
