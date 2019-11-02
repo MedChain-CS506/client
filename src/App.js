@@ -4,6 +4,10 @@ import readingTime from 'reading-time';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 
+import theme from './theme';
+import { auth, firestore } from './firebase';
+import authentication from './services/authentication';
+
 //*Components
 import Navbar from './components/Navbar';
 import Loading from './components/Loading';
@@ -16,16 +20,12 @@ import Routes from './pages/Routes';
 import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
 
-import theme from './theme';
-import { auth, firestore } from './firebase';
-import authentication from './services/authentication';
-
 function App() {
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState(null)
 
   const [signedIn, setSignedIn] = useState(false);
-  const [ready, setReady] = useState(true);
+  const [ready, setReady] = useState(false);
   const [performingAction, setPerformingAction]= useState(false)
 
   const [signUpDialog, setSignUpDialog] = useState(false)
