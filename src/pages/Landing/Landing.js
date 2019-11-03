@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 //*Components
 import Search from '../../components/Search'
-
 import PatientTable from '../../components/PatientTable'
 
 //*MUI

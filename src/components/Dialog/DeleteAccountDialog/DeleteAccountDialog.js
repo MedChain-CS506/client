@@ -59,7 +59,7 @@ const DeleteAccountDialog = ({ dialogProps, performingAction, userData, deleteAc
                     disabled={performingAction}
                     fullWidth
                     label="Email"
-                    placeholder={userData.email}
+                    //placeholder={userData.email}
                     required
                     type="email"
                     value={email}
@@ -70,7 +70,8 @@ const DeleteAccountDialog = ({ dialogProps, performingAction, userData, deleteAc
 
             <DialogActions>
                 <Button color="secondary" disabled={performingAction} onClick={dialogProps.onClose}>Cancel</Button>
-                <Button color="secondary" disabled={performingAction || (email !== userData.email)} variant="contained" onClick={deleteAccount}>Delete</Button>
+                <Button color="secondary" disabled={performingAction|| (email !== userData.email)} variant="contained" onClick={deleteAccount}>Delete</Button>
+                {/* ^disabled={performingAction || (email !== userData.email)} */}
             </DialogActions>
         </Dialog>
     )

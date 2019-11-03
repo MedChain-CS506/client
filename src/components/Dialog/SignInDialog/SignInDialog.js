@@ -25,6 +25,45 @@ const SignInDialog = ({ dialogProps,...props }) => {
 
     const [errors, setErrors] = useState(null)
 
+    const resetPassword = () => {
+        const errors = validate({
+          email: email
+        }, {
+            email: constraints.email
+        });
+    
+        if (errors) {
+            setErrors(errors)
+        } else {
+            setErrors(null)
+            setPerformingAction(true)
+            authentication.resetPassword(email).then((value) => {
+                props.openSnackbar(`Sent password reset e-mail to ${email}`);
+              }).catch((reason) => {
+                const code = reason.code;
+                const message = reason.message;
+    
+                switch (code) {
+                  case 'auth/invalid-email':
+                  case 'auth/missing-android-pkg-name':
+                  case 'auth/missing-continue-uri':
+                  case 'auth/missing-ios-bundle-id':
+                  case 'auth/invalid-continue-uri':
+                  case 'auth/unauthorized-continue-uri':
+                  case 'auth/user-not-found':
+                    props.openSnackbar(message);
+                    return;
+    
+                  default:
+                    props.openSnackbar(message);
+                    return;
+                }
+              }).finally(() => {
+                setPerformingAction(false)
+              });
+        }
+      };
+
     const signIn = () => {
         const signInErrors = validate({
             email: email,
@@ -163,6 +202,7 @@ const SignInDialog = ({ dialogProps,...props }) => {
 
             <DialogActions>
                 <Button color="primary" onClick={dialogProps.onClose}>Cancel</Button>
+                <Button color="primary" disabled={!email || performingAction} variant="outlined" onClick={resetPassword}>Reset password</Button>
                 <Button color="primary" disabled={(!email || !password)} variant="contained" onClick={signIn}>Sign in</Button>
             </DialogActions>
         </Dialog>

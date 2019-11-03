@@ -114,6 +114,32 @@ authentication.signOut = () => {
   })
 }
 
+authentication.resetPassword = (email) => {
+  return new Promise((resolve, reject) => {
+    if (!email) {
+      reject();
+
+      return;
+    }
+
+    const currentUser = auth.currentUser;
+
+    if (currentUser) {
+      reject();
+
+      return;
+    }
+
+    auth.sendPasswordResetEmail(email).then((value) => {
+      //analytics.logEvent('reset_password');
+
+      resolve(value);
+    }).catch((reason) => {
+      reject(reason);
+    });
+  });
+};
+
 authentication.changeFirstName = (firstName) => {
   return new Promise((resolve, reject) => {
     if (!firstName) {
