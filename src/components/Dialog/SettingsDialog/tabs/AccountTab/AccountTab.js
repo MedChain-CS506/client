@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -29,418 +29,476 @@ import constraints from '../../../../../utils/constraints';
 import authentication from '../../../../../utils/authentication';
 
 const useStyles = makeStyles(theme => ({
-    dialogContent: {
-      paddingTop: theme.spacing(2)
-    }
+  dialogContent: {
+    paddingTop: theme.spacing(2),
+  },
 }));
 
 const AccountTab = ({ user, userData, openSnackbar }) => {
-    const [showingField, setShowingField] = useState('')
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [email, setEmail] = useState('')
-    const [performingAction, setPerformingAction] = useState(false)
-    const [errors, setErrors] = useState(null)
+  const [showingField, setShowingField] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [performingAction, setPerformingAction] = useState(false);
+  const [errors, setErrors] = useState(null);
 
-    const classes = useStyles();
+  const classes = useStyles();
 
-    const showField = (fieldId) => {
-        if (!fieldId) {
-          return;
-        }
-        setShowingField(fieldId)
-    };
+  const showField = fieldId => {
+    if (!fieldId) {
+      return;
+    }
+    setShowingField(fieldId);
+  };
 
-    const hideFields = () => {
-          setShowingField('')
-          setFirstName('')
-          setLastName('')
-          setEmail('')
-          setErrors(null)
-    };
+  const hideFields = () => {
+    setShowingField('');
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setErrors(null);
+  };
 
-    const changeFirstName = () => {  
-        const errors = validate({
-          firstName: firstName
-        }, {
-          firstName: constraints.firstName
-        });
-    
-        if (errors) {
-          setErrors(errors)
-    
-          return;
-        }
+  const changeFirstName = () => {
+    const errors = validate(
+      {
+        firstName: firstName,
+      },
+      {
+        firstName: constraints.firstName,
+      }
+    );
 
-        setErrors(null)
+    if (errors) {
+      setErrors(errors);
 
-        if (firstName === userData.firstName) {
-            return;
-        }
+      return;
+    }
 
-        setPerformingAction(true)
-        
-        authentication.changeFirstName(firstName).then(() => {
-          hideFields()
-          openSnackbar('Changed first name');
-        }).catch((reason) => {
-            const code = reason.code;
-            const message = reason.message;
+    setErrors(null);
 
-            switch (code) {
-            default:
-                openSnackbar(message);
-                return;
-            }
-        }).finally(() => {
-            setPerformingAction(false)
-        });
-    };
+    if (firstName === userData.firstName) {
+      return;
+    }
 
-    const changeLastName = () => {
-        const errors = validate({
-            lastName: lastName
-        }, {
-          lastName: constraints.lastName
-        });
-    
-        if (errors) {
-          setErrors(errors)
-    
-          return;
-        }
+    setPerformingAction(true);
 
-        setErrors(null)
+    authentication
+      .changeFirstName(firstName)
+      .then(() => {
+        hideFields();
+        openSnackbar('Changed first name');
+      })
+      .catch(reason => {
+        const {code} = reason;
+        const {message} = reason;
 
-        if (lastName === userData.lastName) {
-            return;
-        }
-
-        setPerformingAction(true)
-        
-        authentication.changeLastName(lastName).then(() => {
-          hideFields()
-          openSnackbar('Changed last name');
-        }).catch((reason) => {
-            const code = reason.code;
-            const message = reason.message;
-
-            switch (code) {
-            default:
-                openSnackbar(message);
-                return;
-            }
-        }).finally(() => {
-            setPerformingAction(false)
-        });
-    };
-
-    const changeEmail = () => {
-    
-        const errors = validate({
-            email: email
-        }, {
-            email: constraints.email
-        });
-    
-        if (errors) {
-          setErrors(errors)
-    
-          return;
-        }
-
-        setErrors(null)
-
-        if (email === userData.email) {
-            return;
-        }
-
-        setPerformingAction(true)
-        
-        authentication.changeEmail(email).then(() => {
-          openSnackbar('Changed email address')
-            hideFields()
-        }).catch((reason) => {
-            const code = reason.code;
-            const message = reason.message;
-
-            switch (code) {
-            default:
-                openSnackbar(message);
-                return;
-            }
-        }).finally(() => {
-            setPerformingAction(false)
-        });
-    };
-
-    const changeField = (fieldId) => {
-        switch (fieldId) {
-          case 'first-name':
-            changeFirstName();
-            return;
-    
-          case 'last-name':
-            changeLastName();
-            return;
-
-          case 'email':
-            changeEmail();
-            return;
-    
+        switch (code) {
           default:
+            openSnackbar(message);
             return;
         }
-      };
-    
-      const handleKeyDown = (event, fieldId) => {
-        if (!event || !fieldId) {
-          return;
+      })
+      .finally(() => {
+        setPerformingAction(false);
+      });
+  };
+
+  const changeLastName = () => {
+    const errors = validate(
+      {
+        lastName: lastName,
+      },
+      {
+        lastName: constraints.lastName,
+      }
+    );
+
+    if (errors) {
+      setErrors(errors);
+
+      return;
+    }
+
+    setErrors(null);
+
+    if (lastName === userData.lastName) {
+      return;
+    }
+
+    setPerformingAction(true);
+
+    authentication
+      .changeLastName(lastName)
+      .then(() => {
+        hideFields();
+        openSnackbar('Changed last name');
+      })
+      .catch(reason => {
+        const {code} = reason;
+        const {message} = reason;
+
+        switch (code) {
+          default:
+            openSnackbar(message);
+            return;
         }
-    
-        if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
-          return;
+      })
+      .finally(() => {
+        setPerformingAction(false);
+      });
+  };
+
+  const changeEmail = () => {
+    const errors = validate(
+      {
+        email: email,
+      },
+      {
+        email: constraints.email,
+      }
+    );
+
+    if (errors) {
+      setErrors(errors);
+
+      return;
+    }
+
+    setErrors(null);
+
+    if (email === userData.email) {
+      return;
+    }
+
+    setPerformingAction(true);
+
+    authentication
+      .changeEmail(email)
+      .then(() => {
+        openSnackbar('Changed email address');
+        hideFields();
+      })
+      .catch(reason => {
+        const {code} = reason;
+        const {message} = reason;
+
+        switch (code) {
+          default:
+            openSnackbar(message);
+            return;
         }
-    
-        const key = event.key;
-    
-        if (!key) {
-          return;
-        }
-    
-        if (key === 'Escape') {
-          hideFields();
-        } else if (key === 'Enter') {
-          changeField(fieldId);
-        }
-      };
+      })
+      .finally(() => {
+        setPerformingAction(false);
+      });
+  };
 
-    return (
-        <DialogContent classes={{ root: classes.dialogContent }}>
-        <List disablePadding>
-          <ListItem>
-            <Hidden xsDown>
-              <ListItemIcon>
-                <PersonIcon />
-              </ListItemIcon>
-            </Hidden>
+  const changeField = fieldId => {
+    switch (fieldId) {
+      case 'first-name':
+        changeFirstName();
+        return;
 
-            {!userData.firstName &&
-              <ListItemIcon>
-                <Tooltip title="No first name">
-                  <WarningIcon color="error" />
-                </Tooltip>
-              </ListItemIcon>
-            }
+      case 'last-name':
+        changeLastName();
+        return;
 
-            {showingField === 'first-name' &&
-              <TextField
-                autoComplete="given-name"
-                autoFocus
-                disabled={performingAction}
-                error={!!(errors && errors.firstName)}
-                fullWidth
-                helperText={(errors && errors.firstName) ? errors.firstName[0] : 'Press Enter to change your first name'}
-                label="First name"
-                placeholder={userData.firstName}
-                required
-                type="text"
-                value={firstName}
-                variant="filled"
-                onBlur={() => hideFields()}
-                onKeyDown={(event) => handleKeyDown(event, 'first-name')}
-                onChange={(event) => setFirstName(event.target.value)}
-              />
-            }
+      case 'email':
+        changeEmail();
+        return;
 
-            {showingField !== 'first-name' &&
-              <>
-                <ListItemText
-                  primary="First name"
-                  secondary={userData.firstName ? userData.firstName : 'You don’t have a first name'}
-                />
+      default:
+        return;
+    }
+  };
 
-                <ListItemSecondaryAction>
-                  {userData.firstName &&
-                    <Tooltip title="Change">
-                      <div>
-                        <IconButton disabled={performingAction} onClick={() => showField('first-name')}>
-                          <EditIcon />
-                        </IconButton>
-                      </div>
-                    </Tooltip>
-                  }
+  const handleKeyDown = (event, fieldId) => {
+    if (!event || !fieldId) {
+      return;
+    }
 
-                  {!userData.firstName &&
-                    <Button
-                      color="primary"
-                      disabled={performingAction}
-                      variant="contained"
-                      onClick={() => showField('first-name')}>
-                      Add
-                    </Button>
-                  }
-                </ListItemSecondaryAction>
-              </>
-            }
-          </ListItem>
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
+      return;
+    }
 
-          <ListItem>
-            <Hidden xsDown>
-              <ListItemIcon>
-                <PersonIcon />
-              </ListItemIcon>
-            </Hidden>
+    const {key} = event;
 
-            {!userData.lastName &&
-              <ListItemIcon>
-                <Tooltip title="No last name">
-                  <WarningIcon color="error" />
-                </Tooltip>
-              </ListItemIcon>
-            }
+    if (!key) {
+      return;
+    }
 
-            {showingField === 'last-name' &&
-              <TextField
-                autoComplete="family-name"
-                autoFocus
-                disabled={performingAction}
-                error={!!(errors && errors.lastName)}
-                fullWidth
-                helperText={(errors && errors.lastName) ? errors.lastName[0] : 'Press Enter to change your last name'}
-                label="Last name"
-                placeholder={userData.lastName}
-                required
-                type="text"
-                value={lastName}
-                variant="filled"
-                onBlur={() => hideFields()}
-                onKeyDown={(event) => handleKeyDown(event, 'last-name')}
-                onChange={(event) => setLastName(event.target.value)}
-              />
-            }
+    if (key === 'Escape') {
+      hideFields();
+    } else if (key === 'Enter') {
+      changeField(fieldId);
+    }
+  };
 
-            {showingField !== 'last-name' &&
-              <>
-                <ListItemText
-                  primary="Last name"
-                  secondary={userData.lastName ? userData.lastName : 'You don’t have a last name'}
-                />
+  return (
+    <DialogContent classes={{ root: classes.dialogContent }}>
+      <List disablePadding>
+        <ListItem>
+          <Hidden xsDown>
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+          </Hidden>
 
-                <ListItemSecondaryAction>
-                  {userData.lastName &&
-                    <Tooltip title="Change">
-                      <div>
-                        <IconButton disabled={performingAction} onClick={() => showField('last-name')}>
-                          <EditIcon />
-                        </IconButton>
-                      </div>
-                    </Tooltip>
-                  }
+          {!userData.firstName && (
+            <ListItemIcon>
+              <Tooltip title="No first name">
+                <WarningIcon color="error" />
+              </Tooltip>
+            </ListItemIcon>
+          )}
 
-                  {!userData.lastName &&
-                    <Button
-                      color="primary"
-                      disabled={performingAction}
-                      variant="contained"
-                      onClick={() => showField('last-name')}>
-                      Add
-                    </Button>
-                  }
-                </ListItemSecondaryAction>
-              </>
-            }
-          </ListItem>
+          {showingField === 'first-name' && (
+            <TextField
+              autoComplete="given-name"
+              autoFocus
+              disabled={performingAction}
+              error={!!(errors && errors.firstName)}
+              fullWidth
+              helperText={
+                errors && errors.firstName
+                  ? errors.firstName[0]
+                  : 'Press Enter to change your first name'
+              }
+              label="First name"
+              placeholder={userData.firstName}
+              required
+              type="text"
+              value={firstName}
+              variant="filled"
+              onBlur={() => hideFields()}
+              onKeyDown={event => handleKeyDown(event, 'first-name')}
+              onChange={event => setFirstName(event.target.value)}
+            />
+          )}
 
-          <ListItem>
-            <Hidden xsDown>
-              <ListItemIcon>
-                <EmailIcon />
-              </ListItemIcon>
-            </Hidden>
-
-            {!user.email &&
-              <ListItemIcon>
-                <Tooltip title="No e-mail address">
-                  <WarningIcon color="error" />
-                </Tooltip>
-              </ListItemIcon>
-            }
-
-            {showingField === 'email' &&
-              <TextField
-                autoComplete="email"
-                autoFocus
-                disabled={performingAction}
-                error={!!(errors && errors.emailAddress)}
-                fullWidth
-                helperText={(errors && errors.emailAddress) ? errors.emailAddress[0] : 'Press Enter to change your e-mail address'}
-                label="E-mail address"
-                placeholder={user.email}
-                required
-                type="email"
-                value={email}
-                variant="filled"
-                onBlur={() => hideFields()}
-                onKeyDown={(event) => handleKeyDown(event, 'email')}
-                onChange={(event) => setEmail(event.target.value)}
-              />
-            }
-
-            {showingField !== 'email' &&
-              <>
-                <ListItemText
-                  primary="E-mail address"
-                  secondary={user.email ? user.email : 'You don’t have an e-mail address'}
-                />
-
-                {user.email &&
-                  <Box clone mr={7}>
-                    <ListItemSecondaryAction>
-                      <Tooltip title="Verify">
-                        <div>
-                          <IconButton color="secondary" disabled={performingAction} onClick={console.log('verifyEmailAddress')}>
-                            <CheckIcon />
-                          </IconButton>
-                        </div>
-                      </Tooltip>
-                    </ListItemSecondaryAction>
-                  </Box>
+          {showingField !== 'first-name' && (
+            <>
+              <ListItemText
+                primary="First name"
+                secondary={
+                  userData.firstName
+                    ? userData.firstName
+                    : 'You don’t have a first name'
                 }
+              />
 
-                <ListItemSecondaryAction>
-                  {user.email &&
-                    <Tooltip title="Change">
+              <ListItemSecondaryAction>
+                {userData.firstName && (
+                  <Tooltip title="Change">
+                    <div>
+                      <IconButton
+                        disabled={performingAction}
+                        onClick={() => showField('first-name')}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </div>
+                  </Tooltip>
+                )}
+
+                {!userData.firstName && (
+                  <Button
+                    color="primary"
+                    disabled={performingAction}
+                    variant="contained"
+                    onClick={() => showField('first-name')}
+                  >
+                    Add
+                  </Button>
+                )}
+              </ListItemSecondaryAction>
+            </>
+          )}
+        </ListItem>
+
+        <ListItem>
+          <Hidden xsDown>
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+          </Hidden>
+
+          {!userData.lastName && (
+            <ListItemIcon>
+              <Tooltip title="No last name">
+                <WarningIcon color="error" />
+              </Tooltip>
+            </ListItemIcon>
+          )}
+
+          {showingField === 'last-name' && (
+            <TextField
+              autoComplete="family-name"
+              autoFocus
+              disabled={performingAction}
+              error={!!(errors && errors.lastName)}
+              fullWidth
+              helperText={
+                errors && errors.lastName
+                  ? errors.lastName[0]
+                  : 'Press Enter to change your last name'
+              }
+              label="Last name"
+              placeholder={userData.lastName}
+              required
+              type="text"
+              value={lastName}
+              variant="filled"
+              onBlur={() => hideFields()}
+              onKeyDown={event => handleKeyDown(event, 'last-name')}
+              onChange={event => setLastName(event.target.value)}
+            />
+          )}
+
+          {showingField !== 'last-name' && (
+            <>
+              <ListItemText
+                primary="Last name"
+                secondary={
+                  userData.lastName
+                    ? userData.lastName
+                    : 'You don’t have a last name'
+                }
+              />
+
+              <ListItemSecondaryAction>
+                {userData.lastName && (
+                  <Tooltip title="Change">
+                    <div>
+                      <IconButton
+                        disabled={performingAction}
+                        onClick={() => showField('last-name')}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </div>
+                  </Tooltip>
+                )}
+
+                {!userData.lastName && (
+                  <Button
+                    color="primary"
+                    disabled={performingAction}
+                    variant="contained"
+                    onClick={() => showField('last-name')}
+                  >
+                    Add
+                  </Button>
+                )}
+              </ListItemSecondaryAction>
+            </>
+          )}
+        </ListItem>
+
+        <ListItem>
+          <Hidden xsDown>
+            <ListItemIcon>
+              <EmailIcon />
+            </ListItemIcon>
+          </Hidden>
+
+          {!user.email && (
+            <ListItemIcon>
+              <Tooltip title="No e-mail address">
+                <WarningIcon color="error" />
+              </Tooltip>
+            </ListItemIcon>
+          )}
+
+          {showingField === 'email' && (
+            <TextField
+              autoComplete="email"
+              autoFocus
+              disabled={performingAction}
+              error={!!(errors && errors.emailAddress)}
+              fullWidth
+              helperText={
+                errors && errors.emailAddress
+                  ? errors.emailAddress[0]
+                  : 'Press Enter to change your e-mail address'
+              }
+              label="E-mail address"
+              placeholder={user.email}
+              required
+              type="email"
+              value={email}
+              variant="filled"
+              onBlur={() => hideFields()}
+              onKeyDown={event => handleKeyDown(event, 'email')}
+              onChange={event => setEmail(event.target.value)}
+            />
+          )}
+
+          {showingField !== 'email' && (
+            <>
+              <ListItemText
+                primary="E-mail address"
+                secondary={
+                  user.email ? user.email : 'You don’t have an e-mail address'
+                }
+              />
+
+              {user.email && (
+                <Box clone mr={7}>
+                  <ListItemSecondaryAction>
+                    <Tooltip title="Verify">
                       <div>
-                        <IconButton disabled={performingAction} onClick={() => showField('email')}>
-                          <EditIcon />
+                        <IconButton
+                          color="secondary"
+                          disabled={performingAction}
+                          onClick={console.log('verifyEmailAddress')}
+                        >
+                          <CheckIcon />
                         </IconButton>
                       </div>
                     </Tooltip>
-                  }
+                  </ListItemSecondaryAction>
+                </Box>
+              )}
 
-                  {!user.email &&
-                    <Button
-                      color="primary"
-                      disabled={performingAction}
-                      variant="contained"
-                      onClick={() => showField('email')}>
-                      Add
-                    </Button>
-                  }
-                </ListItemSecondaryAction>
-              </>
-            }
-          </ListItem>
-        </List>
-      </DialogContent>
-    )
-}
+              <ListItemSecondaryAction>
+                {user.email && (
+                  <Tooltip title="Change">
+                    <div>
+                      <IconButton
+                        disabled={performingAction}
+                        onClick={() => showField('email')}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </div>
+                  </Tooltip>
+                )}
 
-AccountTab.propTypes = {
-    user: PropTypes.object.isRequired,
-    userData: PropTypes.object.isRequired,
-    openSnackbar: PropTypes.func.isRequired
+                {!user.email && (
+                  <Button
+                    color="primary"
+                    disabled={performingAction}
+                    variant="contained"
+                    onClick={() => showField('email')}
+                  >
+                    Add
+                  </Button>
+                )}
+              </ListItemSecondaryAction>
+            </>
+          )}
+        </ListItem>
+      </List>
+    </DialogContent>
+  );
 };
 
-export default AccountTab
+AccountTab.propTypes = {
+  user: PropTypes.object.isRequired,
+  userData: PropTypes.object.isRequired,
+  openSnackbar: PropTypes.func.isRequired,
+};
+
+export default AccountTab;

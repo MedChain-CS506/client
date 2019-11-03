@@ -7,7 +7,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './utils/theme';
 import { auth, firestore } from './firebase';
-import authentication from './utils/authentication'; // ? Needed
 
 //* Components
 import Navbar from './components/Navbar';
@@ -71,7 +70,6 @@ function App() {
       }
 
       const removeReferenceListener = reference.onSnapshot(snapshot => {
-        //! ADDED CONST HERE INSTEAD OF THIS
         if (!snapshot.exists) {
           if (removeReferenceListener) {
             removeReferenceListener();
@@ -110,28 +108,6 @@ function App() {
       }
     };
   }, []);
-
-  // const deleteAccount = () => {
-  //   setPerformingAction(true);
-  //   authentication
-  //     .deleteAccount()
-  //     .then(() => {
-  //       setDialog({ ...dialog, deleteAccountDialog: false });
-  //       openSnackbar('Deleted account');
-  //     })
-  //     .catch(reason => {
-  //       const { code } = reason;
-  //       const { message } = reason;
-
-  //       switch (code) {
-  //         default:
-  //           this.openSnackbar(message);
-  //       }
-  //     })
-  //     .finally(() => {
-  //       setPerformingAction(false);
-  //     });
-  // };
 
   const openSnackbar = (message, autoHideDuration = 2) => {
     setSnackbar({
@@ -197,11 +173,11 @@ function App() {
 
                 props: {
                   user,
-                  userData,
+                  userData: userData, // eslint-disable-line
                   theme,
                   openSnackbar: message => openSnackbar(message),
                   onDeleteAccountClick: () =>
-                    console.log('deleteAccountDialog'),
+                    setDialog({ ...dialog, deleteAccountDialog: false }),
                 },
               },
 
@@ -214,8 +190,8 @@ function App() {
 
                 props: {
                   performingAction,
-                  userData,
-                  deleteAccount: () => console.log('deleteAccount'),
+                  userData: userData, // eslint-disable-line
+                  openSnackbar: message => openSnackbar(message),
                 },
               },
 
@@ -236,7 +212,7 @@ function App() {
             open={snackbar.open}
             autoHideDuration={snackbar.autoHideDuration}
             message={snackbar.message}
-            onClose={() => setSnackbar({ open: false })} //! MAKE SURE WE DON'T NEED TO DO A SPREAD...
+            onClose={() => setSnackbar({ open: false })}
           />
         </>
       )}

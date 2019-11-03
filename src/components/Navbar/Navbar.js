@@ -23,7 +23,6 @@ const useStyles = makeStyles({
 const Navbar = ({
   signedIn = false,
   performingAction = false,
-  user,
   userData,
   onSignUpClick,
   onSignInClick,
@@ -35,6 +34,7 @@ const Navbar = ({
   const [anchorEl, setAnchorEl] = useState(null);
 
   const getInitials = () => {
+    console.log(userData.firstName);
     const { firstName } = userData;
     const { lastName } = userData;
 
@@ -130,7 +130,6 @@ const Navbar = ({
 Navbar.propTypes = {
   performingAction: PropTypes.bool.isRequired,
   signedIn: PropTypes.bool.isRequired,
-  user: PropTypes.object,
   userData: PropTypes.object,
   onSignUpClick: PropTypes.func.isRequired,
   onSignInClick: PropTypes.func.isRequired,

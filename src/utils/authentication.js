@@ -288,7 +288,6 @@ authentication.changePassword = password =>
     currentUser
       .updatePassword(password)
       .then(() => {
-        // ! GOT RID OF VALUE HERE
         const reference = firestore.collection('users').doc(uid);
 
         if (!reference) {
@@ -299,7 +298,7 @@ authentication.changePassword = password =>
 
         reference
           .update({
-            lastPasswordChange: firestore.FieldValue.serverTimestamp(), // ! got rid of firebase.firestore here
+            lastPasswordChange: firebase.firestore.FieldValue.serverTimestamp(), // eslint-disable-line
           })
           .then(value => {
             resolve(value);

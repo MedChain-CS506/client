@@ -20,7 +20,6 @@ import SecurityIcon from '@material-ui/icons/Security';
 
 //* tabs
 import AccountTab from './tabs/AccountTab';
-// import AppearanceTab from '../../../tabs/AppearanceTab';
 import SecurityTab from './tabs/SecurityTab';
 
 const useStyles = makeStyles(theme => ({

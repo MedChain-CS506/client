@@ -13,17 +13,37 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-const DeleteAccountDialog = ({
-  dialogProps,
-  performingAction,
-  userData,
-  deleteAccount,
-}) => {
+import authentication from '../../../utils/authentication';
+
+const DeleteAccountDialog = ({ dialogProps, ...props }) => {
+  const [performingAction, setPerformingAction] = useState(false);
   const [email, setEmail] = useState('');
 
+  const deleteAccount = () => {
+    setPerformingAction(true);
+    authentication
+      .deleteAccount()
+      .then(() => {
+        dialogProps.onClose();
+        props.openSnackbar('Deleted account');
+      })
+      .catch(reason => {
+        const { code } = reason;
+        const { message } = reason;
+
+        switch (code) {
+          default:
+            props.openSnackbar(message);
+        }
+      })
+      .finally(() => {
+        setPerformingAction(false);
+      });
+  };
+
   const handleKeyPress = event => {
-    if (!email && userData) return;
-    if (email !== userData.email) return;
+    if (!email && userData) return; // eslint-disable-line
+    if (email !== userData.email) return; // eslint-disable-line
     const { key } = event;
     if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey)
       return;
@@ -91,7 +111,6 @@ DeleteAccountDialog.propTypes = {
   dialogProps: PropTypes.object.isRequired,
   performingAction: PropTypes.bool.isRequired,
   userData: PropTypes.object.isRequired,
-  deleteAccount: PropTypes.func.isRequired,
 };
 
 export default DeleteAccountDialog;
