@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 //*Components
 import Search from '../../components/Search'
 
-import PatientTable from '../../patients/PatientTable'
+import PatientTable from '../../components/PatientTable'
 
 //*MUI
 import { makeStyles } from '@material-ui/core/styles';

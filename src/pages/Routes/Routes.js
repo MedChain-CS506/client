@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 //*PAGES
 import Landing from '../Landing';
 import PatientForm from '../PatientForm'
-import PatientProfile from '../../patients/PatientProfile'
+import PatientProfile from '../PatientProfile'
 import NotFound from '../NotFound';
 
 import { makeStyles } from '@material-ui/core/styles';
