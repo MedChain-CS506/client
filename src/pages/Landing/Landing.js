@@ -1,13 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 import PropTypes from 'prop-types';
 
-//*Components
-import Search from '../../components/Search'
+//* Components
 
-import PatientTable from '../../patients/PatientTable'
-
-//*MUI
+//* MUI
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import GitHubIcon from '@material-ui/icons/GitHub';
@@ -15,69 +12,78 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import PatientTable from '../../components/PatientTable';
+import Search from '../../components/Search';
 
-const useStyles = makeStyles({
-    center: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        textAlign: 'center'
-    },
+const useStyles = makeStyles(theme => ({
+  center: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    textAlign: 'center',
+  },
 
-    iconSpacing: {
-        fontSize: 50
-    },
+  button: {
+    marginTop: theme.spacing(1),
+  },
 
-    button: {
-        marginTop: 10
-    },
+  buttonIcon: {
+    marginRight: theme.spacing(1),
+  },
 
-    addNewPatientIcon: {
-        marginBottom: 10 
-    },
+  addNewPatientIcon: {
+    marginBottom: theme.spacing(2),
+  },
+}));
 
-    buttonIcon: {
-        marginRight: 10
-    }
-});
+const Landing = ({ signedIn = false }) => {
+  const classes = useStyles();
 
-const Landing = ({ signedIn }) => {
-    const classes = useStyles();
-
-    if (signedIn) {
-        return (
-            <>  
-                <Link to='/patient-form'>
-                    <Fab className={classes.addNewPatientIcon} color="secondary" variant="extended">
-                        <AddCircleIcon className={classes.buttonIcon} /> Add New Patient
-                    </Fab>
-                </Link>
-                <Search />
-                <PatientTable />
-            </>
-        );
-    }
-
+  if (signedIn) {
     return (
-        <div className={classes.center}>
-            <FavoriteIcon color="action" />
-            <Typography color="textSecondary" variant="h3">{process.env.REACT_APP_NAME}</Typography>
-            <Typography color="textSecondary" variant="subtitle1">The simple health file application</Typography>
-            <Fab className={classes.button} color="secondary" href="https://github.com/MedChain-CS506" rel="noopener noreferrer" target="_blank" variant="extended">
-                <GitHubIcon className={classes.buttonIcon} /> Repo
-            </Fab>
-        </div>
-    )
-}
+      <>
+        <Link to="/patient-form">
+          <Fab
+            className={classes.addNewPatientIcon}
+            color="secondary"
+            variant="extended"
+          >
+            <AddCircleIcon className={classes.buttonIcon} /> Add New Patient
+          </Fab>
+        </Link>
+        <Search />
+        <PatientTable />
+      </>
+    );
+  }
 
-Landing.defaultProps = {
-    signedIn: false
+  return (
+    <div className={classes.center}>
+      <FavoriteIcon color="action" />
+      <Typography color="textSecondary" variant="h3">
+        {process.env.REACT_APP_NAME}
+      </Typography>
+      <Typography color="textSecondary" variant="subtitle1">
+        The simplest decentralized medical-records application
+      </Typography>
+      <Fab
+        className={classes.button}
+        color="secondary"
+        href="https://github.com/MedChain-CS506"
+        rel="noopener noreferrer"
+        target="_blank"
+        variant="extended"
+      >
+        <GitHubIcon className={classes.buttonIcon} /> Repo
+      </Fab>
+    </div>
+  );
 };
 
 Landing.propTypes = {
-    signedIn: PropTypes.bool.isRequired
+  signedIn: PropTypes.bool.isRequired,
 };
 
-export default Landing
+export default Landing;
