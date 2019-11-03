@@ -13,11 +13,11 @@ import Button from '@material-ui/core/Button'
 
 import authentication from '../../../utils/authentication';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     noTitlePadding: {
         paddingTop: 3
     }
-});
+}))
 
 const SignOutDialog = ({ dialogProps }) => {
     const classes = useStyles();
@@ -32,7 +32,6 @@ const SignOutDialog = ({ dialogProps }) => {
 
     return (
         <Dialog {...dialogProps}>
-        
             <DialogTitle>Sign out?</DialogTitle>
                 <DialogContent className={classes.noTitlePadding}>
                     <DialogContentText>

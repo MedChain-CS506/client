@@ -17,7 +17,6 @@ import Routes from './pages/Routes';
 //*MUI
 import { ThemeProvider } from '@material-ui/core/styles';
 import Snackbar from '@material-ui/core/Snackbar';
-import Button from '@material-ui/core/Button';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -238,7 +237,7 @@ function App() {
             open={snackbar.open}
             autoHideDuration={snackbar.autoHideDuration}
             message={snackbar.message}
-            onClose={() => setSnackbar({ open: false })} //!MAKE SURE WE DON'T NEED TO DO A SPREAD HERE
+            onClose={() => setSnackbar({ open: false })} //!MAKE SURE WE DON'T NEED TO DO A SPREAD...
           />
         </>
       }

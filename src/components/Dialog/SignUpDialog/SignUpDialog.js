@@ -18,11 +18,11 @@ import validate from 'validate.js';
 import constraints from '../../../utils/constraints';
 import authentication from '../../../utils/authentication'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     dialogContent: {
         overflowY: 'hidden'
     }
-});
+}));
 
 const SignUpDialog = ({ dialogProps, ...props }) => {
     const classes = useStyles();
@@ -38,7 +38,7 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
     const [errors, setErrors] = useState(null)
 
     const signUp = () => {
-        const signUpErrors = validate({
+        const errors = validate({
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -52,10 +52,9 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
             passwordConfirmation: constraints.passwordConfirmation
         })
  
-        if (signUpErrors) {
-            setErrors(signUpErrors)
+        if (errors) {
+            setErrors(errors)
         } else {
-            console.log('getting here')
             setPerformingAction(true)
             setErrors(null)
             authentication.signUp({
@@ -66,7 +65,6 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
             }).then(() => {
                 dialogProps.onClose()
             }).catch((reason) => {
-                // console.log(reason.message)
                 const code = reason.code;
                 const message = reason.message;
 
@@ -81,22 +79,16 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
                     default:
                         props.openSnackbar(message);
                         return;
-                  }
-            }).finally(() => setPerformingAction(false))
-            
+                }
+            }).finally(() => setPerformingAction(false)) 
         }
     }
 
     const handleKeyPress = (event) => {
         if ( !firstName || !lastName || !email || !password || !passwordConfirmation ) return;
-
         const key = event.key;
-    
         if ( event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ) return;
-          
-        if (key === 'Enter') {
-            signUp();
-        };
+        if (key === 'Enter') signUp();    
     }
 
     const handleExited = () => {
@@ -122,14 +114,16 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
                                     <TextField
                                         autoComplete="given-name"
                                         disabled={performingAction}
+                                        error={!!(errors && errors.firstName)}
                                         fullWidth
+                                        helperText={(errors && errors.firstName) ? errors.firstName[0] : ''}
                                         label="First name"
                                         placeholder="John"
                                         required
                                         type="text"
                                         value={firstName}
                                         variant="outlined"
-                                        onChange={e => setFirstName(e.target.value)}
+                                        onChange={(e) => setFirstName(e.target.value)}
                                     />
                                 </Grid>
 
@@ -137,14 +131,16 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
                                     <TextField
                                         autoComplete="family-name"
                                         disabled={performingAction}
+                                        error={!!(errors && errors.lastName)}
                                         fullWidth
+                                        helperText={(errors && errors.lastName) ? errors.lastName[0] : ''}
                                         label="Last name"
                                         placeholder="Doe"
                                         required
                                         type="text"
                                         value={lastName}
                                         variant="outlined"
-                                        onChange={e => setLastName(e.target.value)}
+                                        onChange={(e) => setLastName(e.target.value)}
                                     />
                                 </Grid>
                             </Grid>
@@ -154,14 +150,16 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
                                     <TextField
                                         autoComplete="email"
                                         disabled={performingAction}
+                                        error={!!(errors && errors.email)}
                                         fullWidth
+                                        helperText={(errors && errors.email) ? errors.email[0] : ''}
                                         label="E-mail address"
                                         placeholder="john@doe.com"
                                         required
                                         type="email"
                                         value={email}
                                         variant="outlined"
-                                        onChange={e => setEmail(e.target.value)}
+                                        onChange={(e) => setEmail(e.target.value)}
                                     />
                                 </Grid>
                             </Grid>
@@ -171,14 +169,16 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
                                     <TextField
                                         autoComplete="new-password"
                                         disabled={performingAction}
+                                        error={!!(errors && errors.password)}
                                         fullWidth
+                                        helperText={(errors && errors.password) ? errors.password[0] : ''}
                                         label="Password"
                                         placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                                         required
                                         type="password"
                                         value={password}
                                         variant="outlined"
-                                        onChange={e => setPassword(e.target.value)}
+                                        onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </Grid>
                             </Grid>
@@ -188,14 +188,16 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
                                     <TextField
                                         autoComplete="password"
                                         disabled={performingAction}
+                                        error={!!(errors && errors.passwordConfirmation)}
                                         fullWidth
+                                        helperText={(errors && errors.passwordConfirmation) ? errors.passwordConfirmation[0] : ''}
                                         label="Password confirmation"
                                         placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                                         required
                                         type="password"
                                         value={passwordConfirmation}
                                         variant="outlined"
-                                        onChange={e => setPasswordConfirmation(e.target.value)}
+                                        onChange={(e) => setPasswordConfirmation(e.target.value)}
                                     />
                                 </Grid>
                             </Grid>
@@ -211,14 +213,16 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
                             <TextField
                                 autoComplete="given-name"
                                 disabled={performingAction}
+                                error={!!(errors && errors.firstName)}
                                 fullWidth
+                                helperText={(errors && errors.firstName) ? errors.firstName[0] : ''}
                                 label="First name"
                                 placeholder="John"
                                 required
                                 type="text"
                                 value={firstName}
                                 variant="outlined"
-                                onChange={e => setFirstName(e.target.value)}
+                                onChange={(e) => setFirstName(e.target.value)}
                             />
                         </Grid>
 
@@ -226,16 +230,16 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
                             <TextField
                                 autoComplete="family-name"
                                 disabled={performingAction}
-                                //error={!!(errors && errors.lastName)}
+                                error={!!(errors && errors.lastName)}
                                 fullWidth
-                                //helperText={(errors && errors.lastName) ? errors.lastName[0] : ''}
+                                helperText={(errors && errors.lastName) ? errors.lastName[0] : ''}
                                 label="Last name"
                                 placeholder="Doe"
                                 required
                                 type="text"
                                 value={lastName}
                                 variant="outlined"
-                                onChange={e => setLastName(e.target.value)}
+                                onChange={(e) => setLastName(e.target.value)}
                             />
                         </Grid>
 
@@ -243,14 +247,16 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
                             <TextField
                                 autoComplete="email"
                                 disabled={performingAction}
+                                error={!!(errors && errors.email)}
                                 fullWidth
+                                helperText={(errors && errors.email) ? errors.email[0] : ''}
                                 label="E-mail address"
                                 placeholder="john@doe.com"
                                 required
                                 type="email"
                                 value={email}
                                 variant="outlined"
-                                onChange={e => setEmail(e.target.value)}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </Grid>
 
@@ -258,14 +264,16 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
                             <TextField
                                 autoComplete="new-password"
                                 disabled={performingAction}
+                                error={!!(errors && errors.password)}
                                 fullWidth
+                                helperText={(errors && errors.password) ? errors.password[0] : ''}
                                 label="Password"
                                 placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                                 required
                                 type="password"
                                 value={password}
                                 variant="outlined"
-                                onChange={e => setPassword(e.target.value)}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </Grid>
 
@@ -273,14 +281,16 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
                             <TextField
                                 autoComplete="password"
                                 disabled={performingAction}
+                                error={!!(errors && errors.passwordConfirmation)}
                                 fullWidth
+                                helperText={(errors && errors.passwordConfirmation) ? errors.passwordConfirmation[0] : ''}
                                 label="Password confirmation"
                                 placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                                 required
                                 type="password"
                                 value={passwordConfirmation}
                                 variant="outlined"
-                                onChange={e => setPasswordConfirmation(e.target.value)}
+                                onChange={(e) => setPasswordConfirmation(e.target.value)}
                             />
                         </Grid>
                     </Grid>
@@ -297,7 +307,7 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
 
 SignUpDialog.propTypes = {
     dialogProps: PropTypes.object.isRequired,
-    //openSnackbar: PropTypes.func.isRequired
+    openSnackbar: PropTypes.func.isRequired
 };
 
 export default SignUpDialog

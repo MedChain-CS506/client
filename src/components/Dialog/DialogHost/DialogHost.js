@@ -10,7 +10,6 @@ import SettingsDialog from '../SettingsDialog';
 import SignOutDialog from '../SignOutDialog';
 import DeleteAccountDialog from '../DeleteAccountDialog';
 
-
 const DialogHost = ({ signedIn = false, dialogs }) => {
 
     const signUpDialog = dialogs.signUpDialog;

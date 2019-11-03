@@ -28,11 +28,11 @@ import CheckIcon from '@material-ui/icons/Check';
 import constraints from '../../../../../utils/constraints';
 import authentication from '../../../../../utils/authentication';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     dialogContent: {
-        paddingTop: 20
+      paddingTop: theme.spacing(2)
     }
-});
+}));
 
 const AccountTab = ({ user, userData, openSnackbar }) => {
     const [showingField, setShowingField] = useState('')

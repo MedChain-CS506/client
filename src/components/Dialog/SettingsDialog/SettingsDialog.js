@@ -2,41 +2,38 @@ import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 
+import SwipeableViews from 'react-swipeable-views';
+
 //*MUI
 import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
-
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-
 import Hidden from '@material-ui/core/Hidden';
-
 import CloseIcon from '@material-ui/icons/Close';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SecurityIcon from '@material-ui/icons/Security';
 
-import SwipeableViews from 'react-swipeable-views';
-
+//*tabs
 import AccountTab from './tabs/AccountTab';
 //import AppearanceTab from '../../../tabs/AppearanceTab';
 import SecurityTab from './tabs/SecurityTab';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   closeButton: {
     position: 'absolute',
-    right: 1,
-    top: 1
+    right: theme.spacing(1),
+    top: theme.spacing(1)
   },
 
   tabs: {
     display: 'initial'
   }
-});
+}));
 
 const tabs = [
   {
@@ -108,17 +105,14 @@ const SettingsDialog = ({ dialogProps, user, userData, openSnackbar, onDeleteAcc
           <AccountTab
             user={user}
             userData={userData}
-
             openSnackbar={openSnackbar}
-
-            onDeleteAccountClick={onDeleteAccountClick}
           />
 
           <SecurityTab
             user={user}
             userData={userData}
-
             openSnackbar={openSnackbar}
+            onDeleteAccountClick={onDeleteAccountClick}
           />
         </SwipeableViews>
       </Dialog>

@@ -16,7 +16,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import { Link } from 'react-router-dom'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     center: {
         position: 'absolute',
         top: '50%',
@@ -25,22 +25,18 @@ const useStyles = makeStyles({
         textAlign: 'center'
     },
 
-    iconSpacing: {
-        fontSize: 50
-    },
-
     button: {
-        marginTop: 10
-    },
-
-    addNewPatientIcon: {
-        marginBottom: 10 
+        marginTop: theme.spacing(1)
     },
 
     buttonIcon: {
-        marginRight: 10
+        marginRight: theme.spacing(1)
+    },
+
+    addNewPatientIcon: {
+        marginBottom: theme.spacing(2) 
     }
-});
+}));
 
 const Landing = ({ signedIn = false }) => {
     const classes = useStyles();

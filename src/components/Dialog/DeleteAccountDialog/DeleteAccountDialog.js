@@ -17,23 +17,11 @@ const DeleteAccountDialog = ({ dialogProps, performingAction, userData, deleteAc
     const [email, setEmail] = useState('')
 
     const handleKeyPress = (event) => {
-        if (!email && userData) {
-            return;
-        }
-    
-        if (email !== userData.email) {
-            return;
-        }
-    
+        if (!email && userData) return;
+        if (email !== userData.email) return;
         const key = event.key;
-    
-        if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) {
-            return;
-        }
-    
-        if (key === 'Enter') {
-            deleteAccount();
-        }
+        if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+        if (key === 'Enter') deleteAccount();  
     }
 
     return (
@@ -64,13 +52,13 @@ const DeleteAccountDialog = ({ dialogProps, performingAction, userData, deleteAc
                     type="email"
                     value={email}
                     variant="outlined"
-                    onChange={e => setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
             </DialogContent>
 
             <DialogActions>
                 <Button color="secondary" disabled={performingAction} onClick={dialogProps.onClose}>Cancel</Button>
-                <Button color="secondary" disabled={performingAction|| (email !== userData.email)} variant="contained" onClick={deleteAccount}>Delete</Button>
+                <Button color="secondary" disabled={performingAction} variant="contained" onClick={deleteAccount}>Delete</Button>
                 {/* ^disabled={performingAction || (email !== userData.email)} */}
             </DialogActions>
         </Dialog>

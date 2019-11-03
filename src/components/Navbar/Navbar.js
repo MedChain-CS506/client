@@ -60,16 +60,7 @@ const Navbar = ({ signedIn = false, performingAction = false, user, userData, on
                 {signedIn &&
                     <>
                         <IconButton color="inherit" disabled={performingAction} onClick={(event) => setAnchorEl(event.currentTarget)}>
-                            {/* replace with 'user.photoURL' */}
-                            {false &&
-                                <Avatar alt="Avatar" src={user.photoURL} />
-                            }
-                            {/* replace with '!user.photoURL' */}
-                            {true &&
-                                <Avatar alt="Avatar">
-                                    {/* {getInitials()} */}
-                                </Avatar>
-                            }
+                            <Avatar alt="Avatar">{/* {getInitials()} */}</Avatar>   
                         </IconButton>
         
                         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>

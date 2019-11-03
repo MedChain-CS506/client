@@ -9,7 +9,7 @@ import Fab from '@material-ui/core/Fab';
 import FindIcon from '@material-ui/icons/FindInPage';
 import HomeIcon from '@material-ui/icons/Home';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     center: {
         position: 'absolute',
         top: '50%',
@@ -19,17 +19,17 @@ const useStyles = makeStyles({
     }, 
 
     emptyStateIcon: {
-        fontSize: 50
+        fontSize: theme.spacing(12)
     },
     
     button: {
-        marginTop: 10
+        marginTop: theme.spacing(1)
     },
     
     buttonIcon: {
-        marginRight: 10
+        marginRight: theme.spacing(1)
     }
-});
+}));
 
 const NotFound = () => {
     const classes = useStyles();
