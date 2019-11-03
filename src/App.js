@@ -4,7 +4,6 @@ import readingTime from 'reading-time';
 
 //* MUI
 import Snackbar from '@material-ui/core/Snackbar';
-import Button from '@material-ui/core/Button';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './utils/theme';
 import { auth, firestore } from './firebase';

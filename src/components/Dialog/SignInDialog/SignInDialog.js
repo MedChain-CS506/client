@@ -37,44 +37,31 @@ const SignInDialog = ({ dialogProps, ...props }) => {
     } else {
       setErrors(null);
       setPerformingAction(true);
-      authentication.resetPassword(email).then(() => {
-        props.openSnackbar(`Sent password reset e-mail to ${email}`);
-      });
+      authentication
+        .resetPassword(email)
+        .then(() => {
+          props.openSnackbar(`Sent password reset e-mail to ${email}`);
+        })
+        .catch(reason => {
+          const { code } = reason;
+          const { message } = reason;
 
-      if (signInErrors) {
-        setErrors(signInErrors);
-      } else {
-        setPerformingAction(true);
-        setErrors(null);
-        authentication
-          .signIn(email, password)
-          .then(value => {
-            dialogProps.onClose();
-            const { user } = value;
-            const { email } = user;
-            props.openSnackbar(`Signed in as ${email}`);
-          })
-          .catch(reason => {
-            const { code } = reason;
-            const { message } = reason;
+          switch (code) {
+            case 'auth/invalid-email':
+            case 'auth/missing-android-pkg-name':
+            case 'auth/missing-continue-uri':
+            case 'auth/missing-ios-bundle-id':
+            case 'auth/invalid-continue-uri':
+            case 'auth/unauthorized-continue-uri':
+            case 'auth/user-not-found':
+              props.openSnackbar(message);
+              return;
 
-            switch (code) {
-              case 'auth/invalid-email':
-              case 'auth/missing-android-pkg-name':
-              case 'auth/missing-continue-uri':
-              case 'auth/missing-ios-bundle-id':
-              case 'auth/invalid-continue-uri':
-              case 'auth/unauthorized-continue-uri':
-              case 'auth/user-not-found':
-                props.openSnackbar(message);
-                return;
-
-              default:
-                props.openSnackbar(message);
-            }
-          })
-          .finally(() => setPerformingAction(false));
-      }
+            default:
+              props.openSnackbar(message);
+          }
+        })
+        .finally(() => setPerformingAction(false));
     }
   };
 
