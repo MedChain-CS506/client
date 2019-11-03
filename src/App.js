@@ -216,7 +216,7 @@ function App() {
                 props: {
                   performingAction,
                   userData,
-                  deleteAccount: () => deleteAccount(),
+                  deleteAccount: () => console.log('deleteAccount'),
                 },
               },
 
