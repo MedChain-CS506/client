@@ -2,127 +2,126 @@ import firebase, { auth, firestore } from '../firebase';
 
 const authentication = {};
 
-authentication.signUp = (fields) => { 
-  return new Promise((resolve, reject) => {
+authentication.signUp = fields =>
+  new Promise((resolve, reject) => {
     if (!fields) {
       reject();
       return;
     }
 
-    const firstName = fields.firstName;
-    const lastName = fields.lastName;
-    const email = fields.email;
-    const password = fields.password;
+    const { firstName } = fields;
+    const { lastName } = fields;
+    const { email } = fields;
+    const { password } = fields;
 
     if (!firstName || !lastName || !email || !password) {
       reject();
       return;
     }
 
-    const currentUser = auth.currentUser; 
-    console.log('currentUser:', currentUser)
+    const { currentUser } = auth;
+    console.log('currentUser:', currentUser);
 
-    //IF THERE IS A CURRENT USER, DON'T SIGN THEM UP
+    // IF THERE IS A CURRENT USER, DON'T SIGN THEM UP
     if (currentUser) {
       reject();
       return;
     }
 
-    auth.createUserWithEmailAndPassword(email, password).then((value) => {
-      const user = value.user;
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(value => {
+        const { user } = value;
 
-      if (!user) {
-        reject();
-        return;
-      }
+        if (!user) {
+          reject();
+          return;
+        }
 
-      const uid = user.uid;
+        const { uid } = user;
 
-      if (!uid) {
-        reject();
-        return;
-      }
+        if (!uid) {
+          reject();
+          return;
+        }
 
-      //STORE THEM IN THE FIREBASE
-      const reference = firestore.collection('users').doc(uid);
+        // STORE THEM IN THE FIREBASE
+        const reference = firestore.collection('users').doc(uid);
 
-      if (!reference) {
-        reject();
-        return;
-      }
+        if (!reference) {
+          reject();
+          return;
+        }
 
-      reference.set({
-        firstName: firstName,
-        lastName: lastName,
-      }).then((value) => {
-        // analytics.logEvent('sign_up', {
-        //   method: 'password'
-        // });
-
-        resolve(value);
-      }).catch((reason) => {
+        reference
+          .set({
+            firstName,
+            lastName,
+          })
+          .then(val => {
+            resolve(val);
+          })
+          .catch(reason => {
+            reject(reason);
+          });
+      })
+      .catch(reason => {
         reject(reason);
       });
-    }).catch((reason) => {
-      reject(reason);
-    });
   });
-};
 
-authentication.signIn = (email, password) => {
-return new Promise((resolve, reject) => {
+authentication.signIn = (email, password) =>
+  new Promise((resolve, reject) => {
     if (!email || !password) {
-      reject()
-      return
+      reject();
+      return;
     }
 
-    const currentUser = auth.currentUser
+    const { currentUser } = auth;
 
     if (currentUser) {
-      reject()
-      return
+      reject();
+      return;
     }
 
-    auth.signInWithEmailAndPassword(email, password).then((value) => {
-      // analytics.logEvent('login', {
-      //   method: 'password'
-      // })
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(value => {
+        resolve(value);
+      })
+      .catch(reason => {
+        reject(reason);
+      });
+  });
 
-      resolve(value)
-    }).catch((reason) => {
-      reject(reason)
-    }) 
-  })
-}
+authentication.signOut = () =>
+  new Promise((resolve, reject) => {
+    const { currentUser } = auth;
 
-authentication.signOut = () => {
-  return new Promise((resolve, reject) => {
-    const currentUser = auth.currentUser
-    
     if (!currentUser) {
-      reject()
-      return
+      reject();
+      return;
     }
 
-    auth.signOut().then((value) => {
-      //ytics.logEvent('sign_out');
-      
-      resolve(value)
-    }).catch((reason) => {
-      reject(reason)
-    })
-  })
-}
+    auth
+      .signOut()
+      .then(value => {
+        resolve(value);
+      })
+      .catch(reason => {
+        reject(reason);
+      });
+  });
 
-authentication.resetPassword = (email) => {
-  return new Promise((resolve, reject) => {
+authentication.resetPassword = email =>
+  new Promise((resolve, reject) => {
     if (!email) {
       reject();
 
       return;
     }
 
-    const currentUser = auth.currentUser;
+    const { currentUser } = auth;
 
     if (currentUser) {
       reject();
@@ -130,25 +129,25 @@ authentication.resetPassword = (email) => {
       return;
     }
 
-    auth.sendPasswordResetEmail(email).then((value) => {
-      //analytics.logEvent('reset_password');
-
-      resolve(value);
-    }).catch((reason) => {
-      reject(reason);
-    });
+    auth
+      .sendPasswordResetEmail(email)
+      .then(value => {
+        resolve(value);
+      })
+      .catch(reason => {
+        reject(reason);
+      });
   });
-};
 
-authentication.changeFirstName = (firstName) => {
-  return new Promise((resolve, reject) => {
+authentication.changeFirstName = firstName =>
+  new Promise((resolve, reject) => {
     if (!firstName) {
       reject();
 
       return;
     }
 
-    const currentUser = auth.currentUser;
+    const { currentUser } = auth;
 
     if (!currentUser) {
       reject();
@@ -156,7 +155,7 @@ authentication.changeFirstName = (firstName) => {
       return;
     }
 
-    const uid = currentUser.uid;
+    const { uid } = currentUser;
 
     if (!uid) {
       reject();
@@ -172,27 +171,27 @@ authentication.changeFirstName = (firstName) => {
       return;
     }
 
-    reference.update({
-      firstName: firstName
-    }).then((value) => {
-      //analytics.logEvent('change_first_name');
-
-      resolve(value);
-    }).catch((reason) => {
-      reject(reason);
-    });
+    reference
+      .update({
+        firstName,
+      })
+      .then(value => {
+        resolve(value);
+      })
+      .catch(reason => {
+        reject(reason);
+      });
   });
-};
 
-authentication.changeLastName = (lastName) => {
-  return new Promise((resolve, reject) => {
+authentication.changeLastName = lastName =>
+  new Promise((resolve, reject) => {
     if (!lastName) {
       reject();
 
       return;
     }
 
-    const currentUser = auth.currentUser;
+    const { currentUser } = auth;
 
     if (!currentUser) {
       reject();
@@ -200,7 +199,7 @@ authentication.changeLastName = (lastName) => {
       return;
     }
 
-    const uid = currentUser.uid;
+    const { uid } = currentUser;
 
     if (!uid) {
       reject();
@@ -216,27 +215,27 @@ authentication.changeLastName = (lastName) => {
       return;
     }
 
-    reference.update({
-      lastName: lastName
-    }).then((value) => {
-      //analytics.logEvent('change_last_name');
-
-      resolve(value);
-    }).catch((reason) => {
-      reject(reason);
-    });
+    reference
+      .update({
+        lastName,
+      })
+      .then(value => {
+        resolve(value);
+      })
+      .catch(reason => {
+        reject(reason);
+      });
   });
-};
 
-authentication.changeEmail = (email) => {
-  return new Promise((resolve, reject) => {
+authentication.changeEmail = email =>
+  new Promise((resolve, reject) => {
     if (!email) {
       reject();
 
       return;
     }
 
-    const currentUser = auth.currentUser;
+    const { currentUser } = auth;
 
     if (!currentUser) {
       reject();
@@ -244,7 +243,7 @@ authentication.changeEmail = (email) => {
       return;
     }
 
-    const uid = currentUser.uid;
+    const { uid } = currentUser;
 
     if (!uid) {
       reject();
@@ -252,25 +251,25 @@ authentication.changeEmail = (email) => {
       return;
     }
 
-    currentUser.updateEmail(email).then((value) => {
-      //analytics.logEvent('change_email_address');
-
-      resolve(value);
-    }).catch((reason) => {
-      reject(reason);
-    });
+    currentUser
+      .updateEmail(email)
+      .then(value => {
+        resolve(value);
+      })
+      .catch(reason => {
+        reject(reason);
+      });
   });
-};
 
-authentication.changePassword = (password) => {
-  return new Promise((resolve, reject) => {
+authentication.changePassword = password =>
+  new Promise((resolve, reject) => {
     if (!password) {
       reject();
 
       return;
     }
 
-    const currentUser = auth.currentUser;
+    const { currentUser } = auth;
 
     if (!currentUser) {
       reject();
@@ -278,7 +277,7 @@ authentication.changePassword = (password) => {
       return;
     }
 
-    const uid = currentUser.uid;
+    const { uid } = currentUser;
 
     if (!uid) {
       reject();
@@ -286,33 +285,37 @@ authentication.changePassword = (password) => {
       return;
     }
 
-    currentUser.updatePassword(password).then((value) => {
-      const reference = firestore.collection('users').doc(uid);
+    currentUser
+      .updatePassword(password)
+      .then(() => {
+        // ! GOT RID OF VALUE HERE
+        const reference = firestore.collection('users').doc(uid);
 
-      if (!reference) {
-        reject();
+        if (!reference) {
+          reject();
 
-        return;
-      }
+          return;
+        }
 
-      reference.update({
-        lastPasswordChange: firebase.firestore.FieldValue.serverTimestamp()
-      }).then((value) => {
-        //analytics.logEvent('change_password');
-
-        resolve(value);
-      }).catch((reason) => {
+        reference
+          .update({
+            lastPasswordChange: firestore.FieldValue.serverTimestamp(), // ! got rid of firebase.firestore here
+          })
+          .then(value => {
+            resolve(value);
+          })
+          .catch(reason => {
+            reject(reason);
+          });
+      })
+      .catch(reason => {
         reject(reason);
       });
-    }).catch((reason) => {
-      reject(reason);
-    });
   });
-};
 
-authentication.deleteAccount = () => {
-  return new Promise((resolve, reject) => {
-    const currentUser = auth.currentUser;
+authentication.deleteAccount = () =>
+  new Promise((resolve, reject) => {
+    const { currentUser } = auth;
 
     if (!currentUser) {
       reject();
@@ -320,14 +323,14 @@ authentication.deleteAccount = () => {
       return;
     }
 
-    currentUser.delete().then((value) => {
-      //analytics.logEvent('delete_account');
-
-      resolve(value);
-    }).catch((reason) => {
-      reject(reason);
-    });
+    currentUser
+      .delete()
+      .then(value => {
+        resolve(value);
+      })
+      .catch(reason => {
+        reject(reason);
+      });
   });
-};
 
 export default authentication;

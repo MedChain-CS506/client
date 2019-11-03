@@ -1,15 +1,13 @@
-import React from 'react'
+import React from 'react';
 
-//*MUI
+//* MUI
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-const Loading = () => {
-    return (
-        <Box position="absolute" top="50%" left="50%">
-            <CircularProgress />
-        </Box>
-    )
-}
+const Loading = () => (
+  <Box position="absolute" top="50%" left="50%">
+    <CircularProgress />
+  </Box>
+);
 
-export default Loading
+export default Loading;

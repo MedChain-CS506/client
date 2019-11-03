@@ -1,24 +1,24 @@
-import React from 'react'
+import React from 'react';
 
-//*MUI
+//* MUI
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper'
+import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 const useStyles = makeStyles({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   card: {
     maxWidth: 690,
-    minWidth: 690
+    minWidth: 690,
   },
   paper: {
-    m: "auto"
-  }
+    m: 'auto',
+  },
 });
 
 const PatientProfile = () => {

@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 
-//*MUI
+//* MUI
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
@@ -13,13 +13,13 @@ const useStyles = makeStyles({
 
   button: {
     backgroundColor: 'red',
-    color: 'white'
+    color: 'white',
   },
 
   paperButton: {
     marginTop: '10px',
-    marginBottom: '30px'
-  }
+    marginBottom: '30px',
+  },
 });
 
 const Search = () => {
@@ -41,7 +41,7 @@ const Search = () => {
         </Button>
       </Paper>
     </>
-  )
-}
+  );
+};
 
-export default Search
+export default Search;

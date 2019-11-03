@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 import PropTypes from 'prop-types';
 
@@ -11,112 +11,109 @@ import SignOutDialog from '../SignOutDialog';
 import DeleteAccountDialog from '../DeleteAccountDialog';
 
 const DialogHost = ({ signedIn = false, dialogs }) => {
+  const { signUpDialog } = dialogs;
+  const { signInDialog } = dialogs;
+  const { settingsDialog } = dialogs;
+  const { signOutDialog } = dialogs;
+  const { deleteAccountDialog } = dialogs;
 
-    const signUpDialog = dialogs.signUpDialog;
-    const signInDialog = dialogs.signInDialog;
-    const settingsDialog = dialogs.settingsDialog;
-    const signOutDialog = dialogs.signOutDialog;
-    const deleteAccountDialog = dialogs.deleteAccountDialog;
+  return (
+    <>
+      <Hidden xsDown>
+        {signedIn && (
+          <>
+            <DeleteAccountDialog
+              dialogProps={deleteAccountDialog.dialogProps}
+              {...deleteAccountDialog.props}
+            />
+          </>
+        )}
+        {!signedIn && (
+          <>
+            <SignUpDialog
+              dialogProps={signUpDialog.dialogProps}
+              {...signUpDialog.props}
+            />
+            <SignInDialog
+              dialogProps={signInDialog.dialogProps}
+              {...signInDialog.props}
+            />
+          </>
+        )}
+      </Hidden>
 
-    return (
+      <Hidden smDown>
+        {signedIn && (
+          <>
+            <SettingsDialog
+              dialogProps={settingsDialog.dialogProps}
+              {...settingsDialog.props}
+            />
+          </>
+        )}
+      </Hidden>
+
+      <Hidden smUp>
+        {signedIn && (
+          <>
+            <DeleteAccountDialog
+              dialogProps={{
+                fullScreen: true,
+                ...deleteAccountDialog.dialogProps,
+              }}
+              {...deleteAccountDialog.props}
+            />
+          </>
+        )}
+        {!signedIn && (
+          <>
+            <SignUpDialog
+              dialogProps={{
+                fullScreen: true,
+                ...signUpDialog.dialogProps,
+              }}
+              {...signUpDialog.props}
+            />
+            <SignInDialog
+              dialogProps={{
+                fullScreen: true,
+                ...signInDialog.dialogProps,
+              }}
+              {...signInDialog.props}
+            />
+          </>
+        )}
+      </Hidden>
+
+      <Hidden mdUp>
+        {signedIn && (
+          <>
+            <SettingsDialog
+              dialogProps={{
+                fullScreen: true,
+                ...settingsDialog.dialogProps,
+              }}
+              {...settingsDialog.props}
+            />
+          </>
+        )}
+      </Hidden>
+
+      {signedIn && (
         <>
-            <Hidden xsDown>
-                {signedIn &&
-                    <>
-                        <DeleteAccountDialog
-                            dialogProps={deleteAccountDialog.dialogProps}
-
-                            {...deleteAccountDialog.props}
-                        />
-                    </>
-                }
-                {!signedIn &&
-                    <>
-                        <SignUpDialog
-                            dialogProps={signUpDialog.dialogProps}
-                            {...signUpDialog.props}
-                        />
-                        <SignInDialog
-                            dialogProps={signInDialog.dialogProps}
-                            {...signInDialog.props}
-                        />
-                    </>
-                }
-            </Hidden>
-
-            <Hidden smDown>
-                {signedIn &&
-                    <>
-                        <SettingsDialog
-                            dialogProps={settingsDialog.dialogProps}
-                            {...settingsDialog.props}
-                        />
-                    </>
-                }
-            </Hidden>
-
-            <Hidden smUp>
-                {signedIn &&
-                    <>
-                        <DeleteAccountDialog
-                            dialogProps={{
-                                fullScreen: true,
-                                ...deleteAccountDialog.dialogProps
-                            }}
-
-                            {...deleteAccountDialog.props}
-                        />
-                    </>
-                }
-                {!signedIn &&
-                    <>
-                        <SignUpDialog
-                            dialogProps={{
-                                fullScreen: true,
-                                ...signUpDialog.dialogProps
-                            }}
-                            {...signUpDialog.props}
-                        />
-                        <SignInDialog
-                            dialogProps={{
-                            fullScreen: true,
-                            ...signInDialog.dialogProps
-                            }}
-                            {...signInDialog.props}
-                        />
-                    </>
-                }
-            </Hidden>
-
-            <Hidden mdUp>
-                {signedIn &&
-                    <>
-                        <SettingsDialog
-                            dialogProps={{
-                                fullScreen: true,
-                                ...settingsDialog.dialogProps
-                            }}
-                            {...settingsDialog.props}
-                        />
-                    </>
-                }
-            </Hidden>
-
-            {signedIn &&
-                <>
-                    <SignOutDialog
-                        dialogProps={signOutDialog.dialogProps}
-                        {...signOutDialog.props}
-                    />
-                </>
-            }
+          <SignOutDialog
+            dialogProps={signOutDialog.dialogProps}
+            {...signOutDialog.props}
+          />
         </>
-    )
-}
-
-DialogHost.propTypes = {
-    signedIn: PropTypes.bool.isRequired,
-    dialogs: PropTypes.object.isRequired
+      )}
+    </>
+  );
 };
 
-export default DialogHost
+DialogHost.propTypes = {
+  signedIn: PropTypes.bool.isRequired,
+  dialogs: PropTypes.object.isRequired,
+};
+
+export default DialogHost;
