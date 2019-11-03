@@ -68,9 +68,9 @@ const types = {
 //   return types[typeId];
 // };
 
-// const defaultPrimaryColor = getColor(process.env.REACT_APP_THEME_PRIMARY_COLOR);
-// const defaultSecondaryColor = getColor(process.env.REACT_APP_THEME_SECONDARY_COLOR);
-// const defaultType = getType(process.env.REACT_APP_THEME_TYPE);
+// const defaultPrimaryColor = 'red';
+// const defaultSecondaryColor = 'grey';
+// const defaultType = 'light';
 
 // const defaultTheme = createMuiTheme({
 //   palette: {
