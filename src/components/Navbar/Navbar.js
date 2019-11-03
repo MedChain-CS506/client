@@ -76,7 +76,7 @@ const Navbar = ({
               disabled={performingAction}
               onClick={event => setAnchorEl(event.currentTarget)}
             >
-              <Avatar alt="Avatar">{getInitials()}</Avatar>
+              <Avatar alt="Avatar">{console.log('getInitials()')}</Avatar>
             </IconButton>
 
             <Menu
