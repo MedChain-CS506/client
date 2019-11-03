@@ -63,7 +63,7 @@ const Landing = ({ signedIn = false }) => {
         <div className={classes.center}>
             <FavoriteIcon color="action" />
             <Typography color="textSecondary" variant="h3">{process.env.REACT_APP_NAME}</Typography>
-            <Typography color="textSecondary" variant="subtitle1">The simple health file application</Typography>
+            <Typography color="textSecondary" variant="subtitle1">The simplest decentralized medical-records application</Typography>
             <Fab className={classes.button} color="secondary" href="https://github.com/MedChain-CS506" rel="noopener noreferrer" target="_blank" variant="extended">
                 <GitHubIcon className={classes.buttonIcon} /> Repo
             </Fab>
