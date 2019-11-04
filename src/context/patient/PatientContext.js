@@ -20,44 +20,44 @@ const PatientContextProvider = props => {
 
   const [state, dispatch] = useReducer(PatientReducer, initialState);
 
+  const setLoading = () => dispatch({ type: SET_LOADING });
+
+  // ! THESE FUNCTIONS SHOULD BE WHERE WE FETCH INFORMATION FROM THE BLOCKCHAIN
   const searchPatients = async text => {
     setLoading();
 
-    const response = await ...//! from some url
+    // const response = await ...//! from some url
 
     dispatch({
       type: SEARCH_PATIENTS,
-      payload: response...
-    })
+      // payload: response...
+    });
   };
 
   const getPatient = async aadhar => {
     setLoading();
 
-    const response = await ... //! from some url
+    // const response = await ... //! from some url
 
     dispatch({
       type: GET_PATIENT,
-      payload: response ...
-    })
-  }
+      // payload: response ...
+    });
+  };
 
   const getPatientRecords = () => {
     setLoading();
 
-    const response = await ...
+    // const response = await ...
 
     dispatch({
       type: GET_RECORDS,
-      payload: response ...
-    })
-  }
+      // payload: response ...
+    });
+  };
 
   const clearPatients = () => dispatch({ type: CLEAR_PATIENTS });
 
-  const setLoading = () => dispatch({ type: SET_LOADING });
-
-  // ! THIS SHOULD BE WHERE WE FETCH INFORMATION FROM THE BLOCKCHAIN
   // useEffect(() => {
   //   fetch('https://randomuser.me/api/?results=50&nat=us,dk,fr,gb')
   //     .then(response => response.json())
@@ -71,7 +71,19 @@ const PatientContextProvider = props => {
   // }, []);
 
   return (
-    <PatientContext.Provider value={patients, patient, records, loading, searchPatients, clearPatients, getPatient, getPatientRecords}>
+    <PatientContext.Provider
+      value={
+        (searchPatients, clearPatients, getPatient, getPatientRecords)
+        // (patients,
+        //   patient,
+        //   records,
+        //   loading,
+        //   searchPatients,
+        //   clearPatients,
+        //   getPatient,
+        //   getPatientRecords) // ! TO AVOID ESLINT... WILL BE USED WHEN WE GET DATA
+      }
+    >
       {props.children}
     </PatientContext.Provider>
   );

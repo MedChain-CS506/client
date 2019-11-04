@@ -15,7 +15,7 @@ const AlertContextProvider = props => {
   };
 
   return (
-    <AlertContext.Provider value={{ alert, setAlert }}>
+    <AlertContext.Provider value={{ alert: state, setAlert }}>
       {props.children}
     </AlertContext.Provider>
   );
