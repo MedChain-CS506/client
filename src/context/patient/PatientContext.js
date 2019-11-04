@@ -58,18 +58,6 @@ const PatientContextProvider = props => {
 
   const clearPatients = () => dispatch({ type: CLEAR_PATIENTS });
 
-  // useEffect(() => {
-  //   fetch('https://randomuser.me/api/?results=50&nat=us,dk,fr,gb')
-  //     .then(response => response.json())
-  //     .then(parsedJSON =>
-  //       parsedJSON.results.map(user => ({
-  //         name: `${user.name.first} ${user.name.last}`,
-  //       }))
-  //     )
-  //     .then(contacts => setPatients(contacts))
-  //     .catch(error => console.log(error));
-  // }, []);
-
   return (
     <PatientContext.Provider
       value={
