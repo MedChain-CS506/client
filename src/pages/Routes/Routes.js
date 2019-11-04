@@ -36,7 +36,7 @@ const Routes = ({ signedIn = false }) => {
           <Route exact path="/patient-form">
             <PatientForm signedIn={signedIn} />
           </Route>
-          <Route exact path="/patient-profile">
+          <Route exact path="/profile/:id">
             <PatientProfile signedIn={signedIn} />
           </Route>
           <Route>
