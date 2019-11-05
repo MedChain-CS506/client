@@ -104,6 +104,7 @@ const Navbar = ({
           <>
             <Box mr={1}>
               <Button
+                id="sign-up-button"
                 color="secondary"
                 disabled={performingAction}
                 variant="contained"
@@ -113,6 +114,7 @@ const Navbar = ({
               </Button>
             </Box>
             <Button
+              id="sign-in-button"
               color="secondary"
               disabled={performingAction}
               variant="contained"

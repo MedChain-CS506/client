@@ -106,6 +106,7 @@ const SignUpDialog = ({ dialogProps, ...props }) => {
 
   return (
     <Dialog
+      id="sign-up-dialog"
       fullWidth
       maxWidth="md"
       {...dialogProps}

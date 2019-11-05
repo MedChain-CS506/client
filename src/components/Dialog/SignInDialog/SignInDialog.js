@@ -125,6 +125,7 @@ const SignInDialog = ({ dialogProps, ...props }) => {
 
   return (
     <Dialog
+      id="sign-in-dialog"
       fullWidth
       maxWidth="sm"
       {...dialogProps}
